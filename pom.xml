@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>RabbitMqClient_Server</groupId>
+    <artifactId>dream_on_sakura_rain</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--引入先关依赖包文件-->
+    <dependencies>
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>3.6.5</version>
+        </dependency>
+    </dependencies>
+
+</project>
