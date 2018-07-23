@@ -1,7 +1,7 @@
-package com.meimei;
+package com.rabbit.client_and_server;
 
 import com.rabbitmq.client.Channel;
-import com.utils.ConnectionUtil;
+import com.rabbit.utils.ConnectionUtil;
 
 import java.io.IOException;
 import java.util.UUID;
