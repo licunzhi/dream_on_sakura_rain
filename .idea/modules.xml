@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:\dream_on_sakura_rain\cloud_attacking_dream.iml" filepath="E:\dream_on_sakura_rain\cloud_attacking_dream.iml" />
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" filepath="$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web_socket_demo/web_socket_demo.iml" filepath="$PROJECT_DIR$/web_socket_demo/web_socket_demo.iml" />
     </modules>
   </component>
 </project>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="amqp-client-3.6.5">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/rabbitmq/amqp-client/3.6.5/amqp-client-3.6.5.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
