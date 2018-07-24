@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script language="javascript"type="text/javascript">
+    var wsUri ="ws://127.0.0.1:8080/meimei/websocket";
+    var output;
+
+    function init() {
+        output = document.getElementById("output");
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+    }
+
+    function onMessage(evt) {
+        writeToScreen('<span style="color: blue;">RESPONSE: '+ evt.data+'</span>');
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+<h2>WebSocket Test</h2>
+<div id="output"></div>
+</html>
