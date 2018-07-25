@@ -2,10 +2,26 @@
 项目下有更不同的demo，运行执行指定的项目模块即可
 
 
+> ##  springboot_rabbit_demo : 在spiringboot中使用rabbit
 
+项目配置信息（可以自己修改成自己环境地址）
+```properties
+#默认端口配置
+server.port=8080
 
+# rabbit配置
+spring.rabbitmq.host=127.0.0.1
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+spring.rabbitmq.virtual-host=/
+```
 
-##  web_socket_demo:简单的websocket实现
+你将在控制台看到下图的效果展示（数据是每分钟推送一次）
+
+![展示信息](https://github.com/licunzhi/dream_on_sakura_rain/blob/master/springboot_rabbit_demo/images/result.png)
+
+> ##  web_socket_demo:简单的websocket实现
 
 #####  项目运行浏览器访问地址
 > [http://localhost:8080/index](http://127.0.0.1:8080/index)
