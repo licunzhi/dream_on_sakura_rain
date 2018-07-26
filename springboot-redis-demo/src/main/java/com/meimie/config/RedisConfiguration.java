@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.time.Duration;
 
@@ -28,6 +29,12 @@ public class RedisConfiguration extends CachingConfigurerSupport{
 
     @Value("${spring.redis.timeout}")
     private int timeout;
+
+    @Bean
+    public JedisPoolConfig jedisPoolConfig() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        return jedisPoolConfig;
+    }
 
     // 初始化链接对象
     @Bean
