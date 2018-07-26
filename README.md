@@ -49,8 +49,29 @@ public class LoadingcacheApplicationTests {
 
 > #### springboot_redis_demo : 在spiringboot中使用redis
 
-* 
-* 
+实现简单的存储和取值，具体效果可运行测试方法
+
+项目配置信息（可以修改成自己的环境信息）
+```properties
+# Redis数据库索引（默认为0）
+spring.redis.database=0
+# Redis服务器地址
+spring.redis.host=172.16.15.112
+# Redis服务器连接端口
+spring.redis.port=6379
+# Redis服务器连接密码（默认为空）
+spring.redis.password=
+# 连接池最大连接数（使用负值表示没有限制）
+spring.redis.jedis.pool.max-idle=8
+# 连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.jedis.max-wait=-1
+# 连接池中的最大空闲连接
+spring.redis.jedis.max-idle=8
+# 连接池中的最小空闲连接
+spring.redis.jedis.min-idle=0
+# 连接超时时间（毫秒）
+spring.redis.timeout=0
+```
 
 > #### springboot_rabbit_demo : 在spiringboot中使用rabbit
 
