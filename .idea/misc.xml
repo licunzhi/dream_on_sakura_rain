@@ -5,6 +5,9 @@
       <list>
         <option value="$PROJECT_DIR$/rabbit_demo/pom.xml" />
         <option value="$PROJECT_DIR$/web_socket_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-redis-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/loadingcache_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/mongo-db-demo/pom.xml" />
       </list>
     </option>
   </component>
