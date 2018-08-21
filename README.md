@@ -21,7 +21,7 @@
     }
 ```
 
--[ ] 运行项目可以直接在test模块中运行项目
+- [ ] 运行项目可以直接在test模块中运行项目
 ```java
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -132,7 +132,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 > #### mybatis_pagehelper_demo:简单的pageHelper使用实现(适用于多数据源情况)
 
 #####  项目运行浏览器访问地址
-> [http://localhost:8080/index](http://127.0.0.1:8080/index/licunzhi)
+> [http://localhost:8080/test/licunzhi](http://127.0.0.1:8080/test/licunzhi)
 
 ##### 项目运行环境：
 
