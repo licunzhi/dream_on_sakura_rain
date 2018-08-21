@@ -3,7 +3,9 @@
 
 > #### loadingcache_demo : 在spiringboot中使用loadingcache_demo
 
--[ ] 修改过期策略以及最大容量代码段
+
+- [ ] 修改过期策略以及最大容量代码段
+
 ```java
 
  @Bean
@@ -124,3 +126,66 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
 项目运行效果展示
 ![项目运行效果展示](https://github.com/licunzhi/dream_on_sakura_rain/blob/master/web_socket_demo/images/result.png)
+
+
+
+> #### mybatis_pagehelper_demo:简单的pageHelper使用实现(适用于多数据源情况)
+
+#####  项目运行浏览器访问地址
+> [http://localhost:8080/index](http://127.0.0.1:8080/index/licunzhi)
+
+##### 项目运行环境：
+
+[1] 创建数据库（如果使用数据库或者相关性信息不是本地数据测试进行第二部操作）
+```sql
+/*
+SQLyog Ultimate v10.00 Beta1
+MySQL - 5.1.62-community : Database - test
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`test` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `test`;
+
+/*Table structure for table `USER` */
+
+DROP TABLE IF EXISTS `USER`;
+
+CREATE TABLE `USER` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `USER` */
+
+insert  into `USER`(`id`,`name`,`password`) values ('2','111','123'),('3','222','123'),('4','333','123'),('5','444','456'),('6','55','466');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+```
+[2] 修改数据库链接配置(相关信息修改成为测试)
+```java
+spring.datasource.local.url=jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
+spring.datasource.local.username=root
+spring.datasource.local.password=123
+spring.datasource.local.driver-class-name=com.mysql.jdbc.Driver
+```
+
+
+项目运行效果展示
+![项目运行效果展示](https://github.com/licunzhi/dream_on_sakura_rain/blob/master/mybatis_pagehelper_demo/images/result.png)
+
