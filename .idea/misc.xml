@@ -11,7 +11,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://E:/cloud_attacking_dream/out" />
   </component>
 </project>

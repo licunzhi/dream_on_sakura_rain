@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" filepath="$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" filepath="$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/web_socket_demo/web_socket_demo.iml" filepath="$PROJECT_DIR$/web_socket_demo/web_socket_demo.iml" />
     </modules>
   </component>
