@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/loadingcache_demo/pom.xml" />
         <option value="$PROJECT_DIR$/mongo-db-demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_stream_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/java_date_demo/pom.xml" />
       </list>
     </option>
   </component>
