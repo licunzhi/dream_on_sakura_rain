@@ -10,10 +10,12 @@
         <option value="$PROJECT_DIR$/mongo-db-demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_stream_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_date_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/java_face_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://E:/cloud_attacking_dream/out" />
   </component>
 </project>
