@@ -5,7 +5,7 @@
     - 抽象工厂模式 (com.sakura.AbstractFactoryPattern)
     - 单例模式 (com.sakura.SingletonPattern)
     - 建造者模式 (com.sakura.BuilderPattern)
-    - 原型模式
+    - 原型模式 (com.sakura.PrototypePattern)
 - 结构型模式
     - 适配器模式
     - 装饰器模式
