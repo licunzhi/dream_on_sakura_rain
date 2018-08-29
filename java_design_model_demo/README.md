@@ -3,8 +3,8 @@
 - 创建型模式
     - 工厂模式 (com.sakura.factorypattern)
     - 抽象工厂模式 (com.sakura.AbstractFactoryPattern)
-    - 单例模式
-    - 建造者模式
+    - 单例模式 (com.sakura.SingletonPattern)
+    - 建造者模式 (com.sakura.BuilderPattern)
     - 原型模式
 - 结构型模式
     - 适配器模式
@@ -27,5 +27,4 @@
     - 中介者模式
     - 解释器模式
     
-
 
