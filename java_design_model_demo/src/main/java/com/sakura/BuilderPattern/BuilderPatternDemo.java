@@ -19,7 +19,7 @@ public class BuilderPatternDemo {
          * is FactoryPattern just to produce object and then do nothing
          * but BuilderPattern get the object and then do some necessary operation
          * all of the object include object param in the Builder
-         * by user the method in builder we can finally get the information we want
+         * by use the method in builder we can finally get the information we want
          * even we can use the param info do some calculate
          * so we can recognize the BuilderPattern do more based on FactoryPattern
          *
