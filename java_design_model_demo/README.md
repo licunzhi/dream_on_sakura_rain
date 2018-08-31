@@ -1,11 +1,11 @@
 ### java设计模式总结
 
 - 创建型模式
-    - 工厂模式 (com.sakura.factorypattern)
-    - 抽象工厂模式 (com.sakura.AbstractFactoryPattern)
-    - 单例模式 (com.sakura.SingletonPattern)
-    - 建造者模式 (com.sakura.BuilderPattern)
-    - 原型模式 (com.sakura.PrototypePattern)
+    - 工厂模式 (com.sakura.creationalPatterns.factorypattern)
+    - 抽象工厂模式 (com.sakura.creationalPatterns.AbstractFactoryPattern)
+    - 单例模式 (com.sakura.creationalPatterns.SingletonPattern)
+    - 建造者模式 (com.sakura.creationalPatterns.BuilderPattern)
+    - 原型模式 (com.sakura.creationalPatterns.PrototypePattern)
 - 结构型模式
     - 适配器模式
     - 装饰器模式
