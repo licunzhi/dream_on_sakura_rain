@@ -1,10 +1,9 @@
 package com.sakura.creationalPatterns.PrototypePattern;
 
 import com.sakura.creationalPatterns.PrototypePattern.cache.AnimalCache;
-import com.sakura.PrototypePattern.cache.AnimalCache;
-import com.sakura.PrototypePattern.impl.Cat;
-import com.sakura.PrototypePattern.impl.Dog;
-import com.sakura.PrototypePattern.impl.Duck;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Cat;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Dog;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Duck;
 
 /**
  * @author licunzhi

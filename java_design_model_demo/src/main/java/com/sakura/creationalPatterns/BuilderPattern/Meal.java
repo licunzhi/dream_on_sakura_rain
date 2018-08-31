@@ -1,6 +1,7 @@
 package com.sakura.creationalPatterns.BuilderPattern;
 
-import com.sakura.BuilderPattern.inter.Item;
+
+import com.sakura.creationalPatterns.BuilderPattern.inter.Item;
 
 import java.util.ArrayList;
 import java.util.List;

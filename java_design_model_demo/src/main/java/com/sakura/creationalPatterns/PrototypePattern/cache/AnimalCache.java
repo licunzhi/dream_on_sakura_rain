@@ -1,9 +1,9 @@
 package com.sakura.creationalPatterns.PrototypePattern.cache;
 
-import com.sakura.PrototypePattern.Animal.Animal;
-import com.sakura.PrototypePattern.impl.Cat;
-import com.sakura.PrototypePattern.impl.Dog;
-import com.sakura.PrototypePattern.impl.Duck;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Cat;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Dog;
+import com.sakura.creationalPatterns.PrototypePattern.impl.Duck;
+import com.sakura.creationalPatterns.PrototypePattern.Animal.Animal;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,9 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern;
 
-import com.sakura.AbstractFactoryPattern.factory.AbstractFactory;
-import com.sakura.AbstractFactoryPattern.inter.AnimalInterface;
-import com.sakura.AbstractFactoryPattern.inter.ColorInterface;
-import com.sakura.AbstractFactoryPattern.producer.FactoryBean;
+import com.sakura.creationalPatterns.AbstractFactoryPattern.factory.AbstractFactory;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.AnimalInterface;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.ColorInterface;
+import com.sakura.creationalPatterns.AbstractFactoryPattern.producer.FactoryBean;
 
 /**
  * @author licunzhi

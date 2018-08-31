@@ -1,6 +1,5 @@
 package com.sakura.creationalPatterns.BuilderPattern.impl;
 
-import com.sakura.BuilderPattern.item.Burger;
 import com.sakura.creationalPatterns.BuilderPattern.item.Burger;
 
 public class VegBurger extends Burger {

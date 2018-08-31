@@ -1,9 +1,9 @@
 package com.sakura.creationalPatterns.BuilderPattern;
 
-import com.sakura.BuilderPattern.impl.ChickenBurger;
-import com.sakura.BuilderPattern.impl.Coke;
-import com.sakura.BuilderPattern.impl.Pepsi;
-import com.sakura.BuilderPattern.impl.VegBurger;
+import com.sakura.creationalPatterns.BuilderPattern.impl.ChickenBurger;
+import com.sakura.creationalPatterns.BuilderPattern.impl.Coke;
+import com.sakura.creationalPatterns.BuilderPattern.impl.Pepsi;
+import com.sakura.creationalPatterns.BuilderPattern.impl.VegBurger;
 
 public class MealBuilder {
 

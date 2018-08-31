@@ -1,8 +1,9 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern.producer;
 
-import com.sakura.AbstractFactoryPattern.factory.AbstractFactory;
-import com.sakura.AbstractFactoryPattern.factory.AnimalFactory;
-import com.sakura.AbstractFactoryPattern.factory.ColorlFactory;
+
+import com.sakura.creationalPatterns.AbstractFactoryPattern.factory.AbstractFactory;
+import com.sakura.creationalPatterns.AbstractFactoryPattern.factory.AnimalFactory;
+import com.sakura.creationalPatterns.AbstractFactoryPattern.factory.ColorlFactory;
 
 /**
  * @author licunzhi

@@ -1,10 +1,5 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern.factory;
 
-import com.sakura.AbstractFactoryPattern.impl.animal.Cat;
-import com.sakura.AbstractFactoryPattern.impl.animal.Dog;
-import com.sakura.AbstractFactoryPattern.impl.animal.Duck;
-import com.sakura.AbstractFactoryPattern.inter.AnimalInterface;
-import com.sakura.AbstractFactoryPattern.inter.ColorInterface;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.animal.Cat;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.animal.Dog;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.animal.Duck;

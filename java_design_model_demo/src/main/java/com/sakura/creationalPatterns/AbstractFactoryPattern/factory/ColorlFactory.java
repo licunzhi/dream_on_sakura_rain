@@ -1,11 +1,7 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern.factory;
 
-import com.sakura.AbstractFactoryPattern.impl.color.Blue;
-import com.sakura.AbstractFactoryPattern.impl.color.Red;
-import com.sakura.AbstractFactoryPattern.impl.color.Yellow;
-import com.sakura.AbstractFactoryPattern.inter.AnimalInterface;
-import com.sakura.AbstractFactoryPattern.inter.ColorInterface;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.color.Blue;
+import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.color.Red;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.impl.color.Yellow;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.AnimalInterface;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.ColorInterface;

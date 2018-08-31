@@ -3,10 +3,7 @@ package com.sakura.creationalPatterns.factorypattern.factory;
 import com.sakura.creationalPatterns.factorypattern.impl.Cat;
 import com.sakura.creationalPatterns.factorypattern.impl.Dog;
 import com.sakura.creationalPatterns.factorypattern.impl.Duck;
-import com.sakura.factorypattern.impl.Cat;
-import com.sakura.factorypattern.impl.Dog;
-import com.sakura.factorypattern.impl.Duck;
-import com.sakura.factorypattern.inter.AnimalInterface;
+import com.sakura.creationalPatterns.factorypattern.inter.AnimalInterface;
 
 /**
  * @author licunzhi

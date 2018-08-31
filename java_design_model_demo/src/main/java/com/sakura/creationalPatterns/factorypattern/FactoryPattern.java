@@ -2,8 +2,6 @@ package com.sakura.creationalPatterns.factorypattern;
 
 import com.sakura.creationalPatterns.factorypattern.factory.AnimalFactory;
 import com.sakura.creationalPatterns.factorypattern.inter.AnimalInterface;
-import com.sakura.factorypattern.factory.AnimalFactory;
-import com.sakura.factorypattern.inter.AnimalInterface;
 
 /**
  * @author licunzhi

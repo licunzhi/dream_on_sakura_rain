@@ -1,6 +1,5 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern.impl.color;
 
-import com.sakura.AbstractFactoryPattern.inter.ColorInterface;
 import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.ColorInterface;
 
 /**

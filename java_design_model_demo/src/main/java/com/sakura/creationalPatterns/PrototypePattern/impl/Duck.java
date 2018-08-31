@@ -1,6 +1,6 @@
 package com.sakura.creationalPatterns.PrototypePattern.impl;
 
-import com.sakura.PrototypePattern.Animal.Animal;
+import com.sakura.creationalPatterns.PrototypePattern.Animal.Animal;
 
 public class Duck extends Animal {
 

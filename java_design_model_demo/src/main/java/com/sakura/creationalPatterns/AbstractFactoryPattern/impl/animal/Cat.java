@@ -1,6 +1,7 @@
 package com.sakura.creationalPatterns.AbstractFactoryPattern.impl.animal;
 
-import com.sakura.AbstractFactoryPattern.inter.AnimalInterface;
+
+import com.sakura.creationalPatterns.AbstractFactoryPattern.inter.AnimalInterface;
 
 /**
  * @author licunzhi
