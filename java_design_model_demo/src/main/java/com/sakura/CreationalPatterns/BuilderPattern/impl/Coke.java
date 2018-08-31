@@ -1,0 +1,17 @@
+package com.sakura.CreationalPatterns.BuilderPattern.impl;
+
+import com.sakura.BuilderPattern.item.ColdDrink;
+import com.sakura.CreationalPatterns.BuilderPattern.item.ColdDrink;
+
+public class Coke extends ColdDrink {
+
+    @Override
+    public float price() {
+        return 30.0f;
+    }
+
+    @Override
+    public String name() {
+        return "Coke";
+    }
+}
