@@ -10,7 +10,7 @@
     - 适配器模式 （com.sakura.structuralPatterns.AdapterPattern）
     - 装饰器模式 （com.sakura.structuralPatterns.DecoratorPattern）
     - 代理模式
-    - 外观模式
+    - 外观模式 （com.sakura.structuralPatterns.FacadePattern）
     - 桥接模式 （com.sakura.structuralPatterns.BridgePattern）
     - 组合模式 （com.sakura.structuralPatterns.CompositePattern）
     - 享元模式
