@@ -9,11 +9,11 @@
 - 结构型模式
     - 适配器模式 （com.sakura.structuralPatterns.AdapterPattern）
     - 装饰器模式 （com.sakura.structuralPatterns.DecoratorPattern）
-    - 代理模式
+    - 代理模式 （com.sakura.structuralPatterns.ProxyPattern）
     - 外观模式 （com.sakura.structuralPatterns.FacadePattern）
     - 桥接模式 （com.sakura.structuralPatterns.BridgePattern）
     - 组合模式 （com.sakura.structuralPatterns.CompositePattern）
-    - 享元模式
+    - 享元模式 （com.sakura.structuralPatterns.FlyweightPattern）
 - 行为性模式
     - 策略模式
     - 模板方式模式
