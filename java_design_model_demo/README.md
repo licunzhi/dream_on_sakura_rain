@@ -15,11 +15,11 @@
     - 组合模式 （com.sakura.structuralPatterns.CompositePattern）
     - 享元模式 （com.sakura.structuralPatterns.FlyweightPattern）
 - 行为性模式
+    - 责任链模式 （com.sakura.behavioralPatterns.ChainOfResponsibilityPattern）
     - 策略模式
     - 模板方式模式
     - 观察者模式
     - 迭代子模式
-    - 责任链模式
     - 命令模式
     - 备忘录模式
     - 状态模式
