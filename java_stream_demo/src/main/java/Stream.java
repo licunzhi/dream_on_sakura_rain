@@ -158,5 +158,21 @@ public class Stream {
         System.out.println("不需要类实现Comparator就可以实现定制化排序");
         List<User> sortedUsers = users.stream().sorted(Comparator.comparingDouble(User::getSalary)).collect(Collectors.toList());
         sortedUsers.forEach(System.out::println);
+
+        /*返回map类型结果*/
+        System.out.println("flatMap 不允许出现重复的键指标。。。");
+        Map<String, String> toMap = users.stream().collect(Collectors.toMap(User::getId, User::getName));
+        toMap.forEach((k, v) -> System.out.println(k + "------" + v));
+        System.out.println("设置出现重复指标时，采用指定的一个");
+        Map<Integer, String> toChoseLaterMap = users.stream().collect(Collectors.toMap(User::getAge, User::getName, (firstOne, laterOne) -> laterOne));
+        toChoseLaterMap.forEach((k, v) -> System.out.println(k + "---重复指标选后一个---" + v));
+        System.out.println();
+        Map<Integer, String> toChoseFirstMap = users.stream().collect(Collectors.toMap(User::getAge, User::getName, (firstOne, laterOne) -> firstOne));
+        toChoseFirstMap.forEach((k, v) -> System.out.println(k + "---重复指标选前一个---" + v));
+
+        System.out.println("predicate函数，返回boolean类型的数据，使用这个可以分为true和false两种信息");
+        Map<Boolean, List<User>> partMap = users.stream().collect(Collectors.partitioningBy(userPart -> userPart.getAge() == 23));
+        partMap.forEach((k, v) -> System.out.println(k + "------------" + v));
+
     }
 }
