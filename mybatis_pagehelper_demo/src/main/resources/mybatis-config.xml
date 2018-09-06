@@ -31,4 +31,15 @@
     <typeAliases>
         <package name="com.pagehelper.demo.model" />
     </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+            <property name="offsetAsPageNum" value="true"/>
+            <property name="rowBoundsWithCount" value="true"/>
+            <property name="reasonable" value="true"/>
+            <property name="supportMethodsArguments" value="true"/>
+        </plugin>
+    </plugins>
+
 </configuration>

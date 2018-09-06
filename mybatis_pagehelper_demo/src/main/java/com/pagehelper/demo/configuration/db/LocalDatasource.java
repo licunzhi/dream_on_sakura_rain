@@ -5,12 +5,10 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -24,8 +22,8 @@ import java.util.Properties;
  * @desc 描述功能
  * @date 2018-08-20
  */
-@Configuration
-@MapperScan(basePackages = {"com.pagehelper.demo.mapper"}, sqlSessionTemplateRef = "localSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = {"com.pagehelper.demo.mapper"}, sqlSessionTemplateRef = "localSqlSessionTemplate")
 public class LocalDatasource {
 
     @Bean
