@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/java_face_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
         <option value="$PROJECT_DIR$/mybatis_pagehelper_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/quartz_demo/pom.xml" />
       </list>
     </option>
   </component>
