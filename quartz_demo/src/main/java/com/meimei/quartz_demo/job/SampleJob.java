@@ -4,8 +4,12 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
 public class SampleJob implements Job {
- 
+
+    public SampleJob() {
+    }
+
     public void execute(JobExecutionContext context) {
-        System.out.println("执行方法。。。。。");
+        String id = context.getJobDetail().getJobDataMap().get("xiaojzia").toString();
+        System.out.println("执行方法。。。。。" + id);
     }
 }

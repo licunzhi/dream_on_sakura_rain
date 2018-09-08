@@ -49,7 +49,8 @@ public class JobController {
             //构建一个新的任务规范，执行特定任务，任务执行的时间
             JobDetail jobDetail = JobBuilder
                             .newJob(SampleJob.class).withIdentity(jobName, groupName).build();
-
+            //执行的任务中传入参数
+            jobDetail.getJobDataMap().put("xiaojzia", "xiaojizai");
             //创建corn表达式，创建执行任务的时间规范
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
 
