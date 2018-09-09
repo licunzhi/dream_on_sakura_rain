@@ -9,7 +9,7 @@ public class SampleJob implements Job {
     }
 
     public void execute(JobExecutionContext context) {
-        String id = context.getJobDetail().getJobDataMap().get("xiaojzia").toString();
+        String id = context.getJobDetail().getJobDataMap().get("sakura").toString();
         System.out.println("执行方法。。。。。" + id);
     }
 }

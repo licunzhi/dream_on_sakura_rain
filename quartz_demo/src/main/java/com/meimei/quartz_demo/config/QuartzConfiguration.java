@@ -1,7 +1,9 @@
 package com.meimei.quartz_demo.config;
 
+import com.meimei.quartz_demo.factory.SchedulerFactory;
 import org.quartz.Scheduler;
 import org.quartz.ee.servlet.QuartzInitializerListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +21,17 @@ import java.util.Properties;
 @Configuration
 public class QuartzConfiguration {
 
+    // 注入service需要配置工厂类
+    @Autowired
+    private SchedulerFactory schedulerFactory;
+
     @Bean(name="SchedulerFactory")
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
+        // 注入service需要配置工厂类
+//        factory.setJobFactory(schedulerFactory);
+        // 注入service需要配置工厂类
+
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
         propertiesFactoryBean.setLocation(new ClassPathResource("/quartz.properties"));
         //在quartz.properties中的属性被读取并注入后再初始化对象

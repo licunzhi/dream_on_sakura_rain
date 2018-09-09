@@ -1,5 +1,6 @@
 package com.meimei.quartz_demo.api;
 
+import com.meimei.quartz_demo.job.JobOne;
 import com.meimei.quartz_demo.job.SampleJob;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -50,7 +51,7 @@ public class JobController {
             JobDetail jobDetail = JobBuilder
                             .newJob(SampleJob.class).withIdentity(jobName, groupName).build();
             //执行的任务中传入参数
-            jobDetail.getJobDataMap().put("xiaojzia", "xiaojizai");
+            jobDetail.getJobDataMap().put("sakura", "sakura");
             //创建corn表达式，创建执行任务的时间规范
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
 
@@ -122,6 +123,37 @@ public class JobController {
         }
 
         return "success";
+
+    }
+
+
+    //创建一个新的jobOne任务
+    @GetMapping("/add/jobone/{jobName}")
+    public void addJobOne(@PathVariable(value = "jobName") String jobName) {
+        String groupName = "group_one"; //定义job所在组名称
+        String cronExpression = "0 * * ? * * *";//执行时间表达式
+        try {
+            //启动任务调度器，准备添加任务相关信息操作
+            scheduler.start();
+
+            //构建一个新的任务规范，执行特定任务，任务执行的时间
+            JobDetail jobDetail = JobBuilder
+                            .newJob(JobOne.class).withIdentity(jobName, groupName).build();
+            //执行的任务中传入参数
+            jobDetail.getJobDataMap().put("sakura", "sakura");
+            //创建corn表达式，创建执行任务的时间规范
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
+
+            //创建一个触发器，加入上面创建的时间规范
+            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, groupName)
+                            .withSchedule(scheduleBuilder).build();
+
+            //把执行的job任务和创建时间trigger绑定一起
+            scheduler.scheduleJob(jobDetail, trigger);
+
+        } catch (SchedulerException e) {
+            LOGGER.info("scheduler start or shutdown error ...");
+        }
 
     }
 }
