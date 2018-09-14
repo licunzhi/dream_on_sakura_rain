@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/mybatis_pagehelper_demo/pom.xml" />
         <option value="$PROJECT_DIR$/quartz_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_lombok_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/json_web_tokens/pom.xml" />
       </list>
     </option>
   </component>

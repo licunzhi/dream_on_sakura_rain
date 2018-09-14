@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" filepath="$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" filepath="$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" filepath="$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" filepath="$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" />

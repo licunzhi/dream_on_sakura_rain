@@ -10,6 +10,7 @@
 - [springboot_rabbit_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/springboot_rabbit_demo)
 - [web_socket_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/web_socket_demo)
 - [quartz_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/quartz_demo)
+- [java_lombok_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/java_lombok_demo)
 
 > #### loadingcache_demo : 在spiringboot中使用loadingcache_demo
 
