@@ -17,9 +17,9 @@
 - 行为性模式
     - 责任链模式 （com.sakura.behavioralPatterns.ChainOfResponsibilityPattern）
     - 命令模式 （com.sakura.behavioralPatterns.CommandPattern）
-    - 解释器模式
-    - 迭代模式
-    - 中介者模式
+    - 解释器模式 （com.sakura.behavioralPatterns.InterpreterPattern）
+    - 迭代模式 
+    - 中介者模式 （com.sakura.behavioralPatterns.MediatorPattern）
     - 备忘录模式
     - 策略模式
     - 观察者模式
