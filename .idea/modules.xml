@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model_demo.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" filepath="$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_nio_demo/java_nio_demo.iml" filepath="$PROJECT_DIR$/java_nio_demo/java_nio_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" filepath="$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" filepath="$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
