@@ -20,7 +20,7 @@
     - 解释器模式 （com.sakura.behavioralPatterns.InterpreterPattern）
     - 迭代模式 
     - 中介者模式 （com.sakura.behavioralPatterns.MediatorPattern）
-    - 备忘录模式
+    - 备忘录模式 （com.sakura.behavioralPatterns.MementoPattern）
     - 策略模式
     - 观察者模式
     - 状态模式
