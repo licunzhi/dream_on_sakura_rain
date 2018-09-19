@@ -128,6 +128,27 @@ public class JobController {
 
     }
 
+    /**
+     * 更新操作，可以更新map中的数据
+     */
+    @GetMapping("/update/dataMap/{jobName}")
+    public String updateJobDataMap(@PathVariable(value = "jobName") String jobName) {
+        String groupName = "group_one"; //定义job所在组名称
+        String cronExpression = "* * * ? * * *";//执行时间表达式
+        try {
+            JobKey jobKey = new JobKey(jobName, groupName);
+            JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+
+            jobDetail.getJobDataMap().put("sakura", "abandon sakura info!");
+
+            scheduler.addJob(jobDetail, true, true);
+        } catch (SchedulerException e) {
+            LOGGER.info("scheduler start or shutdown error ...");
+        }
+
+        return "success";
+
+    }
 
     //创建一个新的jobOne任务
     @GetMapping("/add/jobone/{jobName}")
