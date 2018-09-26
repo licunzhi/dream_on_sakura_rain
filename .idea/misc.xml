@@ -18,6 +18,7 @@
         <option value="$PROJECT_DIR$/json_web_tokens/pom.xml" />
         <option value="$PROJECT_DIR$/java_nio_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_frermark_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot_swagger_demo/pom.xml" />
       </list>
     </option>
   </component>
