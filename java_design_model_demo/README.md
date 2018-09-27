@@ -24,7 +24,7 @@
     - 观察者模式 （com.sakura.behavioralPatterns.ObserverPattern）
     - 状态模式 （com.sakura.behavioralPatterns.StatePattern）
     - 空对象模式 （com.sakura.behavioralPatterns.NullObjectPattern）
-    - 策略模式 
+    - 策略模式 （com.sakura.behavioralPatterns.StrategyPattern）
     - 模板模式
     - 访问者模式
     
