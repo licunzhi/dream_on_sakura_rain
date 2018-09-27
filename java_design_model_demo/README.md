@@ -21,8 +21,9 @@
     - 迭代模式 (com.sakura.behavioralPatterns.IteratorPattern）)
     - 中介者模式 （com.sakura.behavioralPatterns.MediatorPattern）
     - 备忘录模式 （com.sakura.behavioralPatterns.MementoPattern）
-    - 观察者模式 （com.sakura.behavioralPatterns.ObserverPattern））
-    - 状态模式 （）
+    - 观察者模式 （com.sakura.behavioralPatterns.ObserverPattern）
+    - 状态模式 （com.sakura.behavioralPatterns.StatePattern）
+    - 空对象模式 
     - 策略模式 
     - 模板模式
     - 访问者模式
