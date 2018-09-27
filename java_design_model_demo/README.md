@@ -18,12 +18,12 @@
     - 责任链模式 （com.sakura.behavioralPatterns.ChainOfResponsibilityPattern）
     - 命令模式 （com.sakura.behavioralPatterns.CommandPattern）
     - 解释器模式 （com.sakura.behavioralPatterns.InterpreterPattern）
-    - 迭代模式 
+    - 迭代模式 (com.sakura.behavioralPatterns.IteratorPattern）)
     - 中介者模式 （com.sakura.behavioralPatterns.MediatorPattern）
     - 备忘录模式 （com.sakura.behavioralPatterns.MementoPattern）
-    - 策略模式
-    - 观察者模式
-    - 状态模式
+    - 观察者模式 （com.sakura.behavioralPatterns.ObserverPattern））
+    - 状态模式 （）
+    - 策略模式 
     - 模板模式
     - 访问者模式
     
