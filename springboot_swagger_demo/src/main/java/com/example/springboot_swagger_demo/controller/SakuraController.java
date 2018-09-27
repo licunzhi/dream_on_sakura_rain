@@ -30,7 +30,7 @@ public class SakuraController {
 
     @ApiOperation(value = "创建一个sakura", notes = "对接口的功能备注解释")//接口功能解释
     @ApiImplicitParams( {// 多个参数的提示的展示方式，也可以单独只使用一个@ApiImplicitParam
-                    //@ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", paramType = "path"),
+                    //@ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", paramType = "path"),//点进注解，会有paramType的其它选项和用法解释
                     @ApiImplicitParam(name = "sakura", value = "sakura实体类", required = true, dataType = "Sakura")//参数解释
     })
     @ApiResponses(value = {// 多个返回的提示的展示方式，也可以单独只使用一个@ApiImplicitParam
