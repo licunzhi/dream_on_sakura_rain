@@ -13,6 +13,7 @@
 - [java_lombok_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/java_lombok_demo)
 - [springboot_swagger_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/springboot_swagger_demo)
 - [java_frermark_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/java_frermark_demo)
+- [springboot_initAction_demo](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/springboot_initAction_demo)
 
 > #### loadingcache_demo : 在spiringboot中使用loadingcache_demo
 
