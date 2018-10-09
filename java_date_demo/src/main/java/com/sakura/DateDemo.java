@@ -116,6 +116,10 @@ public class DateDemo {
                         date.with(TemporalAdjusters.firstDayOfNextYear()));
         System.out.printf("年第一天: %s%n",
                         date.with(TemporalAdjusters.firstDayOfYear()));
+        System.out.println("******************************************************");
+        LocalDate wanted = LocalDate.now();
+        System.out.printf("获取下周一的时间: %s%n",
+                        wanted.with(TemporalAdjusters.next(DayOfWeek.MONDAY)));
 
 
 
