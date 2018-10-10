@@ -42,25 +42,23 @@ public class JobController {
     @GetMapping("/add/{jobName}")
     public void addJob(@PathVariable(value = "jobName") String jobName) {
         String groupName = "group_one"; //定义job所在组名称
-        String cronExpression = "0 * * ? * * *";//执行时间表达式
+        String cronExpression = "0 /5 * ? * 4 *";//执行时间表达式
         try {
 
             //构建一个新的任务规范，执行特定任务，任务执行的时间
-            for (int i= 0 ;i < 2 ; i++) {
-                JobDetail jobDetail = JobBuilder
-                                .newJob(SampleJob.class).withIdentity(jobName + i, groupName).build();
-                //执行的任务中传入参数
-                jobDetail.getJobDataMap().put("sakura", jobName + i);
-                //创建corn表达式，创建执行任务的时间规范
-                CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
+            JobDetail jobDetail = JobBuilder
+                            .newJob(SampleJob.class).withIdentity(jobName, groupName).build();
+            //执行的任务中传入参数
+            jobDetail.getJobDataMap().put("sakura", jobName);
+            //创建corn表达式，创建执行任务的时间规范
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
 
-                //创建一个触发器，加入上面创建的时间规范
-                CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName + i, groupName)
-                                .withSchedule(scheduleBuilder).build();
+            //创建一个触发器，加入上面创建的时间规范
+            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(jobName, groupName)
+                            .withSchedule(scheduleBuilder).build();
 
-                //把执行的job任务和创建时间trigger绑定一起
-                scheduler.scheduleJob(jobDetail, trigger);
-            }
+            //把执行的job任务和创建时间trigger绑定一起
+            scheduler.scheduleJob(jobDetail, trigger);
 
             //启动任务调度器，准备添加任务相关信息操作
             scheduler.start();
