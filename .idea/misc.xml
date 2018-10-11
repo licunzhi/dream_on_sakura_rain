@@ -22,6 +22,7 @@
         <option value="$PROJECT_DIR$/springboot_initAction_demo/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_webflux_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_9_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/java_junit_demo/pom.xml" />
       </list>
     </option>
   </component>
