@@ -29,7 +29,7 @@ public class QuartzConfiguration {
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         // 注入service需要配置工厂类
-//        factory.setJobFactory(schedulerFactory);
+        factory.setJobFactory(schedulerFactory);
         // 注入service需要配置工厂类
 
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
