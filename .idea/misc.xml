@@ -3,29 +3,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/rabbit_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/web_socket_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-redis-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/loadingcache_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/mongo-db-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_stream_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_date_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_face_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/mybatis_pagehelper_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/quartz_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_lombok_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/json_web_tokens/pom.xml" />
-        <option value="$PROJECT_DIR$/java_nio_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_frermark_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot_swagger_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot_initAction_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot_webflux_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_9_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-redis-demo/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://E:/cloud_attacking_dream/out" />
-  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

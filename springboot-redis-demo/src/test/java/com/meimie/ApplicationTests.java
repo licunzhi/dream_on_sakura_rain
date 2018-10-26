@@ -5,22 +5,28 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * @author licunzhi
+ * @desc 描述功能
+ * @date 2018-10-16
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringbootRedisDemoApplicationTests {
+public class ApplicationTests {
 
-	@Autowired
-	private RedisTemplate redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
-	@Test
-	public void pushKey() {
-		redisTemplate.opsForValue().set("key", "dream on sakura rain");
-	}
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
-	@Test
-	public void getValue() {
-		System.out.println(redisTemplate.opsForValue().get("key"));
-	}
+
+    @Test
+    public void test() {
+
+    }
+
 }

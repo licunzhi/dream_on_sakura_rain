@@ -14,6 +14,12 @@
             <version>2.10.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -21,5 +27,18 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.1</java.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.10</source>
+                    <target>1.10</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
