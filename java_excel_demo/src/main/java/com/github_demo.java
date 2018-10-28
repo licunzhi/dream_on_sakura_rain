@@ -31,10 +31,10 @@ public class github_demo {
 
         //数据指标
         Map<String, List<String>> dataMapSheet = new LinkedHashMap<>();
-        dataMapSheet.put("1", Arrays.asList("qqq","qqqqq","qqqqq","qqqqqq"));
-        dataMapSheet.put("2", Arrays.asList("www","wwww","wwwww","wwwwww"));
-        dataMapSheet.put("3", Arrays.asList("aaa","aaaa","aaaaa","aaaaaa"));
-        dataMapSheet.put("4", Arrays.asList("ccc","cccc","ccccc","cccccc"));
+        dataMapSheet.put("1", Arrays.asList("qqq","qqqqq","qqqqq","12"));
+        dataMapSheet.put("2", Arrays.asList("www","wwww","wwwww","15"));
+        dataMapSheet.put("3", Arrays.asList("aaa","aaaa","aaaaa","17"));
+        dataMapSheet.put("4", Arrays.asList("ccc","cccc","ccccc","33"));
         result = ExcelUtils.createDataSheet(result, "虚拟机使用率", dataMapSheet, "0-20%");
         FileOutputStream fileOutputStream = new FileOutputStream(outFile);
         result.write(fileOutputStream);
