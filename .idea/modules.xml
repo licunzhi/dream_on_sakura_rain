@@ -6,6 +6,25 @@
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_9_demo/java_9_demo.iml" filepath="$PROJECT_DIR$/java_9_demo/java_9_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model_demo.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" filepath="$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_frermark_demo/java_frermark_demo.iml" filepath="$PROJECT_DIR$/java_frermark_demo/java_frermark_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" filepath="$PROJECT_DIR$/java_lombok_demo/java_lombok_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_nio_demo/java_nio_demo.iml" filepath="$PROJECT_DIR$/java_nio_demo/java_nio_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" filepath="$PROJECT_DIR$/java_stream_demo/java_stream_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" filepath="$PROJECT_DIR$/json_web_tokens/json_web_tokens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" filepath="$PROJECT_DIR$/mongo-db-demo/mongo-db-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum.iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" filepath="$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/quartz_demo/quartz_demo.iml" filepath="$PROJECT_DIR$/quartz_demo/quartz_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" filepath="$PROJECT_DIR$/rabbit_demo/rabbit_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" filepath="$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" />
     </modules>
