@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/java_face_demo/demo.iml" filepath="$PROJECT_DIR$/java_face_demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_9_demo/java_9_demo.iml" filepath="$PROJECT_DIR$/java_9_demo/java_9_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" filepath="$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" />
     </modules>
   </component>
 </project>
