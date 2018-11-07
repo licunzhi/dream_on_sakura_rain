@@ -3,7 +3,6 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/java_face_demo/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-redis-demo/pom.xml" />
         <option value="$PROJECT_DIR$/springboot_resttemplate_demo/pom.xml" />
         <option value="$PROJECT_DIR$/java_date_demo/pom.xml" />
