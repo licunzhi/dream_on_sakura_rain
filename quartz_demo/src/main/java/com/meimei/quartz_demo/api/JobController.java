@@ -43,7 +43,7 @@ public class JobController {
     @GetMapping("/add/{jobName}")
     public void addJob(@PathVariable(value = "jobName") String jobName) {
         String groupName = "group_one"; //定义job所在组名称
-        String cronExpression = "0 /5 * ? * 4 *";//执行时间表达式
+        String cronExpression = "0 * * * * ? *";//执行时间表达式
         try {
 
             //构建一个新的任务规范，执行特定任务，任务执行的时间
