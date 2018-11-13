@@ -7,10 +7,10 @@
       <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" filepath="$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" filepath="$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" filepath="$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-html/springboot-html.iml" filepath="$PROJECT_DIR$/springboot-html/springboot-html.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" filepath="$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" />
     </modules>
