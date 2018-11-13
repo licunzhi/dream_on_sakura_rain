@@ -1,6 +1,5 @@
 ![docker](../images/docker_faco.png)
 ## NO.1 基础介绍
-<hr/>
 
 ### docker是什么
 Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从Apache2.0协议开源。
@@ -29,7 +28,9 @@ Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级�
 
 
 ### 如何安装一个docker环境
-- 一个值得新来的安装网站（centos window mac都有，社区版本安装） [菜鸟教程centos安装docker教程](http://www.runoob.com/docker/centos-docker-install.html)
+- 一个值得信赖的安装网站（centos window mac都有，社区版本安装） [菜鸟教程centos安装docker教程](http://www.runoob.com/docker/centos-docker-install.html)
+
+
 
 
 
@@ -106,3 +107,22 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 - docker logs names/container id 查看容器的日志信息
 
 - docker stop names/cintainer id 停止容器
+
+
+
+
+## NO.3 容器的使用
+<pre>
+- docker                                                    查看docker命令
+- docker stats --help                                       命令的详细介绍
+- docker run -d -P training/webapp python app.py -P         容器端口到主机端口的映射
+- docker run -d -p 5000:5000 training/webapp python app.py  区别上面可以执指定映射端口
+- docker port names/container id                            查看端口映射情况
+- docker logs -f names/container id                         时时查看日志情况
+- docker top names/container id                             查看容器应用资源使用情况
+- docker inspect names/container id                         底层配置文件信息（json样式）
+- docker start names/container id                           启动容器
+- docker stop names/container id                            停止容器
+- docker rm names/container id                              删除容器(移除容器之前需要停止容器)
+</pre>
+
