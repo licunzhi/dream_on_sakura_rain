@@ -126,3 +126,16 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 - docker rm names/container id                              删除容器(移除容器之前需要停止容器)
 </pre>
 
+
+## NO.4 镜像的使用
+<pre>
+- docker images 查看本地镜像
+- docker pull image_name:version                                            拉取新镜像
+- docker search image_name                                                  查询镜像信息
+- docker commit -m="has update" -a="runoob" e218edb10161 runoob/ubuntu:v2   提交镜像
+                 m: message      a:author    容器的id     image_name:version
+- docker build -t runoob/centos:6.7 .                                       构建镜像命令
+        image_name:version        Dockerfile文件所在路径
+- docker tag 860c279d2fec runoob/centos:dev                                 镜像标签
+</pre>
+
