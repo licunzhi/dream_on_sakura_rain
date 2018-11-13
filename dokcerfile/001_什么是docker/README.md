@@ -139,3 +139,16 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 - docker tag 860c279d2fec runoob/centos:dev                                 镜像标签
 </pre>
 
+## NO.5 容器连接
+<pre>
+- docker run -d -P training/webapp python app.py                        容器端口和主机端口映射
+- docker run -d -p 5000:5000 training/webapp python app.py              主机端口和容器端口绑定
+- docker run -d -p 127.0.0.1:5000:5000 training/webapp python app.py    绑定网络端口 默认绑定tcp端口 可以加/udp指定
+- docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+- docker port adoring_stonebraker 5000                                  快捷查看端口绑定情况
+- docker run -d -P --name runoob training/webapp python app.py          创建容器并对其进行重命名
+</pre>
+
+
+## NO.6 熟悉基本命令之后的demo演示
+[demo演示](../002_docker安装操作demo/README.md)
