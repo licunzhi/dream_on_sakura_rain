@@ -64,3 +64,26 @@ public V get(Object key) {
         return null;
     }
 ```
+
+
+### Vector
+- Vector是线程安全的，效率上来说应该是比ArrayList低
+- Vector满了之后扩容是之前的一倍，ArrayList仅仅是一半
+- Vector分配空间需要连续的存储空间，如果数据量较大的情况容易导致内存分配失败
+- 只能在尾部进行插入删除操作
+
+存储空间翻倍的原因
+```java
+private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        // 如果设置了倍增的大小使用设置的大小，如果没有设置的话使用现有的长度加上现有的长度
+        int newCapacity = oldCapacity + ((capacityIncrement > 0) ?
+                                         capacityIncrement : oldCapacity);
+        if (newCapacity - minCapacity < 0)
+            newCapacity = minCapacity;
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
+            newCapacity = hugeCapacity(minCapacity);
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+```
