@@ -88,6 +88,9 @@ public class ListData {
                     private String view_sales;
                     private String nick;
                     private String comment_url;//评论的连接，以后数据分析很可能需要
+                    private String shopLink;//购买链接
+                    private String detail_url;//详情链接
+                    private String pic_url;//详情链接
 
                     public String getTitle() {
                         return title;
@@ -135,6 +138,30 @@ public class ListData {
 
                     public void setComment_url(String comment_url) {
                         this.comment_url = comment_url;
+                    }
+
+                    public String getShopLink() {
+                        return shopLink;
+                    }
+
+                    public void setShopLink(String shopLink) {
+                        this.shopLink = shopLink;
+                    }
+
+                    public String getDetail_url() {
+                        return detail_url;
+                    }
+
+                    public void setDetail_url(String detail_url) {
+                        this.detail_url = detail_url;
+                    }
+
+                    public String getPic_url() {
+                        return pic_url;
+                    }
+
+                    public void setPic_url(String pic_url) {
+                        this.pic_url = pic_url;
                     }
                 }
             }

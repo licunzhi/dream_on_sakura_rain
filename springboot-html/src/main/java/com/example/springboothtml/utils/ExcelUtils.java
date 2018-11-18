@@ -105,7 +105,7 @@ public class ExcelUtils {
         titleStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 9; i++) {
             chart.getRow(0).getCell(i).setCellStyle(titleStyle);
         }
 
@@ -128,6 +128,26 @@ public class ExcelUtils {
             HSSFCell cpuRowCell = labelRow.createCell(3);
             cpuRowCell.setCellValue(auction.getView_sales());
             cpuRowCell.setCellStyle(cellStyle);
+
+            HSSFCell nicks = labelRow.createCell(4);
+            nicks.setCellValue(auction.getNick());
+            nicks.setCellStyle(cellStyle);
+
+            HSSFCell pics = labelRow.createCell(5);
+            pics.setCellValue(auction.getPic_url());
+            pics.setCellStyle(cellStyle);
+
+            HSSFCell comment = labelRow.createCell(6);
+            comment.setCellValue(auction.getComment_url());
+            comment.setCellStyle(cellStyle);
+
+            HSSFCell shopLink = labelRow.createCell(7);
+            shopLink.setCellValue(auction.getShopLink());
+            shopLink.setCellStyle(cellStyle);
+
+            HSSFCell detail = labelRow.createCell(8);
+            detail.setCellValue(auction.getDetail_url());
+            detail.setCellStyle(cellStyle);
 
             i++;
         }
