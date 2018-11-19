@@ -1,5 +1,8 @@
 package com.example.springboothtml.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
@@ -81,15 +84,25 @@ public class ListData {
                 }
 
                 // 侧重点  物品的单个模型初始化类
+                @ApiModel
                 public static class Auction {
+                    @ApiModelProperty(value = "页面显示标题")
                     private String title;
+                    @ApiModelProperty(value = "格式化标题")
                     private String raw_title;
+                    @ApiModelProperty(value = "商品价格")
                     private String view_price;
+                    @ApiModelProperty(value = "收获人数")
                     private String view_sales;
+                    @ApiModelProperty(value = "卖家信息")
                     private String nick;
+                    @ApiModelProperty(value = "评论地址")
                     private String comment_url;//评论的连接，以后数据分析很可能需要
+                    @ApiModelProperty(value = "购买链接")
                     private String shopLink;//购买链接
+                    @ApiModelProperty(value = "商品详情")
                     private String detail_url;//详情链接
+                    @ApiModelProperty(value = "图片链接")
                     private String pic_url;//详情链接
 
                     public String getTitle() {

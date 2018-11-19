@@ -1,10 +1,13 @@
 package com.example.springboothtml.controller;
 
+import com.example.springboothtml.domain.ListData;
 import com.example.springboothtml.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +35,9 @@ public class ProductController {
                     @ApiImplicitParam(name = "fileName", value = "文件名（不用定义文件后缀）", required = true, dataType = "String", paramType = "query"),
                     @ApiImplicitParam(name = "sortType", value = "排序方式(1:综合排序 2：销量排序)", allowableValues = "1,2", required = true, dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "picture", value = "是否抓取图片(默认false)[此操作会导致数据采集速度变慢，误差因素会导致部分图片采集失败]", allowableValues = "false,true", defaultValue = "false", required = true, dataType = "boolean", paramType = "query")})
+    @ApiResponses(value = {
+                    @ApiResponse(code = 200, message = "成功操作", response = ListData.Mods.Item.Data.Auction.class)
+    })
     @GetMapping("/list/html")
     public ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName, Integer sortType,
                     Boolean picture) {
