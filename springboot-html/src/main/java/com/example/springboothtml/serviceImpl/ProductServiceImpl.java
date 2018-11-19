@@ -47,13 +47,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
-                    Integer endPage, String fileName) {
+                    Integer endPage, String fileName, Integer sortType, Boolean picture) {
 
         // 2018/11/18/018 优化并封装
         HttpHeaders headers = getHttpHeaders();
 
         //请求参数
         Map<String, String> params = new HashMap<>();
+        if (sortType == 1) {
+            params.put("sort", "");
+        } else if (sortType == 2) {
+            params.put("sort", "sale-desc");
+        }
         List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
         for (int page = startPage; page <= endPage; page++) {
             params.put("q", query);
@@ -69,7 +74,9 @@ public class ProductServiceImpl implements ProductService {
             String searchUrl =
                             "https://s.taobao.com/search?data-key=" + params.get("data-key") + "&q=" + params.get("q")
                                             + "&data-value=" + params.get("data-value") + "&s=" + params.get("s")
-                                            + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1&sort=sale-desc&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
+                                            + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1"
+                                            + "&sort=" + params.get("sort")
+                                            + "&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
             ResponseEntity<ListData> responseEntity =
                             restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
                                             ListData.class);
@@ -94,12 +101,13 @@ public class ProductServiceImpl implements ProductService {
         }
 
         //excel存储工具
-        excelAdapter(resultList, fileName);
+        excelAdapter(resultList, fileName, picture);
+        LOGGER.info("进程结束");
 
         return new ResponseEntity(resultList, HttpStatus.OK);
     }
 
-    private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName) {
+    private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
         // 加载模板文件
         String userDir = System.getProperty("user.dir");
         String relativelyPath = String.format("%s/springboot-html/report/excel.xls", userDir);
@@ -108,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
         try (InputStream fileInputStream = new FileInputStream(new File(relativelyPath));
                         FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             HSSFWorkbook hssfWorkbook = new HSSFWorkbook(fileInputStream);
-            hssfWorkbook = ExcelUtils.createDataSheet(hssfWorkbook, null, resultList, "数据分析抓取");
+            hssfWorkbook = ExcelUtils.createDataSheet(hssfWorkbook, null, resultList, "数据分析抓取", picture);
             hssfWorkbook.write(fileOutputStream);
         } catch (FileNotFoundException e) {
             boolean delete = file.delete();

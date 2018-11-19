@@ -1,6 +1,6 @@
 package com.example.springboothtml.service;
 
-                import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 
 /**
  * @author licunzhi
@@ -9,5 +9,6 @@ package com.example.springboothtml.service;
  */
 public interface ProductService {
 
-    ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName);
+    ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName, Integer sortType,
+                    Boolean picture);
 }

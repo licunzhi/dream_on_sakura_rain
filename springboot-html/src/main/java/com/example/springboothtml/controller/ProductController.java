@@ -27,11 +27,14 @@ public class ProductController {
     @ApiOperation(value = "抓取网页数据", notes = "抓取网页数据接口")//接口功能解释
     @ApiImplicitParams(value = {
                     @ApiImplicitParam(name = "query", value = "查询关键字", required = true, dataType = "String", paramType = "query"),
-                    @ApiImplicitParam(name = "startPage", value = "起始页", required = true, dataType = "Integer", paramType = "query"),
-                    @ApiImplicitParam(name = "endPage", value = "终止页", required = true, dataType = "Integer", paramType = "query"),
-                    @ApiImplicitParam(name = "fileName", value = "文件名（不用定义文件后缀）", required = true, dataType = "String", paramType = "query")})
+                    @ApiImplicitParam(name = "startPage", value = "起始页", required = true, dataType = "int", paramType = "query"),
+                    @ApiImplicitParam(name = "endPage", value = "终止页", required = true, dataType = "int", paramType = "query"),
+                    @ApiImplicitParam(name = "fileName", value = "文件名（不用定义文件后缀）", required = true, dataType = "String", paramType = "query"),
+                    @ApiImplicitParam(name = "sortType", value = "排序方式(1:综合排序 2：销量排序)", allowableValues = "1,2", required = true, dataType = "int", paramType = "query"),
+                    @ApiImplicitParam(name = "picture", value = "是否抓取图片(默认false)[此操作会导致数据采集速度变慢，误差因素会导致部分图片采集失败]", allowableValues = "false,true", defaultValue = "false", required = true, dataType = "boolean", paramType = "query")})
     @GetMapping("/list/html")
-    public ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName) {
-        return productService.scrapHtml(query, startPage, endPage, fileName);
+    public ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName, Integer sortType,
+                    Boolean picture) {
+        return productService.scrapHtml(query, startPage, endPage, fileName, sortType, picture);
     }
 }

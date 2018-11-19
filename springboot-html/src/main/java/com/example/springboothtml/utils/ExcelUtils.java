@@ -3,13 +3,22 @@ package com.example.springboothtml.utils;
 import com.example.springboothtml.domain.ListData;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +28,7 @@ import java.util.Map;
  * @date 2018-10-28
  */
 public class ExcelUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtils.class);
 
     /**
      * 创建excel饼图表(数据驱动图表形成)
@@ -77,7 +87,7 @@ public class ExcelUtils {
      * @return 完善之后
      */
     public static HSSFWorkbook createDataSheet(HSSFWorkbook hssfWorkbook, String title,
-                    List<ListData.Mods.Item.Data.Auction> dataList, String sheetName) {
+                    List<ListData.Mods.Item.Data.Auction> dataList, String sheetName, Boolean picture) {
 
         //创建单元格样式
         HSSFCellStyle cellStyle = hssfWorkbook.createCellStyle();
@@ -86,6 +96,7 @@ public class ExcelUtils {
 
         // 读取图表
         HSSFSheet chart = hssfWorkbook.getSheet(sheetName);
+        HSSFPatriarch patriarch = chart.createDrawingPatriarch();
 
         // 标题背景色设置
         HSSFFont titleFont = hssfWorkbook.createFont();
@@ -105,7 +116,7 @@ public class ExcelUtils {
         titleStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             chart.getRow(0).getCell(i).setCellStyle(titleStyle);
         }
 
@@ -126,7 +137,7 @@ public class ExcelUtils {
             ipRowCell.setCellStyle(cellStyle);
 
             HSSFCell cpuRowCell = labelRow.createCell(3);
-            cpuRowCell.setCellValue(auction.getView_sales());
+            cpuRowCell.setCellValue(auction.getView_sales().replace("人收货", ""));
             cpuRowCell.setCellStyle(cellStyle);
 
             HSSFCell nicks = labelRow.createCell(4);
@@ -149,9 +160,32 @@ public class ExcelUtils {
             detail.setCellValue(auction.getDetail_url());
             detail.setCellStyle(cellStyle);
 
+            if (picture) {
+                picAgain(hssfWorkbook, patriarch, i, auction);
+            }
+
             i++;
         }
 
         return hssfWorkbook;
+    }
+
+    private static void picAgain(HSSFWorkbook hssfWorkbook, HSSFPatriarch patriarch, int i,
+                    ListData.Mods.Item.Data.Auction auction) {
+        try {
+            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, (short) 9, i, (short) 9, i);
+            anchor.setAnchorType(0);
+            URL url = new URL("https:" + auction.getPic_url());
+            BufferedImage bufferImg = ImageIO.read(url);
+            ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+            ImageIO.write(bufferImg, "jpg", byteArrayOut);
+            byte[] data = byteArrayOut.toByteArray();
+            patriarch.createPicture(anchor, hssfWorkbook.addPicture(data, HSSFWorkbook.PICTURE_TYPE_JPEG));
+            LOGGER.info("获取商品{}图片成功", auction.getRaw_title());
+        } catch (IOException e) {
+            System.out.println("未获取成功的图片url：" + auction.getRaw_title());
+        }catch (Exception e) {
+            System.out.println("未获取成功的图片url：" + auction.getPic_url());
+        }
     }
 }
