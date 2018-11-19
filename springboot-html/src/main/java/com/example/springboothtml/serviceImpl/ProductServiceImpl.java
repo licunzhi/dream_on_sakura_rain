@@ -114,8 +114,8 @@ public class ProductServiceImpl implements ProductService {
     private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
         // 加载模板文件
         String userDir = System.getProperty("user.dir");
-        String relativelyPath = String.format("%s/springboot-html/report/excel.xls", userDir);
-        String reportPath = String.format("%s/springboot-html/report/%s.xls", userDir, fileName);
+        String relativelyPath = String.format("%s/springboot-html/search/excel.xls", userDir);
+        String reportPath = String.format("%s/springboot-html/search/%s.xls", userDir, fileName);
         File file = new File(reportPath);
         try (InputStream fileInputStream = new FileInputStream(new File(relativelyPath));
                         FileOutputStream fileOutputStream = new FileOutputStream(file)) {
