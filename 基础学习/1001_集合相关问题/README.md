@@ -133,3 +133,7 @@ private void grow(int minCapacity) {
 - 线程安全，内部方法采用synchronized关键字加锁
 - 底层采用数组实现，通过下标的方式进行定位
 - 如果不是必须保证线程安全的情况，推荐使用LinkedList
+
+
+### Map interface
+
