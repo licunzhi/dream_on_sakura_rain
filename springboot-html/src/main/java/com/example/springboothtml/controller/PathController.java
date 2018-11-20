@@ -17,4 +17,9 @@ public class PathController {
     public String indexPage() {
         return "index";
     }
+
+    @GetMapping("/product/search")
+    public String productSearch() {
+        return "product/search";
+    }
 }
