@@ -87,3 +87,26 @@ private void grow(int minCapacity) {
         elementData = Arrays.copyOf(elementData, newCapacity);
     }
 ```
+
+
+### Stack - Vector子类
+特点: last-in-first-out LIFO 先进后出
+
+- 扩展了Vector与五个操作，堆栈操作 具备基本操作push peek，检测是否empty 以及search方法
+- 更优化更多操作的类可以使用 **Deque** （后面探究） ，使用方式
+   ```java
+       Deque<Integer> stack = new ArrayDeque<Integer>();
+    ``` 
+- 起始版本1.0，古老的一个类
+- 方法简介
+```java
+    Stack()                 创建一个空堆栈
+    empty() boolean         判断堆栈是否为空
+    peek() E                查看堆栈的顶部对象，不做删除操作
+    pop() E                 获取堆栈顶部数据，删除该数据
+    push(E item) E          将项目推送到次堆栈的顶部      
+    search(Object o) int    返回一个对象在堆栈的位置
+```
+- 线程安全，内部方法采用synchronized关键字加锁
+- 底层采用数组实现，通过下标的方式进行定位
+- 如果不是必须保证线程安全的情况，推荐使用LinkedList
