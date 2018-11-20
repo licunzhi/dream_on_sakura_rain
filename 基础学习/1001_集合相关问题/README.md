@@ -1,6 +1,29 @@
 
 ![集合的结构图](../images/Collections.png)
 
+### Object 爸爸级别
+- 类结构的根类，所有类的爸爸
+- 构造方法
+```java
+    Object() 默认的无参构造器
+    equals(Object obj) 判断对象是否相等
+    finalize() 垃圾回收调用
+    getClass() 返回运行时类
+    hashCode（） 返回对象的哈希值
+    notify() 唤醒正在等待对象监视器的单个线程
+    notifyAll() 唤醒正在等待对象监控的所有线程
+    toString() 返回对象的字符串表示形式
+    wait() 导致当前线程等待，知道另一个线程调用该对象的notify()方法或者notifyAll()
+    wait(long timeout) 导致当前线程等待，直到唤醒方法被调用，或者指定的时间过时
+    wait(long timeout) 导致当前线程等待，直到唤醒方法被调用，或者指定的时间过时， 或某些线程中断当前线程
+```
+- equals()方法重写之后hashCode（）方法重写原因
+    hashCode()方法获取哈希值，在哈希表中可以快速定位的数据元素所在的位置，一旦equals()方法重写之后
+    判断对象是否相等规则被改写，原生的hashCode()方法获取两个不用的对象的哈希值可能不一样，导致获取存储
+    混乱的情况，请注意是在哈希表中有用
+- wait() notify() 结合[多线程](../1002_多线程相关问题/README.md)
+
+
 ### Dictionary
 NOTE: This class is obsolete.  New implementations should implement the Map interface, rather than extending this class.
 古老的键值存储类，推荐使用map替换
