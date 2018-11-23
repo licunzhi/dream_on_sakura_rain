@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
 <head>
     <meta charset="UTF-8">
-    <title>产品收集条件</title>
+    <title>系统设置</title>
+    <script type="text/css">
+    </script>
 </head>
 <body>
-    <h1>产品收集条件</h1>
+<div class="system_info">
+    <div style="margin-bottom: 10px">
+        <button class="btn btn-default">当前cookie</button>
+        <button class="btn change" style="background: cadetblue">切换cookie</button>
+        <button class="btn btn-success confirm-change cookie" disabled>确定切换</button>
+    </div>
+    <textarea style="width: 100%; height: 100px; background: #636363; color: white" id="system_cookie"
+              th:text="${cookie}" disabled></textarea>
+    <div style="margin-bottom: 10px">
+        <button class="btn btn-default">当前延时</button>
+        <button class="btn change" style="background: cadetblue">切换延时</button>
+        <button class="btn btn-success confirm-change" disabled>确定切换</button>
+    </div>
+    <input style="width: 80px; background: #636363; color: white" id="system_time"
+           th:value="${time}" disabled/>毫秒
+</div>
+
+<div class="swagger btn-success" style="float: left; padding: 10px;">
+    <a href="/swagger-ui.html">go to 接口页面</a>
+</div>
 </body>
+<script type="text/javascript">
+    /*禁用消除*/
+    $(".change").click(function () {
+        $(this).next().attr("disabled", false);
+        $(this).parent().next().attr("disabled", false).css("background", "#0f0f0f");
+    });
+    /*重新禁用*/
+    $(".confirm-change").click(function () {
+        $(this).attr("disabled", true);
+        $(this).parent().next().attr("disabled", true).css("background", "#636363");
+    });
+
+    $(".cookie").click(function () {
+        $.ajax({
+            type: "PUT",
+            url: "/product/update/cookie?_t=" + new Date().getTime() + "&cookie=" + $("#system_cookie").val(),
+            //data: {username:$("#username").val(), content:$("#content").val()},
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+</script>
 </html>
