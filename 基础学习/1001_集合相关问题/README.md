@@ -136,4 +136,117 @@ private void grow(int minCapacity) {
 
 
 ### Map interface
+Map接口 传说中的地图   lindex-location
+- 常见使用的接口
+```
+    - int size()                                返回键值对的数量 最大值为maxInteger
+    - boolean isEmpty()                         是否空map
+    - boolean containsKey(Object key)           key值存在性判断
+    - boolean containsValue(Object value)       value值存在行判断
+    - V get(Object key)                         获取key对应的属性值
+    - V put(K key, V value)                     添加键值对信息，返回之前的values或者是key相关的新的values
+    - void putAll(Map<? extends K, ? extends V> m)
+    - V remove(Object key)                      移除key对应的values
+    - void clear()                              清除键值对元素
+    - Set<K> keySet()                           返回set集合
+    - Collection<V> values()                    values的集合信息
+    - Set<Map.Entry<K, V>> entrySet()           返回entry类型的set集合
+```
 
+### HashMap
+- HashMap算是使用较频繁的Map接口实现类   
+    - 提供了键值对属性的操作实现方法，k 允许为空 v 允许为空；和HashTable不同的是它允许为空并且是线程不安全的
+    - 性能参数：初始化容量 DEFAULT_INITIAL_CAPACITY 负载因子 DEFAULT_LOAD_FACTOR（0.75）
+        - 负载因子是容量自动增加之前允许的哈希表满足的所占度量，超出比例重排 resize()方法会变成原来的两倍
+        - 原因 
+            - 负载因子过高减低空间开销，但是会增大查找成本
+            - 如果初始容量大于最大条目数除以负载因子，则不会发生重新排列操作
+    - 线程不安全
+        - 解决办法：
+        <pre>
+            Map m = Collections.synchronizedMap(new HashMap(...));
+         </pre>
+            - 实现原理（源码部分）
+            ```java
+                private static class SynchronizedMap<K,V>
+                        implements Map<K,V>, Serializable {
+                        private static final long serialVersionUID = 1978198479659022715L;
+                
+                        private final Map<K,V> m;     // Backing Map
+                        final Object      mutex;        // Object on which to synchronize
+                
+                        SynchronizedMap(Map<K,V> m) {
+                            this.m = Objects.requireNonNull(m);
+                            mutex = this;
+                        }
+                
+                        SynchronizedMap(Map<K,V> m, Object mutex) {
+                            this.m = m;
+                            this.mutex = mutex;
+                        }
+                
+                        public int size() {
+                            synchronized (mutex) {return m.size();}
+                        }
+                        .......
+                    }
+            ```
+            代码中可以看出使用 final Object = mutex; 定义类锁 synchronize枷锁关键字
+
+
+- 几个重要的方法源码分析
+    - V put​(K key, V value)  创建关联关系
+    ```code
+    调用函数之前进行hash()进行hash值计算
+     public V put(K key, V value) {
+        return putVal(hash(key), key, value, false, true);
+     }
+     
+     源码（闪瞎狗眼）
+                          ↓
+     @param onlyIfAbsent true，进行不覆盖操作
+     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+                        boolean evict) {
+             Node<K,V>[] tab; Node<K,V> p; int n, i;
+             //空Node数组
+             if ((tab = table) == null || (n = tab.length) == 0)
+                 n = (tab = resize()).length;// 初始化操作，默认初始化长度16
+             if ((p = tab[i = (n - 1) & hash]) == null)// 计算站位情况
+                 tab[i] = newNode(hash, key, value, null);
+             else {// 站位已存在
+                 Node<K,V> e; K k;
+                 if (p.hash == hash &&
+                     ((k = p.key) == key || (key != null && key.equals(k))))// 判断hash值和当前的key一样，自己的坑
+                     e = p;
+                 else if (p instanceof TreeNode)// 判断是不是红黑树
+                     e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);//使用红黑树的插入方法
+                 else {
+                     for (int binCount = 0; ; ++binCount) {
+                         if ((e = p.next) == null) {
+                             p.next = newNode(hash, key, value, null);
+                             if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                                 treeifyBin(tab, hash);
+                             break;
+                         }
+                         if (e.hash == hash &&
+                             ((k = e.key) == key || (key != null && key.equals(k))))
+                             break;
+                         p = e;
+                     }
+                 }
+                 if (e != null) { // existing mapping for key
+                     V oldValue = e.value;
+                     if (!onlyIfAbsent || oldValue == null)
+                         e.value = value;
+                     afterNodeAccess(e);
+                     return oldValue;
+                 }
+             }
+             ++modCount;
+             if (++size > threshold)
+                 resize();
+             afterNodeInsertion(evict);
+             return null;
+         }
+    ```
+    
