@@ -1,3 +1,9 @@
+## 实现多线程的四种方式
+    - 继承Thread，重写run()方法
+    - 实现Runnable接口，重写run()方法
+    - 通过线程池创建
+    - Callable和FeatureTask
+
 ### Thread and Runnable
 - 资源共享
 <pre>
@@ -125,3 +131,26 @@ public class MyCallableDemo implements Callable<String> {
     }
 }
 ```
+
+### Executor
+```java
+public class ExecutorDemo implements Callable<String> {
+    @Override
+    public String call() throws Exception {
+        Thread.sleep(1000);
+        return "这是一个具有灵魂的实现方式";
+    }
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorDemo demo = new ExecutorDemo();
+        Future future = executorService.submit(demo);
+        executorService.shutdown();
+        System.out.println(future.get().toString());
+    }
+}
+```
+
+### 总结
+- 使用Callable的实现方式可以获取线程返回值
+- 线程池可以一次执行多个线程，可以获取到线程池中每个线程的执行结果
