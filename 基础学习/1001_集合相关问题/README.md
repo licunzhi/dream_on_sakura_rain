@@ -354,3 +354,55 @@ Map接口 传说中的地图   lindex-location
             return newTab;
         }
     ```
+
+    - 面试问题
+        - 重写equals()方法重写hashCode()  
+            哈希表结构集合，判断数据是否存在使用equals()方法;当数据量增大的时候效率降低。  
+            对每一个对象进行hash值计算存储在table中，每次去存储或者查询数据的时候判断hash  
+            值是否已经存在，进而在调用equals()方法进行比较。因此如果重写了equals()方法，  
+            hashcode也要重写，否则很容器出现hash值不同但是两个对象是相同的情况  
+            <i>洗白了来说：hashCode方法的存在是为了减少equals（）方法调用的次数，提高效率</i>
+            
+        - HashMap的存储结构,工作原理  
+            数组加链表: Node类型数组 Node为链表结构的对象Node([key, value, hash, next])--------[key-value|next]--->[key-value|next]
+            hash值计算存储位置的信息;初始化长度16,长度可以实现自定义，底层代码会实现取初始化数据最接近的2的N次幂  
+            负载因子初始化值0.75,可以自定义,没有合理的修改会导致存取的效率降低  
+            超出 默认大小*负载因子的时候会自动进行扩容,实现方式通过调用resize()方法，移位操作扩展为原来的两倍  
+            java8之后在链表长度超出8的时候使用红黑树结构，之前的链表结构依然存在通过使用Node的next属性维持
+            
+        - 定义线程安全的HashMap  
+              Map<K, V> hashMap = new HashMap<>();  
+              Map<K, V> map = Collections.synchronizedMap(hashMap);  
+              底层使用synchronized关键字  
+              无论如何使用效率没有办法和concurrentHashMap相比
+                
+        - HashSet之间的区别  
+              实现Set接口，不允许出现重复的值 这个问题保留到Set讲解的部分问题
+              
+        - HashMap的使用场景  
+              键值映射，键唯一 
+             
+        - HashMap的数据如何获取  
+            通过计算hash值直接获取对应values，如果计算的时候出现hash值相同的情况，需要进而使用equals()方法再次比较  
+            因此使用String Integer这种包装类作为键存储是比较好的选择，可以避免出现hash值碰撞的情况 collision detection
+            
+        - HashMap容量超出之后如何进行处理  
+            默认的负载因子是0.75，默认容量大小是16，本质上是超出16*0.75就会出现扩容操作resize()方法，扩大为原来的两倍  
+            原来的对象放在新的数组中--rehashing  
+            查出阈值8会变成红黑树
+            
+        - HashMap大小重新调整出现的问题  
+            多线程导致条件竞争,多个扩容请求,链表在多线程条件下变成循环链表死循环  
+            过多的赋值旧数组到新的数据也会导致效率降低,扩容次数决定的关键因素除了默认的初始化大小问题，还有负载因子的大小  
+            复制操作是一个比较耗时的操作，重新计算元素的位置
+            
+        - String Integer包装类为什么适合作为键  
+            final 稳定不可变 重写hashCode()和equals()方法 hashCode()获取的属性值稳定性越高碰撞的概率就越小  
+            你也可以自定义键值对象，但是必须满足hashCode和equals定义的方法规则
+            
+        - ConCurrentHashMap可以代替HashTable  
+            可以，段锁segment 提高效率 但是HashTable更加安全
+        
+        - HashMap不安全如何体现  
+            多线程put操作可能会出现覆盖操作  
+            多线程扩容触发操作，循环链表死循环
