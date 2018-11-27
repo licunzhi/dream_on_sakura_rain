@@ -1,10 +1,10 @@
 
-![集合的结构图](../images/Collections.png)
+![Collections](../images/Collections.png "binaryTree")
 
 ### Object 爸爸级别
 - 类结构的根类，所有类的爸爸
 - 构造方法
-```java
+```code
     Object() 默认的无参构造器
     equals(Object obj) 判断对象是否相等
     finalize() 垃圾回收调用
@@ -41,20 +41,19 @@ to use {@link java.util.concurrent.ConcurrentHashMap} in place of
 
 为什么？
 加锁机制是为了实现数据的读取或者是修改的安全性，hashTable使用方法枷锁的方式实现调用方法时全局枷锁，具体代码源码
-```java
+```code
 public synchronized V put(K key, V value) {
-        // Make sure the value is not null
+        // 不允许出现null值 
         if (value == null) {
             throw new NullPointerException();
         }
 
-        // Makes sure the key is not already in the hashtable.
         Entry<?,?> tab[] = table;
         int hash = key.hashCode();
         int index = (hash & 0x7FFFFFFF) % tab.length;
         @SuppressWarnings("unchecked")
-        Entry<K,V> entry = (Entry<K,V>)tab[index];
-        for(; entry != null ; entry = entry.next) {
+        Entry<K,V> entry = (Entry<K,V>)tab[index];// 取模运算获存储的位置信息
+        for(; entry != null ; entry = entry.next) {// 如果位置占用状态，旧值覆盖并返回
             if ((entry.hash == hash) && entry.key.equals(key)) {
                 V old = entry.value;
                 entry.value = value;
@@ -62,11 +61,66 @@ public synchronized V put(K key, V value) {
             }
         }
 
-        addEntry(hash, key, value, index);
-      
+        addEntry(hash, key, value, index);// 添加新值操作
+        return null;
+    }
+    
+    
+    
+    
+    private void addEntry(int hash, K key, V value, int index) {
+            Entry<?,?> tab[] = table;
+            if (count >= threshold) {
+                // 超出容量rehash操作
+                rehash();
+    
+                tab = table;
+                hash = key.hashCode();
+                index = (hash & 0x7FFFFFFF) % tab.length;
+            }
+    
+            // Creates the new entry.
+            @SuppressWarnings("unchecked")
+            Entry<K,V> e = (Entry<K,V>) tab[index];
+            tab[index] = new Entry<>(hash, key, value, e);
+            count++;
+            modCount++;
+        }  
+        
+        
+        
+        protected void rehash() {
+                int oldCapacity = table.length;
+                Entry<?,?>[] oldMap = table;
+        
+                // 扩容操作2n+1
+                int newCapacity = (oldCapacity << 1) + 1;
+                if (newCapacity - MAX_ARRAY_SIZE > 0) {// 扩容长度是否超过了限制
+                    if (oldCapacity == MAX_ARRAY_SIZE)
+                        // Keep running with MAX_ARRAY_SIZE buckets
+                        return;
+                    newCapacity = MAX_ARRAY_SIZE;
+                }
+                Entry<?,?>[] newMap = new Entry<?,?>[newCapacity];
+        
+                modCount++;
+                threshold = (int)Math.min(newCapacity * loadFactor, MAX_ARRAY_SIZE + 1);
+                table = newMap;
+        
+                for (int i = oldCapacity ; i-- > 0 ;) {
+                    for (Entry<K,V> old = (Entry<K,V>)oldMap[i] ; old != null ; ) {
+                        Entry<K,V> e = old;
+                        old = old.next;
+        
+                        int index = (e.hash & 0x7FFFFFFF) % newCapacity;
+                        e.next = (Entry<K,V>)newMap[index];
+                        newMap[index] = e;
+                    }
+                }
+            }
 ```
 而concurrent相当于有多个hashTable，同时可以在不同的hashTable中多个加锁操作
-```java
+```code
 public V get(Object key) {
         Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
         int h = spread(key.hashCode());
@@ -88,6 +142,8 @@ public V get(Object key) {
     }
 ```
 
+   - 初始化参数  
+    默认大小11 每次扩展为原来的2n+1
 
 ### Vector
 - Vector是线程安全的，效率上来说应该是比ArrayList低
@@ -96,7 +152,7 @@ public V get(Object key) {
 - 只能在尾部进行插入删除操作
 
 存储空间翻倍的原因
-```java
+```code
 private void grow(int minCapacity) {
         // overflow-conscious code
         int oldCapacity = elementData.length;
@@ -117,12 +173,12 @@ private void grow(int minCapacity) {
 
 - 扩展了Vector与五个操作，堆栈操作 具备基本操作push peek，检测是否empty 以及search方法
 - 更优化更多操作的类可以使用 **Deque** （后面探究） ，使用方式
-   ```java
+```code
        Deque<Integer> stack = new ArrayDeque<Integer>();
-    ``` 
+``` 
 - 起始版本1.0，古老的一个类
 - 方法简介
-```java
+```code
     Stack()                 创建一个空堆栈
     empty() boolean         判断堆栈是否为空
     peek() E                查看堆栈的顶部对象，不做删除操作
