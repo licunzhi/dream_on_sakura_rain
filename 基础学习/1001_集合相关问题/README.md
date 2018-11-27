@@ -304,28 +304,32 @@ Map接口 传说中的地图   lindex-location
             threshold = newThr;
             @SuppressWarnings({"rawtypes","unchecked"})// 下面这段代码可以解释为什么自定义初始化的Map容量或者是不合理的负载因子会导致存储的效率降低的原因
             Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];// 创建新容量大小的链表
-            table = newTab;
+            table = newTab;// 指向新创建大小容量的节点数组
             if (oldTab != null) {
                 for (int j = 0; j < oldCap; ++j) {
                     Node<K,V> e;
                     if ((e = oldTab[j]) != null) {
                         oldTab[j] = null;
-                        if (e.next == null)
-                            newTab[e.hash & (newCap - 1)] = e;
-                        else if (e instanceof TreeNode)
+                        if (e.next == null)// 只存在一个元素直接存放
+                            newTab[e.hash & (newCap - 1)] = e;// 找到赋值数组位置（取模计算定位）
+                                                              //[hash值  %   数组长度]   =    [hash值   & （数组长度-1）]
+                                                              //这种方法适合所有的2的N次幂计算，就算是自定义的初始化长度代码也会自动转换成近似2的N次幂
+                        else if (e instanceof TreeNode)// 红黑树的处理--具体方法以后分析
                             ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
                         else { // preserve order
-                            Node<K,V> loHead = null, loTail = null;
-                            Node<K,V> hiHead = null, hiTail = null;
+                            Node<K,V> loHead = null, loTail = null;// 低位首尾节点
+                            Node<K,V> hiHead = null, hiTail = null;// 高位首尾节点
+                            // 参照网上讲解：0-----------------------------oldCap-1----------------------newCap-1
+                            //             |______________loHead_______________|_______hiTail_______________|
                             Node<K,V> next;
                             do {
                                 next = e.next;
-                                if ((e.hash & oldCap) == 0) {
-                                    if (loTail == null)
+                                if ((e.hash & oldCap) == 0) {// 和老数组长度进行运算，之前的元素还是存放到之前的位置
+                                    if (loTail == null)// 没有为尾节点
                                         loHead = e;
                                     else
-                                        loTail.next = e;
-                                    loTail = e;
+                                        loTail.next = e;// 悬挂在尾节点
+                                    loTail = e;// 设置新的尾节点
                                 }
                                 else {
                                     if (hiTail == null)
@@ -335,11 +339,11 @@ Map接口 传说中的地图   lindex-location
                                     hiTail = e;
                                 }
                             } while ((e = next) != null);
-                            if (loTail != null) {
+                            if (loTail != null) {// 低位元素组成的链表还是存放到之前的位置
                                 loTail.next = null;
                                 newTab[j] = loHead;
                             }
-                            if (hiTail != null) {
+                            if (hiTail != null) {// 高位存放的位置是老的容量基础之上加定位
                                 hiTail.next = null;
                                 newTab[j + oldCap] = hiHead;
                             }
