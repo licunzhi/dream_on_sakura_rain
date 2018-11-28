@@ -488,4 +488,16 @@ Map接口 传说中的地图   lindex-location
 - 已知实现类(后面立刻介绍这两个实现类)  
     TreeMap  
     ConcurrentSkipListMap  
+    
+    
+### TreeMap
+- TreeMap基于红黑树的实现，自然排序或者是构造形式的方式排序
+- 非线程安全的集合（Collections.synchronizedSortedMap创建线程安全地图）
+- 实现NavigableMap,提供一系列的导航方法
+
+备注:知道非线程安全的，适用于默认排序或者是自定义排序存储
+
+
+
+### LinkedHashMap
 
