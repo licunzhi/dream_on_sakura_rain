@@ -1,0 +1,26 @@
+server:
+  port: 8088 #server running port
+
+spring:
+  application:
+    # after eureka register show name
+    name: cloud-user-service-demo-8088
+  # the druid database configurations
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/CloudDb01
+    username: root
+    password: 123
+    # database connection pool configuration
+    dbcp2:
+      min-idle: 5 # the min survive counts connections in the pool
+      initial-size: 5 # init the amount of connections
+      max-total: 5 # max counts of connections
+      max-wait-millis: 200 # max time to get a connection
+
+# config the mybatis information
+mybatis:
+  config-location: classpath:mybatis/mybatis-cfg.xml
+  type-aliases-package: com.sakura.rain.entity
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
