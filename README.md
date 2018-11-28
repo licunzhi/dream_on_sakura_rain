@@ -1,5 +1,6 @@
 # dream_on_sakura_rain
 项目下有更不同的demo，运行执行指定的项目模块即可
+- plumparkparentlock 父类maven模块
 
 ### 模块列表
 - [冒泡算法](./bubble_sorting_demo)
