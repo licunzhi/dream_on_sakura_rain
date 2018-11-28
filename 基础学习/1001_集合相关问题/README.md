@@ -462,3 +462,9 @@ Map接口 传说中的地图   lindex-location
         - HashMap不安全如何体现  
             多线程put操作可能会出现覆盖操作  
             多线程扩容触发操作，循环链表死循环
+
+
+### SortedMap
+- SortedMap不如HashMap速度
+- SortedMap存储的key类型需要实现Comparable接口,或者支持自定义排序
+- 

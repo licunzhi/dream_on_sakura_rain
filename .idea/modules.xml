@@ -11,7 +11,9 @@
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" filepath="$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/plumparkparentlock/plumparkparentlock.iml" filepath="$PROJECT_DIR$/plumparkparentlock/plumparkparentlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/quartz_demo/quartz_demo.iml" filepath="$PROJECT_DIR$/quartz_demo/quartz_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sondemotest/sondemotest.iml" filepath="$PROJECT_DIR$/sondemotest/sondemotest.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-html/springboot-html.iml" filepath="$PROJECT_DIR$/springboot-html/springboot-html.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" filepath="$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" />
