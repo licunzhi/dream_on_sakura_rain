@@ -500,4 +500,16 @@ Map接口 传说中的地图   lindex-location
 
 
 ### LinkedHashMap
+![方法介绍](../images/LinkedHashMap.png)
+- 双向链表 HashMap组装成一个双向链表
+- 非同步（ Map m = Collections.synchronizedMap(new LinkedHashMap(...)); ）
+- LinkedHashMap能够按照插入的书序进行遍历操作
+- Entry对象被修改为after before
 
+
+### ConcurrentHashMap(important)
+- 支持检索的完全并发性和更新的高预期并发性的哈希表。符合HashTable相同的功能规范
+- 默认的并发度16
+- 采用段枷锁，弱一致性，取出的数据可能是已经过时的数据  
+    顺序枷锁遍历计算，然后释放，释放之后的部分可以进行插入取数据操作；因此结果获取的时候前面的一部分数据有可能已经改变了
+- 初始化大小16 负载因.75 可以设置concurrencyLevel 更新并发订度
