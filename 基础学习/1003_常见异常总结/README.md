@@ -1,0 +1,4 @@
+ClassCastException 类型转化异常
+NUllPointerException 空指针异常
+IllegalArgumentException 参数不合法异常
+NoSuchElementException 没有元素异常

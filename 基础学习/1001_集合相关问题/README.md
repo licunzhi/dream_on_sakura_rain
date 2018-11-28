@@ -464,7 +464,28 @@ Map接口 传说中的地图   lindex-location
             多线程扩容触发操作，循环链表死循环
 
 
-### SortedMap
+### SortedMap interface
 - SortedMap不如HashMap速度
 - SortedMap存储的key类型需要实现Comparable接口,或者支持自定义排序
-- 
+- 标准的构造函数：  
+    1、一个void（无参数）构造函数，它创建一个根据其键的自然顺序排序的空排序映射  
+    2、具有Comparator类型的单个参数的构造函数，它创建根据指定的比较器排序的空的排序映射  
+    3、一个具有类型为Map的单个参数的构造函数，它创建一个与其参数具有相同键值映射的新映射，根据密钥的自然排序进行排序  
+    4、一个具有类型为SortedMap的单个参数的构造函数，它创建一个具有相同键值映射和与输入排序映射相同顺序的新的排序映射。
+- 方法介绍：  
+    Comparator<? super K> comparator​() 默认按照主键自然排序  
+    SortedMap<K,V> subMap​(K fromKey,K toKey) 关键字范围内的截取  
+    SortedMap<K,V> headMap​(K toKey) 首部开始到tokey部分  
+    SortedMap<K,V> tailMap​(K fromKey) 大于等于tokey到尾部部分  
+    K firstKey​() 获取低位键  
+    K lastKey() 高位键  
+    Set<K> keySet() 返回键Set视图  
+    Collection<V> values() 值集合数据  
+    Set<Map.Entry<K,V>> entrySet​()
+- 已知子接口
+    ConcurrentNavigableMap<K, V>  
+    NavigableMap<k, V>
+- 已知实现类(后面立刻介绍这两个实现类)  
+    TreeMap  
+    ConcurrentSkipListMap  
+
