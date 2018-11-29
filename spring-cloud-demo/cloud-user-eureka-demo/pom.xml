@@ -9,14 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-user-service-demo</artifactId>
+    <artifactId>cloud-user-eureka-demo</artifactId>
 
     <dependencies>
+        <!--eureka-server服务端 -->
         <dependency>
-            <groupId>com.sakura.rain</groupId>
-            <artifactId>cloud-user-api-demo</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
+
         <!-- 修改后立即生效，热部署 -->
         <dependency>
             <groupId>org.springframework</groupId>

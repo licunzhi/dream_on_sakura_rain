@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/cloud-user-service-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/cloud-user-service-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
