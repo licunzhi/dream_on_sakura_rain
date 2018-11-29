@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.beans.factory.annotation.Autowired" />
+    </list>
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/springboot-redis-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot_resttemplate_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_date_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_excel_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-html/pom.xml" />
-        <option value="$PROJECT_DIR$/quartz_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/plumparkparentlock/pom.xml" />
-        <option value="$PROJECT_DIR$/sondemotest/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/pom.xml" />
       </list>
     </option>
   </component>

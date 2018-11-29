@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.rain.dao.UserDao">
+
+    <sql id="Base_Column_List">
+         id, name, db_source
+    </sql>
+
+    <insert id="insertUserModel" parameterType="com.sakura.rain.entity.User">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            db_source,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            DATABASE()
+        </trim>
+    </insert>
+
+    <select id="getUser" resultType="com.sakura.rain.entity.User" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE id=#{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getAllUser" resultType="com.sakura.rain.entity.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+    </select>
+
+
+</mapper>
