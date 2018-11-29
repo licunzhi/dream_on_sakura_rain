@@ -1,0 +1,19 @@
+package com.sakura.rain.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * @author licunzhi
+ * @desc 初始化配置
+ * @date 2018-11-29
+ */
+@Configuration
+public class ConfigurationBean {
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+}

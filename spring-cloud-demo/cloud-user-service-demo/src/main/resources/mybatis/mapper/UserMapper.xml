@@ -6,23 +6,18 @@
          id, name, db_source
     </sql>
 
-    <insert id="insertUserModel" parameterType="com.sakura.rain.entity.User">
+    <insert id="insertUserModel" parameterType="com.sakura.rain.entity.User"
+    useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="name != null">
                 name,
             </if>
-            db_source,
+            db_source
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
             <if test="name != null">
-                #{id,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
             </if>
             DATABASE()
         </trim>
