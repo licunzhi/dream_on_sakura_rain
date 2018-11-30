@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-user-eureka-demo-next</artifactId>
+    <artifactId>cloud-eureka-demo-final</artifactId>
 
     <dependencies>
         <!--eureka-server服务端 -->
