@@ -89,6 +89,9 @@
         <module>cloud-user-api-demo</module><!--创建公共model-->
         <module>cloud-user-service-demo</module><!--创建服务service-->
         <module>cloud-user-eureka-demo</module>
+        <module>cloud-user-service-demo-next</module>
+        <module>cloud-user-service-demo-final</module>
+        <module>cloud-user-eureka-demo-next</module>
     </modules>
 
 </project>

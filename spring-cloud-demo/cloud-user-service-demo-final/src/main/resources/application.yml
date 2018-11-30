@@ -1,9 +1,9 @@
 server:
-  port: 8088 #server running port
+  port: 8090 #server running port
 
 spring:
   application:
-    name: cloud-user-service-demo-8088
+    name: cloud-user-service-demo-8090
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
@@ -26,11 +26,11 @@ eureka:
     service-url:
       defaultZone: http://eureka8001.com:8001/eureka/
   instance:
-    instance-id: cloud-user-demo-8088 # 自定义展示名称
+    instance-id: cloud-user-demo-8090 # 自定义展示名称
     prefer-ip-address: true # 浮动是否展示ip
 
 info:
-  app.name: sakura-cloud-user-demo
-  company.name: www.sakura.com
+  app.name: atguigu-microservicecloud
+  company.name: www.atguigu.com
   build.artifactId: $project.artifactId$
   build.version: $project.version$
