@@ -516,3 +516,104 @@ Map接口 传说中的地图   lindex-location
 
 
 ### Collection interface
+- 指定的元素添加到指定的集合中addAll()
+- 返回Deque作为先进先出的lifo队列视图
+- sort() 按照默认的顺序进行排序 列表中的元素必须实现Comparable接口 元素必须是可以进行相互比较的  
+    列表可以斯可修改的，但是不能调整大小
+- reverse()列表翻转
+- swap()位置切换
+- fill()指定元素进行替换
+- copy()对象拷贝
+- 一系列的通过集合操作方法
+
+重点问题  
+sort()排序的问题  
+外层的代码
+```code
+// 默认没有比较器的时候
+public static <T extends Comparable<? super T>> void sort(List<T> list) {
+    list.sort(null);
+}
+
+list的sort方法
+@SuppressWarnings({"unchecked", "rawtypes"})
+default void sort(Comparator<? super E> c) {// 从方法中参数可以看出来 传入的参数加上了泛型约束
+    Object[] a = this.toArray();
+    Arrays.sort(a, (Comparator) c);// 然后本质上还是使用了数组的sort方法
+    ListIterator<E> i = this.listIterator();
+    for (Object e : a) {
+        i.next();
+        i.set((E) e);
+    }
+}
+
+Arrays的sort方法
+public static <T> void sort(T[] a, Comparator<? super T> c) {
+    if (c == null) {// 没有传入比较器的时候按照默认的方式进行比较
+        sort(a);--------------------------------------------------------------------------------
+    } else {                                                                                   |
+        if (LegacyMergeSort.userRequested)                                                     |
+            legacyMergeSort(a, c);                                                             |
+        else                                                                                   |
+            TimSort.sort(a, 0, a.length, c, null, 0, 0);                                       |
+    }                                                                                          |
+}                                                                                              |
+                                               ------------------------------------------------|
+                                               ↓
+                                               public static void sort(Object[] a) {
+                                                       if (LegacyMergeSort.userRequested)
+                                                           legacyMergeSort(a);// 归并排序的方法---------------------------
+                                                       else                                                            |
+                                                           ComparableTimSort.sort(a, 0, a.length, null, 0, 0);         |
+                                                   }                                                                   |
+   --------------------------------------------------------------------------------------------------------------------
+   ↓
+   /** To be removed in a future release. */ //注解拷贝过来的原因，未来的版本会移除这种归并排序的方式
+   private static void legacyMergeSort(Object[] a) {
+       Object[] aux = a.clone();// 拷贝一份
+       mergeSort(aux, a, 0, a.length, 0); ------------------------------------------
+   }                                                                                |
+                                        --------------------------------------------
+                                        ↓
+@SuppressWarnings({"unchecked", "rawtypes"})// 这是最终算法实现的代码
+    private static void mergeSort(Object[] src, // 源信息
+                                  Object[] dest,// 结合代码应该是最终到达的位置
+                                  int low,
+                                  int high,
+                                  int off) {
+        int length = high - low;
+
+        // Insertion sort on smallest arrays
+        if (length < INSERTIONSORT_THRESHOLD) {
+            for (int i=low; i<high; i++)
+                for (int j=i; j>low &&
+                         ((Comparable) dest[j-1]).compareTo(dest[j])>0; j--)
+                    swap(dest, j, j-1);
+            return;
+        }
+
+        // Recursively sort halves of dest into src
+        int destLow  = low;
+        int destHigh = high;
+        low  += off;
+        high += off;
+        int mid = (low + high) >>> 1;
+        mergeSort(dest, src, low, mid, -off);
+        mergeSort(dest, src, mid, high, -off);
+
+        // If list is already sorted, just copy from src to dest.  This is an
+        // optimization that results in faster sorts for nearly ordered lists.
+        if (((Comparable)src[mid-1]).compareTo(src[mid]) <= 0) {
+            System.arraycopy(src, low, dest, destLow, length);
+            return;
+        }
+
+        // Merge sorted halves (now in src) into dest
+        for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+            if (q >= high || p < mid && ((Comparable)src[p]).compareTo(src[q])<=0)
+                dest[i] = src[p++];
+            else
+                dest[i] = src[q++];
+        }
+    }
+```
