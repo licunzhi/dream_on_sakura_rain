@@ -532,22 +532,24 @@ sort()排序的问题
 ```code
 // 默认没有比较器的时候
 public static <T extends Comparable<? super T>> void sort(List<T> list) {
-    list.sort(null);
-}
-
+    list.sort(null);------------------------------|
+}                                                 |
+                ----------------------------------|
+                ↓
 list的sort方法
 @SuppressWarnings({"unchecked", "rawtypes"})
 default void sort(Comparator<? super E> c) {// 从方法中参数可以看出来 传入的参数加上了泛型约束
     Object[] a = this.toArray();
-    Arrays.sort(a, (Comparator) c);// 然后本质上还是使用了数组的sort方法
-    ListIterator<E> i = this.listIterator();
-    for (Object e : a) {
-        i.next();
-        i.set((E) e);
-    }
-}
-
-Arrays的sort方法
+    // 然后本质上还是使用了数组的sort方法
+    Arrays.sort(a, (Comparator) c);----------------------------
+    ListIterator<E> i = this.listIterator();                  |
+    for (Object e : a) {                                      |
+        i.next();                                             |
+        i.set((E) e);                                         |
+    }                                                         |
+}                                                             |
+                            -----------------------------------                            
+Arrays的sort方法             ↓
 public static <T> void sort(T[] a, Comparator<? super T> c) {
     if (c == null) {// 没有传入比较器的时候按照默认的方式进行比较
         sort(a);--------------------------------------------------------------------------------
@@ -576,20 +578,27 @@ public static <T> void sort(T[] a, Comparator<? super T> c) {
                                         --------------------------------------------
                                         ↓
 @SuppressWarnings({"unchecked", "rawtypes"})// 这是最终算法实现的代码
-    private static void mergeSort(Object[] src, // 源信息
-                                  Object[] dest,// 结合代码应该是最终到达的位置
-                                  int low,
-                                  int high,
-                                  int off) {
+    private static void mergeSort(Object[] src, // 结果
+                                  Object[] dest,// 操作源数据
+                                  int low, //低位开始
+                                  int high, //结束长度
+                                  int off) {// 计算数据的次数
         int length = high - low;
 
         // Insertion sort on smallest arrays
-        if (length < INSERTIONSORT_THRESHOLD) {
+        if (length < INSERTIONSORT_THRESHOLD) {// 小数组排序7 内外双层循环 时间复杂度o(n^2)
             for (int i=low; i<high; i++)
                 for (int j=i; j>low &&
-                         ((Comparable) dest[j-1]).compareTo(dest[j])>0; j--)
-                    swap(dest, j, j-1);
-            return;
+                         ((Comparable) dest[j-1]).compareTo(dest[j])>0; j--)// 可以解释为什么是升序的原因
+                    swap(dest, j, j-1);-------------------------------------------
+            return;                                                                ↘ /**
+                                                                                     * Swaps x[a] with x[b]. 交换两个元素之间的位置
+                                                                                     */
+                                                                                     private static void swap(Object[] x, int a, int b) {
+                                                                                         Object t = x[a];
+                                                                                         x[a] = x[b];
+                                                                                         x[b] = t;
+                                                                                     }
         }
 
         // Recursively sort halves of dest into src
@@ -597,18 +606,18 @@ public static <T> void sort(T[] a, Comparator<? super T> c) {
         int destHigh = high;
         low  += off;
         high += off;
-        int mid = (low + high) >>> 1;
+        int mid = (low + high) >>> 1;// 大路两边 分别循环调用
         mergeSort(dest, src, low, mid, -off);
         mergeSort(dest, src, mid, high, -off);
 
         // If list is already sorted, just copy from src to dest.  This is an
         // optimization that results in faster sorts for nearly ordered lists.
         if (((Comparable)src[mid-1]).compareTo(src[mid]) <= 0) {
-            System.arraycopy(src, low, dest, destLow, length);
+            System.arraycopy(src, low, dest, destLow, length);// 完成排序数据拷贝到src中之后操作结束
             return;
         }
 
-        // Merge sorted halves (now in src) into dest
+        // Merge sorted halves (now in src) into dest 合并排序的两部分信息
         for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
             if (q >= high || p < mid && ((Comparable)src[p]).compareTo(src[q])<=0)
                 dest[i] = src[p++];
