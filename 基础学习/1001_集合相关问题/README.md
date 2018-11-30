@@ -679,3 +679,19 @@ static <T> void sort(T[] a, int lo, int hi, Comparator<? super T> c,
     }
 
 ```
+
+
+
+### List interface
+#### 实现类
+- ArrayList
+- LinkedList
+- Vector
+
+
+
+### ArrayList
+- 非线程安全的
+- 默认大小10 private static final int DEFAULT_CAPACITY = 10;
+- 
+
