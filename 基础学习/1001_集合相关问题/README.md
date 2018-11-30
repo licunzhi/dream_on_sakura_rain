@@ -554,9 +554,9 @@ public static <T> void sort(T[] a, Comparator<? super T> c) {
     if (c == null) {// 没有传入比较器的时候按照默认的方式进行比较
         sort(a);--------------------------------------------------------------------------------
     } else {                                                                                   |
-        if (LegacyMergeSort.userRequested)                                                     |
+        if (LegacyMergeSort.userRequested)// 使用传统的归并排序                                   |
             legacyMergeSort(a, c);                                                             |
-        else                                                                                   |
+        else// 改进之后的归并排序                                                                 |
             TimSort.sort(a, 0, a.length, c, null, 0, 0);                                       |
     }                                                                                          |
 }                                                                                              |
@@ -586,7 +586,7 @@ public static <T> void sort(T[] a, Comparator<? super T> c) {
         int length = high - low;
 
         // Insertion sort on smallest arrays
-        if (length < INSERTIONSORT_THRESHOLD) {// 小数组排序7 内外双层循环 时间复杂度o(n^2)
+        if (length < INSERTIONSORT_THRESHOLD) {// 小数组排序7 采用插入排序
             for (int i=low; i<high; i++)
                 for (int j=i; j>low &&
                          ((Comparable) dest[j-1]).compareTo(dest[j])>0; j--)// 可以解释为什么是升序的原因
@@ -625,4 +625,57 @@ public static <T> void sort(T[] a, Comparator<? super T> c) {
                 dest[i] = src[q++];
         }
     }
+    
+    
+使用传统的归并排序
+TimSort.sort(a, 0, a.length, c, null, 0, 0); // 重要的思想就是分区合并
+
+static <T> void sort(T[] a, int lo, int hi, Comparator<? super T> c,
+                         T[] work, int workBase, int workLen) {
+        assert c != null && a != null && lo >= 0 && lo <= hi && hi <= a.length;
+
+        int nRemaining  = hi - lo;
+        if (nRemaining < 2)// 没有数据或者是只有一个数据元素的不进行排序操作
+            return;  // Arrays of size 0 and 1 are always sorted
+
+        // If array is small, do a "mini-TimSort" with no merges// 长度限制在32以内使用mini-TimSort 使用的二分排序算法
+        if (nRemaining < MIN_MERGE) {
+            int initRunLen = countRunAndMakeAscending(a, lo, hi, c);//需要降序或者是升序的元素个数
+            binarySort(a, lo, hi, lo + initRunLen, c);// 采用二分法
+            return;
+        }
+        //后面的代码老子实在是玩不动了
+        /**
+         * March over the array once, left to right, finding natural runs,
+         * extending short natural runs to minRun elements, and merging runs
+         * to maintain stack invariant.
+         */
+        TimSort<T> ts = new TimSort<>(a, c, work, workBase, workLen);
+        int minRun = minRunLength(nRemaining);
+        do {
+            // Identify next run
+            int runLen = countRunAndMakeAscending(a, lo, hi, c);
+
+            // If run is short, extend to min(minRun, nRemaining)
+            if (runLen < minRun) {
+                int force = nRemaining <= minRun ? nRemaining : minRun;
+                binarySort(a, lo, lo + force, lo + runLen, c);
+                runLen = force;
+            }
+
+            // Push run onto pending-run stack, and maybe merge
+            ts.pushRun(lo, runLen);
+            ts.mergeCollapse();
+
+            // Advance to find next run
+            lo += runLen;
+            nRemaining -= runLen;
+        } while (nRemaining != 0);
+
+        // Merge all remaining runs to complete sort
+        assert lo == hi;
+        ts.mergeForceCollapse();
+        assert ts.stackSize == 1;
+    }
+
 ```
