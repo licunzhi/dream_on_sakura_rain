@@ -5,21 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/cloud-user-service-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/cloud-user-service-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java_date_demo/java_date_demo.iml" filepath="$PROJECT_DIR$/java_date_demo/java_date_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" filepath="$PROJECT_DIR$/java_excel_demo/java_excel_demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" filepath="$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />
-      <module fileurl="file://$PROJECT_DIR$/plumparkparentlock/plumparkparentlock.iml" filepath="$PROJECT_DIR$/plumparkparentlock/plumparkparentlock.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quartz_demo/quartz_demo.iml" filepath="$PROJECT_DIR$/quartz_demo/quartz_demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sondemotest/sondemotest.iml" filepath="$PROJECT_DIR$/sondemotest/sondemotest.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-html/springboot-html.iml" filepath="$PROJECT_DIR$/springboot-html/springboot-html.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" filepath="$PROJECT_DIR$/springboot-redis-demo/springboot-redis-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" filepath="$PROJECT_DIR$/springboot_resttemplate_demo/springboot_resttemplate_demo.iml" />
     </modules>
   </component>
 </project>

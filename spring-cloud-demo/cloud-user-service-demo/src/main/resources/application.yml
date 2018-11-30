@@ -20,3 +20,17 @@ mybatis:
   config-location: classpath:mybatis/mybatis-cfg.xml
   type-aliases-package: com.sakura.rain.entity
   mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://eureka8001.com:8001/eureka/
+  instance:
+    instance-id: cloud-user-provider-demo-8088 # 自定义展示名称
+    prefer-ip-address: true # 浮动是否展示ip
+
+info:
+  app.name: atguigu-microservicecloud
+  company.name: www.atguigu.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
