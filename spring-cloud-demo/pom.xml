@@ -93,6 +93,7 @@
         <module>cloud-user-service-demo-final</module>
         <module>cloud-user-eureka-demo-next</module>
         <module>cloud-eureka-demo-final</module>
+        <module>cloud-user-consumer-demo</module>
     </modules>
 
 </project>

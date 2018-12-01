@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: cloud-user-service-demo-8088
+    name: cloud-user-service-demo # eureka上显示的服务名称标识
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
