@@ -21,7 +21,8 @@ import java.util.Map;
 @RestController
 public class UserController {
 
-    private static final String USER_URL = "http://cloud-user-demo-8088:8088";
+//    private static final String USER_URL_PREFIX = "http://cloud-user-demo-8088:8088";
+    private static final String USER_URL_PREFIX = "http://CLOUD-USER-SERVICE-DEMO";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -30,16 +31,16 @@ public class UserController {
     public User getUser(@PathVariable Long id) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        return restTemplate.getForObject(USER_URL+"/user/get/{id}", User.class, params);
+        return restTemplate.getForObject(USER_URL_PREFIX+"/user/get/{id}", User.class, params);
     }
 
     @GetMapping("/user/list")
     public List list() {
-        return restTemplate.getForObject(USER_URL+"/user/list", List.class);
+        return restTemplate.getForObject(USER_URL_PREFIX+"/user/list", List.class);
     }
 
     @PostMapping("/user/create")
     public boolean create(@RequestBody User user) {
-        return restTemplate.postForObject(USER_URL+"/user/create", user, Boolean.class);
+        return restTemplate.postForObject(USER_URL_PREFIX+"/user/create", user, Boolean.class);
     }
 }

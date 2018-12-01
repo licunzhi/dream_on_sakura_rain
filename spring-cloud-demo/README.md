@@ -1,7 +1,9 @@
-### 这是一个SpringCloud的项目demo
+### 这是一个SpringCloud的项目demo（项目介绍的顺序就是项目启动的顺序）
 
-- cloud-user-api-demo: 消费者信息80
-- cloud-user-service-demo：用户服务模块8088
+- cloud-user-eureka-demo
+- cloud-user-service-demo
+- cloud-user-consumer-demo
+- cloud-user-api-demo
 
 
 提示信息完善解决方案  
