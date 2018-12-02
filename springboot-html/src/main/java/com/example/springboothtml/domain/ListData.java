@@ -1,8 +1,10 @@
 package com.example.springboothtml.domain;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.swing.Icon;
 import java.util.List;
 
 /**
@@ -105,6 +107,11 @@ public class ListData {
                     @ApiModelProperty(value = "图片链接")
                     private String pic_url;//详情链接
 
+                    private List<Icon> icon;
+
+                    @ApiModelProperty(value = "天猫卖家信息")
+                    private ShopCard shopcard;
+
                     public String getTitle() {
                         return title;
                     }
@@ -173,8 +180,57 @@ public class ListData {
                         return pic_url;
                     }
 
+                    public List<Icon> getIcon() {
+                        return icon;
+                    }
+
+                    public void setIcon(List<Icon> icon) {
+                        this.icon = icon;
+                    }
+
                     public void setPic_url(String pic_url) {
                         this.pic_url = pic_url;
+                    }
+
+                    public ShopCard getShopcard() {
+                        return shopcard;
+                    }
+
+                    public void setShopcard(ShopCard shopcard) {
+                        this.shopcard = shopcard;
+                    }
+
+                    public static class ShopCard {
+                        private boolean isTmall;
+
+                        public boolean isTmall() {
+                            return isTmall;
+                        }
+
+                        public void setTmall(boolean tmall) {
+                            isTmall = tmall;
+                        }
+                    }
+
+                    public static class Icon {
+                        private String title;
+                        private String dom_class;// 金牌卖家的是：icon-service-jinpaimaijia 天猫的icon-service-tianmao
+
+                        public String getTitle() {
+                            return title;
+                        }
+
+                        public void setTitle(String title) {
+                            this.title = title;
+                        }
+
+                        public String getDom_class() {
+                            return dom_class;
+                        }
+
+                        public void setDom_class(String dom_class) {
+                            this.dom_class = dom_class;
+                        }
                     }
                 }
             }

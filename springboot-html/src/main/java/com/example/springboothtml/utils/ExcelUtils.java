@@ -116,7 +116,7 @@ public class ExcelUtils {
         titleStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             chart.getRow(0).getCell(i).setCellStyle(titleStyle);
         }
 
@@ -164,6 +164,9 @@ public class ExcelUtils {
                 picAgain(hssfWorkbook, patriarch, i, auction);
             }
 
+            /*分析是不是金牌卖家和天猫店家*/
+            goldOrTmall(labelRow, cellStyle, auction);
+
             i++;
         }
 
@@ -184,8 +187,31 @@ public class ExcelUtils {
             LOGGER.info("获取商品{}图片成功", auction.getRaw_title());
         } catch (IOException e) {
             System.out.println("未获取成功的图片url：" + auction.getRaw_title());
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("未获取成功的图片url：" + auction.getPic_url());
         }
+    }
+
+    private static void goldOrTmall(HSSFRow labelRow, HSSFCellStyle cellStyle,
+                    ListData.Mods.Item.Data.Auction auction) {
+        List<ListData.Mods.Item.Data.Auction.Icon> icons = auction.getIcon();
+        String jinpai = "";
+        String tMall = "";
+        if (icons != null && !icons.isEmpty()) {
+            if (icons.stream().anyMatch(icon -> icon.getDom_class().equals("icon-service-jinpaimaijia"))) {
+                jinpai = "是";
+            }
+            if (icons.stream().anyMatch(icon -> icon.getDom_class().equals("icon-service-tianmao"))) {
+                tMall = "是";
+            }
+        }
+        HSSFCell jinpaiCell = labelRow.createCell(10);
+        jinpaiCell.setCellValue(jinpai);
+        jinpaiCell.setCellStyle(cellStyle);
+
+        HSSFCell tMallCell = labelRow.createCell(11);
+        tMallCell.setCellValue(tMall);
+        tMallCell.setCellStyle(cellStyle);
+
     }
 }

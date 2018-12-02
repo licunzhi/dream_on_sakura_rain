@@ -33,7 +33,7 @@ public class ProductController {
                     @ApiImplicitParam(name = "startPage", value = "起始页", required = true, dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "endPage", value = "终止页", required = true, dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "fileName", value = "文件名（不用定义文件后缀）", required = true, dataType = "String", paramType = "query"),
-                    @ApiImplicitParam(name = "sortType", value = "排序方式(1:综合排序 2：销量排序)", allowableValues = "1,2", required = true, dataType = "int", paramType = "query"),
+                    @ApiImplicitParam(name = "sortType", value = "排序方式(1:综合排序 2：销量排序)", allowableValues = "2,1", required = true, dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "picture", value = "是否抓取图片(默认false)[此操作会导致数据采集速度变慢，误差因素会导致部分图片采集失败]", allowableValues = "false,true", defaultValue = "false", required = true, dataType = "boolean", paramType = "query")})
     @ApiResponses(value = {
                     @ApiResponse(code = 200, message = "成功操作", response = ListData.Mods.Item.Data.Auction.class)
