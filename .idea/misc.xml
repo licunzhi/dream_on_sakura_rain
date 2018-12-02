@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/pom.xml" />
       </list>
     </option>
   </component>
