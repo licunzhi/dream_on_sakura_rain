@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,5 +43,12 @@ public class UserController {
     @PostMapping("/user/create")
     public boolean create(@RequestBody User user) {
         return restTemplate.postForObject(USER_URL_PREFIX+"/user/create", user, Boolean.class);
+    }
+
+    // 测试@EnableDiscoveryClient,消费端可以调用服务发现
+    @RequestMapping(value = "/user/discovery")
+    public Object discovery()
+    {
+        return restTemplate.getForObject(USER_URL_PREFIX + "/dept/discovery", Object.class);
     }
 }
