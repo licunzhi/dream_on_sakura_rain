@@ -14,9 +14,8 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -176,11 +175,24 @@ public class ExcelUtils {
             HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, (short) 9, i, (short) 9, i);
             anchor.setAnchorType(0);
             URL url = new URL("https:" + auction.getPic_url());
-            BufferedImage bufferImg = ImageIO.read(url);
+            /*BufferedImage bufferImg = ImageIO.read(url);*/
+
+            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int length;
+
             ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-            ImageIO.write(bufferImg, "jpg", byteArrayOut);
-            byte[] data = byteArrayOut.toByteArray();
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            /*ImageIO.write(bufferImg, "jpg", byteArrayOut);*/
+            byte[] data = output.toByteArray();
             patriarch.createPicture(anchor, hssfWorkbook.addPicture(data, HSSFWorkbook.PICTURE_TYPE_JPEG));
+            dataInputStream.close();
+            output.close();
             LOGGER.info("获取商品{}图片成功", auction.getRaw_title());
         } catch (IOException e) {
             System.out.println("未获取成功的图片url：" + auction.getRaw_title());
