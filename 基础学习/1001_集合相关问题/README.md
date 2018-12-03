@@ -712,4 +712,31 @@ static <T> void sort(T[] a, int lo, int hi, Comparator<? super T> c,
 
 
 ### Set interface
-- 
+- 不包含重复元素的集合 equals
+
+### HashSet
+- 如何进行初始化操作
+```code
+public HashSet() {
+    map = new HashMap<>();
+}
+
+还不是使用了HasHMap capacity 16 load factor 0.75
+
+
+//如果创建的含有参数的初始化对象
+public HashSet(Collection<? extends E> c) {
+    map = new HashMap<>(Math.max((int) (c.size()/.75f) + 1, 16));
+    addAll(c);
+}
+//源代码展示的意思就是最小的初始化大小也是16  其余的大小为创建容量0.75
+
+//其余的初始化参数的操作方式也是采用之前的HashMap
+public HashSet(int initialCapacity, float loadFactor) {
+    map = new HashMap<>(initialCapacity, loadFactor);
+}
+
+public HashSet(int initialCapacity) {
+    map = new HashMap<>(initialCapacity);
+}
+```
