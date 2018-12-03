@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +25,7 @@ import java.util.Properties;
  * @desc 描述功能
  * @date 2018-11-20
  */
+@ApiIgnore
 @Controller
 @RequestMapping
 public class PathController {
