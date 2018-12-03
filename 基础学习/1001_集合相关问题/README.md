@@ -693,5 +693,23 @@ static <T> void sort(T[] a, int lo, int hi, Comparator<? super T> c,
 ### ArrayList
 - 非线程安全的
 - 默认大小10 private static final int DEFAULT_CAPACITY = 10;
-- 
+- 可以使用Collections.synchronizedList()创建线程安全list
+- 超出设置容量大小之后会扩容到之前的1.5倍 oldCapacity + (oldCapacity >> 1
+- 扩容操作的本质是扩建一个更大容量的数组，将元师叔祖拷贝到新的数组中，因此扩容代价更高减少此类操作
+- 采用Fail-Fast进行并发修改时会很快完全失败
+- remove方法会让下标到数组末尾的元素向前移动一个单位，并把最后一位的值置空，方便GC
+- ArrayList 数组形式存储 适合进行访问读取操作  LinkedList本质是链表 适合进行频繁的插入删除操作
+- 不安全操作：方法使用同一个变量，后者操作参数对前者获取的信息有影响  可以使用拷贝 构建新对象 集合中的拷贝方法
+- 频繁新增或者删除不适合使用 会调用System.arraycopy
 
+
+### LinkedList
+- 非线程安全操作
+- 可以使用Collections.synchronizedList()创建线程安全的集合
+- LinkedList进行查询操作的时候效率低  进行插入删除的操作时候效率比较高 链表实现 不要移动或者拷贝数组 修改链表节点的prev next
+- 可以作为一个双端队列
+- 不需要扩容 不需要预留空间
+
+
+### Set interface
+- 
