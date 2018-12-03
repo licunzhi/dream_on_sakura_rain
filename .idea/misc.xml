@@ -9,14 +9,15 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/spring-cloud-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/springboot-html/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-next/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-final/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">

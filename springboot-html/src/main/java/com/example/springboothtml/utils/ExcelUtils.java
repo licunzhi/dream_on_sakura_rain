@@ -175,7 +175,7 @@ public class ExcelUtils {
     private static void picAgain(HSSFWorkbook hssfWorkbook, HSSFPatriarch patriarch, int i,
                     ListData.Mods.Item.Data.Auction auction) {
         try {
-            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255, (short) 9, i, (short) 9, i);
+            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 0, 255, (short) 9, i, (short) 10, i);
             anchor.setAnchorType(0);
             URL url = new URL("https:" + auction.getPic_url());
             /*BufferedImage bufferImg = ImageIO.read(url);*/
@@ -196,7 +196,7 @@ public class ExcelUtils {
             patriarch.createPicture(anchor, hssfWorkbook.addPicture(data, HSSFWorkbook.PICTURE_TYPE_JPEG));
             dataInputStream.close();
             output.close();
-            LOGGER.info("获取商品{}图片成功", auction.getRaw_title());
+            LOGGER.info("获取商品<<{}>>图片成功", auction.getRaw_title());
         } catch (IOException e) {
             System.out.println("未获取成功的图片url：" + auction.getRaw_title());
         } catch (Exception e) {
