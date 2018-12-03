@@ -144,7 +144,7 @@ public class ProductServiceImpl implements ProductService {
         headers.add("accept", "*/*");
         headers.add("accept-language", "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7");
         headers.add("cache-control", "no-cache");
-        headers.add("cookie", cookie);
+        headers.add(HttpHeaders.COOKIE, cookie);
         headers.add("pragma", "no-cache");
         //headers.add("referer", "https://s.taobao.com/search?q=花茶&imgfile=&js=1&stats_click=search_radio_all:1&initiative_id=staobaoz_20181117&ie=utf8&style=list&bcoffset=0&ntoffset=6&p4ppushleft=,44&sort=sale-desc&s=88");
         headers.add("user-agent",

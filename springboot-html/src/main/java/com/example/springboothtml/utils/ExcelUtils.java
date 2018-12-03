@@ -136,7 +136,7 @@ public class ExcelUtils {
             ipRowCell.setCellStyle(cellStyle);
 
             HSSFCell cpuRowCell = labelRow.createCell(3);
-            cpuRowCell.setCellValue(auction.getView_sales().replace("人收货", ""));
+            cpuRowCell.setCellValue(auction.getView_sales() == null ? "" : auction.getView_sales().replace("人收货", ""));
             cpuRowCell.setCellStyle(cellStyle);
 
             HSSFCell nicks = labelRow.createCell(4);
