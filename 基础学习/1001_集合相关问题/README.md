@@ -739,4 +739,50 @@ public HashSet(int initialCapacity, float loadFactor) {
 public HashSet(int initialCapacity) {
     map = new HashMap<>(initialCapacity);
 }
+
+// 由于HashMap存储的时候key不允许重复的，因此可以保证存储的数据是唯一的
+通过调用Map中的put操作的方法判断是否已经存在改key的value值返回此次插入操作的结果
+
+
+可以理解成HashSet利用了HashMap的主键不重复的特性进行存储数据
+存储数据实际上就是iHashMap的key值
 ```
+
+
+### LinkedHashSet
+- 非线程安全的
+- 外部同步操作 Collections.synchronizedSet(new LinkedHashSet())
+
+
+### TreeSet
+- 简答来说可以参照TreeMap
+
+### CopyOnWriteArrayList 看不懂没关系  纯属意淫
+- 难得一见线程安全
+- ReentrantLock lock方式枷锁操作 final修饰
+- 添加元素的反复拷贝是他的缺点
+- 数组形式的存储形式
+    - 因此重点在 ReentrantLock的lock方法  
+      介绍：CopyOnWrite 简称COW 程序设计中的优化策略 存储数据内容开始被大家共享，如果出现被修改的情况会把这块内容拷贝出去然后在进行修改  
+      这种思想是读写分离思想 拷贝数去的数据添加操作结束之后  将旧的地址指向新的地址 所以操作不需要安全枷锁操作
+      目前实现这种方式的有： CopyOnWriteArrayList and CopyOnWriteSet  
+      不需要不代表没有  add操作中就进行了枷锁的操作  不过似乎是可重入锁
+      ```code
+      // 代码注解解释的是  添加元素到List的结尾处  不进行枷锁操作的话会导致新增数据元素的时候出现多个被复制数组
+        public boolean add(E e) {
+            final ReentrantLock lock = this.lock;
+            lock.lock();
+            try {
+                Object[] elements = getArray();
+                int len = elements.length;
+                Object[] newElements = Arrays.copyOf(elements, len + 1);
+                newElements[len] = e;
+                setArray(newElements);
+                return true;
+            } finally {
+                lock.unlock();
+            }
+        }
+      ```
+      
+      - 醉翁之意不在酒   在ReentrantLock可重入锁的使用 (好像有点难  先放着了 以后杀个回马枪)
