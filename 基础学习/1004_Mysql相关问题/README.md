@@ -360,4 +360,48 @@ ___
     为了后面的操作格式化   这里再次还原表名
       alter table sakura_db rename sakura
     ```
-    
+___
+
+
+- 索引
+    - 长处
+        - 提高检索速度
+        - 单列索引和组合索引（一个索引中包含多列）
+        - 确保创建的索引在查询条件中
+        - 好是好但是不要滥用
+            - 虽然能大大提高检索查询的速度，但是会降低表的更新的速度  
+            不仅仅要保存插入或者是更改的数据还要保存一下索引文件
+                - 索引文件：索引表 保存主键与索引字段
+    - 创建
+        - 普通索引
+        ```mysql
+          # 创建索引
+          create index name on sakura(sakura_rain_name(128));
+          # 如果是CHAR，VARCHAR类型，length可以小于字段实际长度；如果是BLOB和TEXT类型，必须指定 length。
+          alter table sakura add index phone(phone);
+          # (还有其他的方式这里不做介绍)
+          
+          # 查看索引
+           show index from sakura;
+          +--------+------------+----------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+
+          | Table  | Non_unique | Key_name | Seq_in_index | Column_name      | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment |
+          +--------+------------+----------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+
+          | sakura |          0 | PRIMARY  |            1 | sakura_id        | A         |           2 |     NULL | NULL   |      | BTREE      |         |
+          | sakura |          1 | name     |            1 | sakura_rain_name | A         |           2 |     NULL | NULL   | YES  | BTREE      |         |
+          +--------+------------+----------+--------------+------------------+-----------+-------------+----------+--------+------+------------+---------+
+                    
+          # 删除索引
+          drop index name on sakura;
+        ```
+        - 唯一索引
+        ```mysql
+        # 创建索引
+        create unique index name on sakura(sakura_rain_name(128));
+        # 允许出现null值但是必须是唯一的
+        
+        # 删除的方式也是一样的
+        ```        
+___  
+  
+- 临时表
+
