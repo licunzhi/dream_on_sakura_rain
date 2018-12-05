@@ -404,4 +404,129 @@ ___
 ___  
   
 - 临时表
+    - 存储临时数据 只在当前链接可见 链接关闭自动释放
+
+---  
+- 复制表
+    - 显示表的完整结构
+    ```mysql
+      show create table sakura \G;
+    
+      *************************** 1. row ***************************
+             Table: sakura
+      Create Table: CREATE TABLE `sakura` (
+        `sakura_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `sakura_rain_name` varchar(128) DEFAULT 'xiaomeimei',
+        `address` varchar(128) DEFAULT NULL,
+        `phone` varchar(128) DEFAULT NULL,
+        PRIMARY KEY (`sakura_id`),
+        KEY `name_phone` (`sakura_rain_name`,`phone`)
+      ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8
+      1 row in set (0.04 sec)
+      
+      ERROR:
+      No query specified
+    ```
+    - 修改表名称即可创建新的表
+    ```mysql
+      Create Table: CREATE TABLE `sakura_copy` (
+              `sakura_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `sakura_rain_name` varchar(128) DEFAULT 'xiaomeimei',
+              `address` varchar(128) DEFAULT NULL,
+              `phone` varchar(128) DEFAULT NULL,
+              PRIMARY KEY (`sakura_id`),
+              KEY `name_phone` (`sakura_rain_name`,`phone`)
+            ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8
+          
+       # 进行数据拷贝
+     insert into sakura_copy select * from sakura;
+    ```
+---  
+  
+- 元数据
+    <pre>
+        <table class="reference">
+        <tbody><tr><th>命令</th><th>描述</th></tr>
+        <tr><td>SELECT VERSION( )</td><td>服务器版本信息</td></tr>
+        <tr><td>SELECT DATABASE( )</td><td>当前数据库名 (或者返回空)</td></tr>
+        <tr><td>SELECT USER( )</td><td>当前用户名</td></tr>
+        <tr><td>SHOW STATUS</td><td>服务器状态</td></tr>
+        <tr><td>SHOW VARIABLES</td><td>服务器配置变量</td></tr>
+        </tbody></table>
+    </pre>
+
+
+---  
+
+- 序列
+    - 一张表只能有一个字段自增主键
+    - auto_increment
+    - 设置开始值 创建表sql驱动后面增加 auto_increment=100
+
+---  
+  
+- 重复数据处理
+    - 添加忽略
+    ```mysql
+      insert ignore sakura(sakura_id, sakura_rain_name) values(1231231231231, 'dream_on_sakura_rain'); # 主键id不能重复唯一索引
+    ```
+    - 覆盖旧值
+    ```mysql
+      replace into sakura(sakura_id, sakura_rain_name) values(1231231231231, 'sakura_demo_rain') # 主键重复覆盖操作
+    ```
+    - 重复数据统计
+    ```mysql
+      select count(*) as names_count from sakura group by sakura_rain_name
+      having name_count > 1
+    # having 是对查询之后的临时的属性的判断  可以说是查询之后进行结果筛选的类似where语句
+    ```
+    - 过滤重复数据 distinct
+    ```mysql
+      select distinct sakura_rain_name from sakura;
+      
+      or
+      
+      select * from sakura group by sakura_rain_name;
+    ```
+
+---  
+
+- 数据导出
+    - 导出数据
+    ```mysql
+      select * from sakura into outfile 'D:/sakura.txt';
+    # 指定格式进行分割操作
+      select * into outfile 'D:/sakura.txt' 
+      fields terminated by ',' optionally enclosed by '"'
+      lines terminated by '\n'
+    ```
+    - 导出表作为原始数据
+    ```code
+          # 包括创建信息的备份方式
+          mysqldump -u root -p 123 sakura [sakura] > D:/sakura.txt
+          
+          # 不想有创建信息
+          mysqldump -u root -p 123 --no-create-info --tab=D:/sakura.txt
+    ```
+    - 远程导出
+    ```code
+      mysqldump -h other-host.com -P port -u root -p database_name > dump.txt
+    ```
+    - 导入文件
+    ```code
+      mysql -uroot -p123 database_name < dump.txt
+    ```
+- 数据导入(不完全介绍  使用的时候可以在查询)
+    - mysql -u root -p 123 < sakura.sql
+    - source D:/sakura.txt
+    - load data local infile 'sakura.txt' into table sakura(如果这个文本是你之前格式化的)
+        - 参照 
+        ```mysql
+            mysql> LOAD DATA LOCAL INFILE 'dump.txt' INTO TABLE mytbl
+            -> FIELDS TERMINATED BY ':'
+            -> LINES TERMINATED BY '\r\n';
+        ```
+    - mysqlimport -uroot -p123 --local database_name sakura.txt
+
+---
 
