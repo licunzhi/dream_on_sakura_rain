@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/cloud-user-consumer-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/cloud-user-consumer-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/cloud-user-consumer-feign-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/cloud-user-consumer-feign-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-hystrix-demo/cloud-user-consumer-hystrix-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-hystrix-demo/cloud-user-consumer-hystrix-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/cloud-user-eureka-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-user-eureka-demo-final.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-user-eureka-demo-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-next/cloud-user-eureka-demo-next.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-next/cloud-user-eureka-demo-next.iml" />

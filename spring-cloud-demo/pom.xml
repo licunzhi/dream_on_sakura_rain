@@ -95,6 +95,7 @@
         <module>cloud-user-eureka-demo-final</module>
         <module>cloud-user-consumer-demo</module>
         <module>cloud-user-consumer-feign-demo</module>
+        <module>cloud-user-consumer-hystrix-demo</module>
     </modules>
 
 </project>

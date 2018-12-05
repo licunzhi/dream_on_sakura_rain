@@ -14,7 +14,8 @@ import java.util.List;
  * @date 2018-12-02
  */
 /*可以实现接口加注解的方式实现接口的调用 类似mybatis的接口加注解@Mapper的实现方式*/
-@FeignClient(value = "CLOUD-USER-SERVICE-DEMO")
+//@FeignClient(value = "CLOUD-USER-SERVICE-DEMO")
+@FeignClient(value = "CLOUD-USER-SERVICE-DEMO", fallbackFactory = UserClientServiceFallbackFactory.class)
 public interface UserClientService {
     @RequestMapping(value = "/user/get/{id}", method = RequestMethod.GET)
     User get(@PathVariable("id") long id);
