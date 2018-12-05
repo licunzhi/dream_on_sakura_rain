@@ -9,6 +9,5 @@ import org.springframework.http.ResponseEntity;
  */
 public interface ProductService {
 
-    ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, String fileName, Integer sortType,
-                    Boolean picture);
+    ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, Integer sortType, Boolean picture);
 }

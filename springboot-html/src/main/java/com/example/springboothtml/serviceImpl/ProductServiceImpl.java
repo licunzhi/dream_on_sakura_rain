@@ -42,73 +42,80 @@ public class ProductServiceImpl implements ProductService {
     @Value("${sleep.time}")
     private Integer time;
 
+    @Value("${querys.split}")
+    private String split;
+
     @Autowired
     private RestTemplate restTemplate;
 
     @Override
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
-                    Integer endPage, String fileName, Integer sortType, Boolean picture) {
+                    Integer endPage, Integer sortType, Boolean picture) {
 
         // 2018/11/18/018 优化并封装
         HttpHeaders headers = getHttpHeaders();
 
-        //请求参数
-        Map<String, String> params = new HashMap<>();
-        if (sortType == 1) {
-            params.put("sort", "");
-        } else if (sortType == 2) {
-            params.put("sort", "sale-desc");
-        }
-        List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
-        for (int page = startPage; page <= endPage; page++) {
-            params.put("q", query);
-            if (page == 1) {
-                params.put("data-key", "s,ps");
-                params.put("data-value", "0,1");
-                params.put("s", "44");
-            } else {
-                params.put("data-key", "s");
-                params.put("data-value", String.valueOf(44 * (page - 1)));
-                params.put("s", String.valueOf(44 * (page - 2)));
-            }
-            String searchUrl =
-                            "https://s.taobao.com/search?data-key=" + params.get("data-key") + "&q=" + params.get("q")
-                                            + "&data-value=" + params.get("data-value") + "&s=" + params.get("s")
-                                            + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1"
-                                            + "&sort=" + params.get("sort")
-                                            + "&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
-            try {
-                ResponseEntity<ListData> responseEntity =
-                                restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
-                                                ListData.class);
-                HttpStatus statusCode = responseEntity.getStatusCode();
+        String[] querys = query.split(split);
 
-                if (!statusCode.toString().equals(HttpStatus.OK.value() + " " + HttpStatus.OK.name())) {
-                    LOGGER.error("失败页数：" + page + "程序继续执行，如果多次出现失败消息请检验程序正确性");
+        for (String q : querys) {
+            LOGGER.info("采集{}的信息", q);
+            //请求参数
+            Map<String, String> params = new HashMap<>();
+            if (sortType == 1) {
+                params.put("sort", "");
+            } else if (sortType == 2) {
+                params.put("sort", "sale-desc");
+            }
+            List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
+            for (int page = startPage; page <= endPage; page++) {
+                params.put("q", q);
+                if (page == 1) {
+                    params.put("data-key", "s,ps");
+                    params.put("data-value", "0,1");
+                    params.put("s", "44");
+                } else {
+                    params.put("data-key", "s");
+                    params.put("data-value", String.valueOf(44 * (page - 1)));
+                    params.put("s", String.valueOf(44 * (page - 2)));
                 }
-                ListData message = responseEntity.getBody();
-                if (message != null && message.getMods() != null && message.getMods().getItemlist() != null
-                                && message.getMods().getItemlist().getData() != null
-                                && message.getMods().getItemlist().getData().getAuctions() != null) {
-                    resultList.addAll(message.getMods().getItemlist().getData().getAuctions());
-                }
-                //避免连续请求
+                String searchUrl = "https://s.taobao.com/search?data-key=" + params.get("data-key") + "&q=" + params
+                                .get("q") + "&data-value=" + params.get("data-value") + "&s=" + params.get("s")
+                                + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1" + "&sort="
+                                + params.get("sort") + "&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
                 try {
-                    Thread.sleep(time);
-                } catch (InterruptedException e) {
-                    LOGGER.error("进程睡眠失败");
+                    ResponseEntity<ListData> responseEntity =
+                                    restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
+                                                    ListData.class);
+                    HttpStatus statusCode = responseEntity.getStatusCode();
+
+                    if (!statusCode.toString().equals(HttpStatus.OK.value() + " " + HttpStatus.OK.name())) {
+                        LOGGER.error("失败页数：" + page + "程序继续执行，如果多次出现失败消息请检验程序正确性");
+                    }
+                    ListData message = responseEntity.getBody();
+                    if (message != null && message.getMods() != null && message.getMods().getItemlist() != null
+                                    && message.getMods().getItemlist().getData() != null
+                                    && message.getMods().getItemlist().getData().getAuctions() != null) {
+                        resultList.addAll(message.getMods().getItemlist().getData().getAuctions());
+                    }
+                    //避免连续请求
+                    try {
+                        Thread.sleep(time);
+                    } catch (InterruptedException e) {
+                        LOGGER.error("进程睡眠失败");
+                    }
+                    LOGGER.info("当前进度第{}页", page);
+                } catch (Exception e) {
+                    LOGGER.info("返回结果出现格式问题，请检查接口，并重新发起对{}的请求", page);
                 }
-                LOGGER.info("当前进度第{}页", page);
-            } catch (Exception e) {
-                LOGGER.info("返回结果出现格式问题，请检查接口，并重新发起对{}的请求", page);
             }
+
+            //excel存储工具
+            excelAdapter(resultList, q, picture);
         }
 
-        //excel存储工具
-        excelAdapter(resultList, fileName, picture);
         LOGGER.info("进程结束");
 
-        return new ResponseEntity(resultList, HttpStatus.OK);
+        return new ResponseEntity("操作结束", HttpStatus.OK);
     }
 
     private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
