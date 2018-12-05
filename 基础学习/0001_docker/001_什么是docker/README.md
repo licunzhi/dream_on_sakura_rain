@@ -1,4 +1,4 @@
-![docker](../images/docker_faco.png)
+![docker](../../images/docker_faco.png)
 
 [skip to demo 演示](../002_docker安装操作demo/README.md)
 ## NO.1 基础介绍
