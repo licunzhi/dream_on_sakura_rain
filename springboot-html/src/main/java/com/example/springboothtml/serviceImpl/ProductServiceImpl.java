@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,10 +22,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author licunzhi
@@ -51,6 +57,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
                     Integer endPage, Integer sortType, Boolean picture) {
+
+        // 代理ip池
+        List<String> ips = ipPool();
+        int ip_size = ips.size();
+        int i = 0;
+
+        //模仿浏览器行为
+        List<String> userAgent = getUserAgent();
+        int agent_size = userAgent.size();
+        int j = 0;
 
         // 2018/11/18/018 优化并封装
         HttpHeaders headers = getHttpHeaders();
@@ -83,6 +99,24 @@ public class ProductServiceImpl implements ProductService {
                                 + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1" + "&sort="
                                 + params.get("sort") + "&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
                 try {
+                    //为了伪装浏览器行为
+                    headers.remove("user-agent");
+                    headers.add("user-agent", userAgent.get(i / agent_size));
+                    j++;
+
+                    //为了使用代理
+                    String ip = ips.get(i / ip_size);
+                    String[] ip_info = ip.split("-");
+                    i++;
+
+                    SimpleClientHttpRequestFactory httpRequestFactory = new SimpleClientHttpRequestFactory();
+                    httpRequestFactory.setReadTimeout(5000);
+                    httpRequestFactory.setConnectTimeout(5000);
+                    SocketAddress address = new InetSocketAddress(ip_info[1], Integer.parseInt(ip_info[2]));
+                    Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
+                    httpRequestFactory.setProxy(proxy);
+                    restTemplate.setRequestFactory(httpRequestFactory);
+
                     ResponseEntity<ListData> responseEntity =
                                     restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
                                                     ListData.class);
@@ -157,5 +191,98 @@ public class ProductServiceImpl implements ProductService {
         headers.add("user-agent",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
         return headers;
+    }
+
+    private List<String> ipPool() {
+        String url = "http://www.feiyiproxy.com/?page_id=1457";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("user-agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+        ResponseEntity<String> responseEntity =
+                        restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+        String info = responseEntity.getBody();
+        Pattern pattern = Pattern.compile("<table>.*?</table>", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(info);
+        List<String> resultInfo = new ArrayList<>();
+        while (matcher.find()) {
+            resultInfo.add(matcher.group().replace("\r", "").replace("\n", "").replace(" ", ""));
+            break;
+        }
+
+        List<String> poolList = new ArrayList<>();
+        List<String> trList = new ArrayList<>();
+        Pattern trPattern = Pattern.compile("<tr>.*?</tr>", Pattern.DOTALL);
+        Matcher trMatcher = trPattern.matcher(resultInfo.get(0));
+        while (trMatcher.find()) {
+            trList.add(trMatcher.group());
+        }
+        trList.remove(0);
+
+        for (String tr : trList) {
+            List<String> tdList = new ArrayList<>();
+            Pattern tdPattern = Pattern.compile("<td>.*?</td>", Pattern.DOTALL);
+            Matcher tdMatcher = tdPattern.matcher(tr);
+            while (tdMatcher.find()) {
+                tdList.add(tdMatcher.group().replace("<td>", "").replace("</td>", ""));
+            }
+            poolList.add(tdList.get(3) + "-" + tdList.get(0) + "-" +tdList.get(1));
+        }
+        return poolList;
+    }
+
+    @Override
+    public ResponseEntity getIpPool() {
+        String url = "http://www.feiyiproxy.com/?page_id=1457";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("user-agent",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+        ResponseEntity<String> responseEntity =
+                        restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<String>(headers),
+                                        String.class);
+        String info = responseEntity.getBody();
+        Pattern pattern = Pattern.compile("<table>.*?</table>", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(info);
+        List<String> resultInfo = new ArrayList<>();
+        while (matcher.find()) {
+            resultInfo.add(matcher.group().replace("\r", "").replace("\n", "").replace(" ", ""));
+            break;
+        }
+
+        List<String> poolList = new ArrayList<>();
+        List<String> trList = new ArrayList<>();
+        Pattern trPattern = Pattern.compile("<tr>.*?</tr>", Pattern.DOTALL);
+        Matcher trMatcher = trPattern.matcher(resultInfo.get(0));
+        while (trMatcher.find()) {
+            trList.add(trMatcher.group());
+        }
+        trList.remove(0);
+
+        for (String tr : trList) {
+            List<String> tdList = new ArrayList<>();
+            Pattern tdPattern = Pattern.compile("<td>.*?</td>", Pattern.DOTALL);
+            Matcher tdMatcher = tdPattern.matcher(tr);
+            while (tdMatcher.find()) {
+                tdList.add(tdMatcher.group().replace("<td>", "").replace("</td>", ""));
+            }
+            poolList.add(tdList.get(3) + "-" + tdList.get(0) + "-" +tdList.get(1));
+        }
+
+        ResponseEntity<List<String>> result = new ResponseEntity<>(poolList, HttpStatus.OK);
+        return result;
+    }
+
+    private List<String> getUserAgent() {
+        List<String> userAgentList = new ArrayList<>();
+        userAgentList.add(
+                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60");
+        userAgentList.add("Opera/8.0 (Windows NT 5.1; U; en)");
+        userAgentList.add("Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.50");
+        userAgentList.add("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; en) Opera 9.50");
+        userAgentList.add("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0");
+        userAgentList.add("Mozilla/5.0 (X11; U; Linux x86_64; zh-CN; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10");
+        userAgentList.add("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36");
+        userAgentList.add("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11");
+        userAgentList.add("Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.133 Safari/534.16");
+        return userAgentList;
     }
 }

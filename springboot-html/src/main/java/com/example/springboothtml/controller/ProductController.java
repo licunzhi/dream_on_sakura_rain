@@ -42,4 +42,13 @@ public class ProductController {
                     Boolean picture) {
         return productService.scrapHtml(query, startPage, endPage, sortType, picture);
     }
+
+    @ApiOperation(value = "代理ip资源池测试信息", notes = "ip资源池数据测试")
+    @ApiResponses(value = {
+                    @ApiResponse(code = 200, message = "成功操作", response = ListData.Mods.Item.Data.Auction.class)
+    })
+    @GetMapping("/pools")
+    public ResponseEntity getIpPool() {
+        return productService.getIpPool();
+    }
 }
