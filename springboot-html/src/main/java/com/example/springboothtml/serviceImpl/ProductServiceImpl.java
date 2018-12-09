@@ -25,10 +25,7 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,16 +55,6 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
                     Integer endPage, Integer sortType, Boolean picture) {
 
-        // 代理ip池
-        List<String> ips = ipPool();
-        int ip_size = ips.size();
-        int i = 0;
-
-        //模仿浏览器行为
-        List<String> userAgent = getUserAgent();
-        int agent_size = userAgent.size();
-        int j = 0;
-
         // 2018/11/18/018 优化并封装
         HttpHeaders headers = getHttpHeaders();
 
@@ -83,7 +70,13 @@ public class ProductServiceImpl implements ProductService {
                 params.put("sort", "sale-desc");
             }
             List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
-            for (int page = startPage; page <= endPage; page++) {
+            List<Integer> pages = new ArrayList<>();
+            for (int pp = startPage; pp <= endPage; pp++) {
+                int page = startPage;
+                while(pages.contains(page)) {
+                    page = startPage + new Random().nextInt(endPage);
+                }
+
                 params.put("q", q);
                 if (page == 1) {
                     params.put("data-key", "s,ps");
@@ -92,33 +85,24 @@ public class ProductServiceImpl implements ProductService {
                 } else {
                     params.put("data-key", "s");
                     params.put("data-value", String.valueOf(44 * (page - 1)));
-                    params.put("s", String.valueOf(44 * (page - 2)));
+                    params.put("s", String.valueOf(44 * (page - 2))
+                    );
                 }
                 String searchUrl = "https://s.taobao.com/search?data-key=" + params.get("data-key") + "&q=" + params
                                 .get("q") + "&data-value=" + params.get("data-value") + "&s=" + params.get("s")
                                 + "&ajax=true&stats_click=search_radio_all:1&p4ppushleft=,44&bcoffset=0&js=1" + "&sort="
-                                + params.get("sort") + "&imgfile=&initiative_id=staobaoz_20181118&style=list&ie=utf8";
+                                + params.get("sort") + "&imgfile=&style=list&ie=utf8";//initiative_id: staobaoz_20181207
                 try {
-                    //为了伪装浏览器行为
-                    headers.remove("user-agent");
-                    headers.add("user-agent", userAgent.get(i / agent_size));
-                    j++;
+                    //避免连续请求
+                    try {
+                        Thread.sleep(time);
+                    } catch (InterruptedException e) {
+                        LOGGER.error("进程睡眠失败");
+                    }
 
-                    //为了使用代理
-                    String ip = ips.get(i / ip_size);
-                    String[] ip_info = ip.split("-");
-                    i++;
-
-                    SimpleClientHttpRequestFactory httpRequestFactory = new SimpleClientHttpRequestFactory();
-                    httpRequestFactory.setReadTimeout(5000);
-                    httpRequestFactory.setConnectTimeout(5000);
-                    SocketAddress address = new InetSocketAddress(ip_info[1], Integer.parseInt(ip_info[2]));
-                    Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
-                    httpRequestFactory.setProxy(proxy);
-                    restTemplate.setRequestFactory(httpRequestFactory);
 
                     ResponseEntity<ListData> responseEntity =
-                                    restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
+                                    this.restTemplate.exchange(searchUrl, HttpMethod.GET, new HttpEntity<String>(headers),
                                                     ListData.class);
                     HttpStatus statusCode = responseEntity.getStatusCode();
 
@@ -130,12 +114,6 @@ public class ProductServiceImpl implements ProductService {
                                     && message.getMods().getItemlist().getData() != null
                                     && message.getMods().getItemlist().getData().getAuctions() != null) {
                         resultList.addAll(message.getMods().getItemlist().getData().getAuctions());
-                    }
-                    //避免连续请求
-                    try {
-                        Thread.sleep(time);
-                    } catch (InterruptedException e) {
-                        LOGGER.error("进程睡眠失败");
                     }
                     LOGGER.info("当前进度第{}页", page);
                 } catch (Exception e) {
@@ -152,7 +130,7 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity("操作结束", HttpStatus.OK);
     }
 
-    private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
+    public static void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
         // 加载模板文件
         String userDir = System.getProperty("user.dir");
         String relativelyPath = String.format("%s/springboot-html/search/excel.xls", userDir);
@@ -188,8 +166,8 @@ public class ProductServiceImpl implements ProductService {
         headers.add(HttpHeaders.COOKIE, cookie);
         headers.add("pragma", "no-cache");
         //headers.add("referer", "https://s.taobao.com/search?q=花茶&imgfile=&js=1&stats_click=search_radio_all:1&initiative_id=staobaoz_20181117&ie=utf8&style=list&bcoffset=0&ntoffset=6&p4ppushleft=,44&sort=sale-desc&s=88");
-        headers.add("user-agent",
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
+//        headers.add("user-agent",
+//                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
         return headers;
     }
 

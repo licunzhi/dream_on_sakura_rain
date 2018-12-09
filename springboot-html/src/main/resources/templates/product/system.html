@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>系统设置</title>
+    <style type="text/css">
+        .clearfix:after {
+            content: "";         /*生成内容作为最后一个元素，至于content里面是什么没有影响*/
+            display: block;       /*使得生成的元素以块级元素显示，占满剩余空间*/           /*避免生成的内容破坏原有空间的高度*/
+            clear: both;          /*闭合浮动*/
+            visibility: hidden;   /*使得生成内容不可见，并允许可能生成内容盖住的内容进行点击和交互*/
+        }
+        .clearfix {
+            zoom : 1;             /*触发IE6/7的haslayout*/
+        }
+        input {
+            box-sizing: border-box;
+            text-align:center;
+            font-size:1.4em;
+            height:2.7em;
+            border-radius:4px;
+            border:1px solid #c8cccf;
+            color:#6a6f77;
+            -web-kit-appearance:none;
+            -moz-appearance: none;
+            display:block;
+            outline:0;
+            padding:0 1em;
+            text-decoration:none;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="system_info">
+    <div style="margin-bottom: 10px">
+        <button class="btn btn-default">当前cookie</button>
+        <button class="btn change" style="background: cadetblue">切换cookie</button>
+        <button class="btn btn-success confirm-change cookie" disabled>确定切换</button>
+    </div>
+    <textarea style="width: 100%; height: 100px; background: #636363; color: white" id="system_cookie"
+              th:text="${cookie}" disabled></textarea>
+    <div style="margin-bottom: 10px">
+        <button class="btn btn-default">当前延时</button>
+        <button class="btn change" style="background: cadetblue">切换延时</button>
+        <button class="btn btn-success confirm-change" disabled>确定切换</button>
+    </div>
+    <input style="width: 80px; background: #636363; color: white" id="system_time"
+           th:value="${time}" disabled/>毫秒
+</div>-->
+
+<div class="swagger" style="float: left; padding: 10px; margin-bottom: 20px; background-color: #5cb8b4">
+    <a href="/swagger-ui.html">go to 接口页面<span class="glyphicon glyphicon-chevron-right"/></a>
+</div>
+
+<div class="productPageInfo" style="position: absolute; margin-top: 30px">
+    <div>
+        <h2 style="display: block;">商品获取信息操作：</h2>
+    </div>
+    <div class="clearfix" style="border: dashed 1px; width: 1030px; color: #d1d5da; padding: 20px">
+        <input placeholder="请输入商品名称" class="col-md-3"/>
+        <input placeholder="请输入开始页面" class="col-md-3"/>
+        <input placeholder="请输入结束页面" class="col-md-3"/>
+        <button class="btn-lg btn-success" id="start_get_products" style="margin-left: 30px">开始</button>
+    </div>
+    <div class="fenxi clearfix" id="fenxi" style="border: dashed 1px; width: 1030px; color: #d1d5da; padding: 20px">
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    /*禁用消除*/
+    $(".change").click(function () {
+        $(this).next().attr("disabled", false);
+        $(this).parent().next().attr("disabled", false).css("background", "#0f0f0f");
+    });
+    /*重新禁用*/
+    $(".confirm-change").click(function () {
+        $(this).attr("disabled", true);
+        $(this).parent().next().attr("disabled", true).css("background", "#636363");
+    });
+
+    $(".cookie").click(function () {
+        $.ajax({
+            type: "PUT",
+            url: "/product/update/cookie?_t=" + new Date().getTime() + "&cookie=" + $("#system_cookie").val(),
+            //data: {username:$("#username").val(), content:$("#content").val()},
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+    
+    $("#start_get_products").click(function () {
+        debugger
+        /*$("#fenxi").load("https://github.com/licunzhi");*/
+        var s=document.createElement('script');
+        s.src="http://www.baidu.com";
+        s.type='text/javascript';
+        document.body.appendChild(s);
+    });
+</script>
+</html>
