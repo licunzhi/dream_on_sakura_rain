@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("淘宝相关数据获取接口")
+        return new ApiInfoBuilder().title("数据获取接口")
                         .description("相关描述")
                         .termsOfServiceUrl("http:......").contact("mjc").version("1.0版本").build();
     }
