@@ -171,7 +171,7 @@ public class SeleniumServiceImpl implements SeleniumService {
         }
 
         LOGGER.info("采集数据的进程结束");
-
+        driver.close();
         return new ResponseEntity("操作结束", HttpStatus.OK);
     }
 
