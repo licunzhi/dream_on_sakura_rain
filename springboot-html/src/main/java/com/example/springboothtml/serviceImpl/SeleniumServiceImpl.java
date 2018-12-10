@@ -220,10 +220,12 @@ public class SeleniumServiceImpl implements SeleniumService {
         }
         //excel存储工具
         excelAdapter(resultList, q, picture);
+        LOGGER.info("采集<<{}>>的信息结束", q);
     }
 
     /*单个页面查询*/
     private void getSimplePage(ChromeDriver driver, List<ListData.Mods.Item.Data.Auction> resultList, int page) {
+        LOGGER.info("当前页面为<<{}>>", page);
         /*
          * 模拟人互动网页的行为
          * 300-500  500-700 然后底部
@@ -242,7 +244,7 @@ public class SeleniumServiceImpl implements SeleniumService {
         } catch (InterruptedException e) {
             LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
         }
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight -" + new Random().nextInt(150) +")");
         try {
             TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
         } catch (InterruptedException e) {
@@ -286,6 +288,7 @@ public class SeleniumServiceImpl implements SeleniumService {
         } catch (InterruptedException e) {
             LOGGER.error("对于下一个页面数据的抓取的休息时间报错");
         }
+        LOGGER.info("当前页面为<<{}>>结束", page);
     }
 
 
