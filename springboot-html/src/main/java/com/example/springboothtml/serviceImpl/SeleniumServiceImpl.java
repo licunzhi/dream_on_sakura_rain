@@ -41,7 +41,7 @@ public class SeleniumServiceImpl implements SeleniumService {
     private String split;
 
     @Autowired
-    private WebDriver webDriver;
+    private WebDriver driver;
 
     @Override
     public ResponseEntity demoUse(String query) {
@@ -159,17 +159,13 @@ public class SeleniumServiceImpl implements SeleniumService {
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
                     Integer endPage, Integer sortType, Boolean picture) {
 
-        /*等待用户登录操作结束*/
-        ChromeDriver driver = loginOperation();
-        LOGGER.info("进行登录结束", driver);
-
         /*分割查询指标信息*/
         String[] querys = query.split(split);
 
         // 循环抓取的关键字
         for (String q : querys) {
             try {
-                getSimpleQuery(query, startPage, endPage, sortType, picture, driver, q);
+                getSimpleQuery(query, startPage, endPage, sortType, picture, (ChromeDriver) driver, q);
             } catch (Exception e) {
                 LOGGER.error("抓取关键字《《《" + q + "》》》失败", e);
             }
@@ -294,35 +290,6 @@ public class SeleniumServiceImpl implements SeleniumService {
             LOGGER.error("对于下一个页面数据的抓取的休息时间报错");
         }
         LOGGER.info("当前页面为<<{}>>结束", page);
-    }
-
-
-    /*
-     * 进行登录操作的判断
-     * */
-    // FIXME: 2018/12/10/010 暂时不支持自动登录  以后完善
-    private ChromeDriver loginOperation() {
-        /*//chrome浏览器  单个项目运行需要删除 springboot-html
-        System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/springboot-html/chromedriver.exe");
-        *//*System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/chromedriver.exe");*//*
-        ChromeDriver driver = new ChromeDriver();
-        // 最大化操作界面
-        driver.manage().window().maximize();*/
-        ChromeDriver driver = (ChromeDriver) webDriver;
-
-        driver.get("https://login.taobao.com/");
-        // 等待登录
-        while (!driver.getCurrentUrl().contains("www.taobao.com")) {
-            LOGGER.error("扫描程序界面的二维码。。。。");
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                LOGGER.error("等待扫描二维码报错。。。");
-            }
-        }
-        return driver;
     }
 
     /*

@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,10 +21,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.SocketAddress;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     private String cookie;
 
     @Value("${sleep.time}")
-    private Integer time;
+    private String time;
 
     @Value("${querys.split}")
     private String split;
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
                 try {
                     //避免连续请求
                     try {
-                        Thread.sleep(time);
+                        Thread.sleep(Long.parseLong(time));
                     } catch (InterruptedException e) {
                         LOGGER.error("进程睡眠失败");
                     }
