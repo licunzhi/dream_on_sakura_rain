@@ -14,10 +14,17 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-hystrix-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-next/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-final/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-hystrix-demo/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-demo/pom.xml" />
       </set>
     </option>
