@@ -24,6 +24,7 @@ public class DriverManager {
         ChromeDriver driver = new ChromeDriver();
         // 最大化操作界面
         driver.manage().window().maximize();
+        driver.get("https://login.taobao.com");
         return driver;
     }
 }

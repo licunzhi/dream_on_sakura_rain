@@ -16,13 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,23 +37,6 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     @Autowired
     private WebDriver driver;
-
-    @Override
-    public ResponseEntity login() {
-        driver.get("https://login.taobao.com");
-        // 等待登录
-        while (!driver.getCurrentUrl().contains("www.taobao.com")) {
-            LOGGER.error("扫描程序界面的二维码。。。。");
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                LOGGER.error("等待扫描二维码报错。。。");
-            }
-        }
-
-        LOGGER.info("成功进入登录页面。。。");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @Override
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(Integer startPage,
@@ -111,12 +91,13 @@ public class SeleniumServiceImpl implements SeleniumService {
         } catch (InterruptedException e) {
             LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
         }
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight -" + new Random().nextInt(150) +")");
+        /*((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight -" + new Random().nextInt(150) +")");
         try {
             TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
         } catch (InterruptedException e) {
             LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
-        }
+        }*/
+        driver.executeScript("arguments[0].scrollIntoView();", driver.findElementByCssSelector("span.btn.J_Submit"));
 
 
         // 输入查询页数
@@ -161,7 +142,8 @@ public class SeleniumServiceImpl implements SeleniumService {
     /*
      * excel的数据装饰器 不考虑代码重复问题  解耦代码
      * */
-    private void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
+    @Async
+    public void excelAdapter(List<ListData.Mods.Item.Data.Auction> resultList, String fileName, Boolean picture) {
         // 加载模板文件
         String userDir = System.getProperty("user.dir");
         String relativelyPath = String.format("%s/springboot-html/search/excel.xls", userDir);
@@ -188,6 +170,9 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     public ResponseEntity relogin() {
         driver = new ChromeDriver();
+        // 最大化操作界面
+        driver.manage().window().maximize();
+        driver.get("https://login.taobao.com");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -2,12 +2,7 @@ package com.example.springboothtml.controller;
 
 import com.example.springboothtml.domain.ListData;
 import com.example.springboothtml.service.SeleniumService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,12 +21,6 @@ public class SeleniumController {
 
     @Autowired
     private SeleniumService seleniumService;
-
-    @ApiOperation(value = "进入登录页面", notes = "扫描二维码进入登录界面")//接口功能解释
-    @GetMapping("/login")
-    public ResponseEntity login() {
-        return seleniumService.login();
-    }
 
     @ApiOperation(value = "定制化点击之后调用这个接口抓取指定页面", notes = "定制化点击之后调用这个接口抓取指定页面", position = -1)//接口功能解释
     @ApiImplicitParams(value = {
