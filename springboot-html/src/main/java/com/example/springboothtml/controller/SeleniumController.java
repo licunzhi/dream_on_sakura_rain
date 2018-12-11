@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author licunzhi
@@ -27,6 +28,7 @@ public class SeleniumController {
     @Autowired
     private SeleniumService seleniumService;
 
+    @ApiIgnore
     @ApiOperation(value = "selenium的功能测试", notes = "用于测试操作的接口实现，非正式版本不能用version:1.0")
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "query", value = "关键字搜索", defaultValue = "孟俊才", required = true, dataType = "String", paramType = "query")})

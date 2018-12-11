@@ -7,10 +7,12 @@ import com.google.gson.Gson;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,9 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     @Value("${querys.split}")
     private String split;
+
+    @Autowired
+    private WebDriver webDriver;
 
     @Override
     public ResponseEntity demoUse(String query) {
@@ -297,14 +302,15 @@ public class SeleniumServiceImpl implements SeleniumService {
      * */
     // FIXME: 2018/12/10/010 暂时不支持自动登录  以后完善
     private ChromeDriver loginOperation() {
-        //chrome浏览器  单个项目运行需要删除 springboot-html
+        /*//chrome浏览器  单个项目运行需要删除 springboot-html
         System.setProperty("webdriver.chrome.driver",
                         System.getProperty("user.dir") + "/springboot-html/chromedriver.exe");
-        /*System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/chromedriver.exe");*/
+        *//*System.setProperty("webdriver.chrome.driver",
+                        System.getProperty("user.dir") + "/chromedriver.exe");*//*
         ChromeDriver driver = new ChromeDriver();
         // 最大化操作界面
-        driver.manage().window().maximize();
+        driver.manage().window().maximize();*/
+        ChromeDriver driver = (ChromeDriver) webDriver;
 
         driver.get("https://login.taobao.com/");
         // 等待登录

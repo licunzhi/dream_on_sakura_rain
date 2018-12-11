@@ -8,14 +8,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author licunzhi
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 @RestController
 @Api(value = "统计销量价格相关接口", tags = "暴露网页接口")
+@ApiIgnore
 public class ProductController {
 
     @Autowired
