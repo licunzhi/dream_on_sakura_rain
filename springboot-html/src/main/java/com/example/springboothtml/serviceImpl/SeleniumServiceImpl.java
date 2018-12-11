@@ -25,8 +25,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -44,175 +42,43 @@ public class SeleniumServiceImpl implements SeleniumService {
     private WebDriver driver;
 
     @Override
-    public ResponseEntity demoUse(String query) {
-        Properties properties = System.getProperties();
-        System.out.println(properties.propertyNames().toString());
-        //这是我使用的是chrome  也可以使用其他的浏览器  但是需要对应的版本驱动器
-        System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/springboot-html/chromedriver.exe");
-        /*System.setProperty("webdriver.chrome.driver",
-                        System.getProperty("user.dir") + "/chromedriver.exe");*/
-        ChromeDriver driver = new ChromeDriver();
-        //实现窗口最大化
-        driver.manage().window().maximize();
-
-        /*
-        去他妈的先登陆
-        * */
-        driver.get("https://login.taobao.com/");
-
-        /*
-         * 二维码登录
-         * */
+    public ResponseEntity login() {
+        driver.get("https://login.taobao.com");
+        // 等待登录
         while (!driver.getCurrentUrl().contains("www.taobao.com")) {
-            LOGGER.error("大爷   在等你扫码。。。。。");
+            LOGGER.error("扫描程序界面的二维码。。。。");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                LOGGER.error("大爷的");
-            }
-
-        }
-
-        driver.findElement(By.id("q")).sendKeys(query);
-        driver.findElement(By.className("btn-search")).click();
-
-        LOGGER.info("大爷你等会");
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-
-        String html_info = driver.getPageSource();
-
-        Pattern pattern = Pattern.compile("g_page_config = .*?g_srp_loadCss", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(html_info);
-        String info = "";
-        while (matcher.find()) {
-            info = matcher.group();
-        }
-
-        List<ListData.Mods.Item.Data.Auction> auctionList = new ArrayList<>();
-
-        if (Objects.equals("", info)) {
-            LOGGER.error("大爷的  出错了");
-        } else {
-            try {
-                info = info.replace("g_page_config = ", "");
-                info = info.substring(0, info.lastIndexOf(";"));
-                Gson gson = new Gson();
-                ListData listData = gson.fromJson(info, ListData.class);
-                auctionList.addAll(listData.getMods().getItemlist().getData().getAuctions());
-            } catch (Exception e) {
-                LOGGER.error("大爷的  出错了");
+                LOGGER.error("等待扫描二维码报错。。。");
             }
         }
 
-        for (int i = 0; i < 10; i++) {
-            LOGGER.info("大爷的  " + i + "次循环");
-            String currentUrl = driver.getCurrentUrl();
-            WebElement element = driver.findElementByCssSelector("span.btn.J_Submit");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            element.click();
-            driver.manage().timeouts().pageLoadTimeout(10 + new Random().nextInt(10), TimeUnit.SECONDS);
-
-            while (Objects.equals(driver.getCurrentUrl(), currentUrl)) {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    LOGGER.error("大爷的  出错了");
-                }
-            }
-
-            html_info = driver.getPageSource();
-            matcher = pattern.matcher(html_info);
-
-            while (matcher.find()) {
-                info = matcher.group();
-            }
-
-            if (Objects.equals("", info)) {
-                LOGGER.error("大爷的  出错了");
-            } else {
-                try {
-                    info = info.replace("g_page_config = ", "");
-                    info = info.substring(0, info.lastIndexOf(";"));
-                    Gson gson = new Gson();
-                    ListData listData = gson.fromJson(info, ListData.class);
-                    auctionList.addAll(listData.getMods().getItemlist().getData().getAuctions());
-                } catch (Exception e) {
-                    LOGGER.error("大爷的  出错了");
-                }
-            }
-
-        }
-
-        ProductServiceImpl.excelAdapter(auctionList, query, true);
-
-        driver.close();
-        LOGGER.error("大爷的  终于结束于。。。。");
-        return new ResponseEntity(html_info, HttpStatus.OK);
+        LOGGER.info("成功进入登录页面。。。");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(String query, Integer startPage,
-                    Integer endPage, Integer sortType, Boolean picture) {
+    public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(Integer startPage,
+                    Integer endPage, Boolean picture) {
 
-        /*分割查询指标信息*/
-        String[] querys = query.split(split);
-
-        // 循环抓取的关键字
-        for (String q : querys) {
-            try {
-                getSimpleQuery(query, startPage, endPage, sortType, picture, (ChromeDriver) driver, q);
-            } catch (Exception e) {
-                LOGGER.error("抓取关键字《《《" + q + "》》》失败", e);
-            }
+        try {
+            getSimpleQuery(startPage, endPage, picture, (ChromeDriver) driver);
+        } catch (Exception e) {
+            LOGGER.error("抓取失败", e);
         }
 
         LOGGER.info("采集数据的进程结束");
-        driver.close();
         return new ResponseEntity("操作结束", HttpStatus.OK);
     }
 
     /*单个关键字查询*/
-    private void getSimpleQuery(String query, Integer startPage, Integer endPage, Integer sortType, Boolean picture,
-                    ChromeDriver driver, String q) {
-        LOGGER.info("采集<<{}>>的信息", q);
-
-        // 当前地址信息  判断是否进行了跳转操作
-        String url_before = driver.getCurrentUrl();
-
-        /*
-         * 输入查询内容点击进行搜索
-         * */
-        driver.findElement(By.id("q")).sendKeys(query);
-        driver.findElement(By.className("btn-search")).click();
-        String current_url = driver.getCurrentUrl();
-        // 是否进入查询首页
-        while (Objects.equals(url_before, current_url)) {
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                LOGGER.error("判断是不是首页  等待异常。。。");
-            }
-        }
-        // 如果是按照销量排序 点击一下页面
-        try {
-            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
-        } catch (InterruptedException e) {
-            LOGGER.error("等一下");
-        }
-        if (sortType == 2) {
-            List<WebElement> liElements = driver.findElementsByCssSelector("ul.sorts li.sort");
-            //WebElement default_sort = liElements.get(0);//默认排序
-            WebElement scale_sort = liElements.get(1);//销量排序
-            //WebElement credit_sort = liElements.get(2);//信用排序
-            scale_sort.click();
-        }
+    private void getSimpleQuery(Integer startPage, Integer endPage, Boolean picture,
+                    ChromeDriver driver) {
+        LOGGER.info("采集信息方法");
 
         //最外层采集结果保存 最大值是2^32个产品信息
+        String q = driver.findElement(By.id("q")).getAttribute("value");
         List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
 
         // 单页数据获取
@@ -221,7 +87,7 @@ public class SeleniumServiceImpl implements SeleniumService {
         }
         //excel存储工具
         excelAdapter(resultList, q, picture);
-        LOGGER.info("采集<<{}>>的信息结束", q);
+        LOGGER.info("采集信息结束");
     }
 
     /*单个页面查询*/
@@ -318,5 +184,10 @@ public class SeleniumServiceImpl implements SeleniumService {
             LOGGER.error("生成报表存储本地操作失败", e);
         }
 
+    }
+
+    public ResponseEntity relogin() {
+        driver = new ChromeDriver();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

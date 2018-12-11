@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author licunzhi
@@ -28,28 +27,27 @@ public class SeleniumController {
     @Autowired
     private SeleniumService seleniumService;
 
-    @ApiIgnore
-    @ApiOperation(value = "selenium的功能测试", notes = "用于测试操作的接口实现，非正式版本不能用version:1.0")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "query", value = "关键字搜索", defaultValue = "孟俊才", required = true, dataType = "String", paramType = "query")})
-    @GetMapping("/demo_use")
-    public ResponseEntity demoUse(String query) {
-        return seleniumService.demoUse(query);
+    @ApiOperation(value = "进入登录页面", notes = "扫描二维码进入登录界面")//接口功能解释
+    @GetMapping("/login")
+    public ResponseEntity login() {
+        return seleniumService.login();
     }
 
-    @ApiOperation(value = "selenium自动化测试的方式抓取数据", notes = "使用此版本接口进行数据抓取version:2.0")//接口功能解释
+    @ApiOperation(value = "定制化点击之后调用这个接口抓取指定页面", notes = "定制化点击之后调用这个接口抓取指定页面", position = -1)//接口功能解释
     @ApiImplicitParams(value = {
-                    @ApiImplicitParam(name = "query", value = "查询关键字(多个查询用-分割)[不建议一次查询多个 数据量太大]", required = true, dataType = "String", paramType = "query"),
-                    @ApiImplicitParam(name = "startPage", value = "起始页", required = true, dataType = "int", paramType = "query"),
+                    @ApiImplicitParam(name = "startPage", value = "起始页", required = true, defaultValue = "1", dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "endPage", value = "终止页", required = true, dataType = "int", paramType = "query"),
-                    @ApiImplicitParam(name = "sortType", value = "排序方式(1:综合排序 2：销量排序)", allowableValues = "2,1", required = true, dataType = "int", paramType = "query"),
                     @ApiImplicitParam(name = "picture", value = "是否抓取图片(默认false)[此操作会导致数据采集速度变慢，误差因素会导致部分图片采集失败]", allowableValues = "false,true", defaultValue = "false", required = true, dataType = "boolean", paramType = "query")})
     @ApiResponses(value = {
-                    @ApiResponse(code = 200, message = "成功操作", response = ListData.Mods.Item.Data.Auction.class)
-    })
+                    @ApiResponse(code = 200, message = "成功操作", response = ListData.Mods.Item.Data.Auction.class)})
     @GetMapping("/list/html")
-    public ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, Integer sortType,
-                    Boolean picture) {
-        return seleniumService.scrapHtml(query, startPage, endPage, sortType, picture);
+    public ResponseEntity scrapHtml(Integer startPage, Integer endPage, Boolean picture) {
+        return seleniumService.scrapHtml(startPage, endPage, picture);
+    }
+
+    @ApiOperation(value = "重新加载监控窗口", notes = "重新加载监控窗口")//接口功能解释
+    @GetMapping("/relogin")
+    public ResponseEntity relogin() {
+        return seleniumService.relogin();
     }
 }

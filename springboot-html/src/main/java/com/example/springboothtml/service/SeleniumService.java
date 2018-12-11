@@ -3,9 +3,10 @@ package com.example.springboothtml.service;
 import org.springframework.http.ResponseEntity;
 
 public interface SeleniumService {
+    ResponseEntity login();
 
-    ResponseEntity demoUse(String query);
+    ResponseEntity scrapHtml(Integer startPage, Integer endPage, Boolean picture);
 
-    ResponseEntity scrapHtml(String query, Integer startPage, Integer endPage, Integer sortType, Boolean picture);
+    ResponseEntity relogin();
 
 }
