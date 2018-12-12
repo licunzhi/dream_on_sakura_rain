@@ -86,5 +86,38 @@
         //因此 这种方式要想实现深度拷贝  需要把拷贝类中所有的非基本数据类型全部重写clone()方法
         
     - 序列化机制  
-    借用上面的浅拷贝的机制的不足，提出了深度拷贝的方式
+    借用上面的浅拷贝的机制的不足，提出了深度拷贝的方式  
+    对象进行序列化字节流  以便在合适的状态转换成当时状态的对象 
+    ```code
+    使用泛型约束限制进行copy对象是序列化的
+    public static <T extends Serializable> T copy(T input) {
+        ByteArrayOutputStream baos = null;
+        ObjectOutputStream oos = null;
+        ByteArrayInputStream bis = null;
+        ObjectInputStream ois = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(input);
+            oos.flush();
+     
+            byte[] bytes = baos.toByteArray();
+            bis = new ByteArrayInputStream(bytes);
+            ois = new ObjectInputStream(bis);
+            Object result = ois.readObject();
+            return (T) result;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Object can't be copied", e);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException("Unable to reconstruct serialized object due to invalid class definition", e);
+        } finally {
+            closeQuietly(oos);
+            closeQuietly(baos);
+            closeQuietly(bis);
+            closeQuietly(ois);
+        }
+    ```
+    同样可以使用json等其他的技术实现对象的深度复制  
+    Apache BeanUtils、PropertyUtils,Spring BeanUtils,Cglib BeanCopier  
+    从测试效率上看 Cglib BeanCopier > Spring BeanUtil > apache BeanUtils
 
