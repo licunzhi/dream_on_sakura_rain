@@ -3,8 +3,10 @@ package com.example.springboothtml.serviceImpl;
 import com.example.springboothtml.domain.ListData;
 import com.example.springboothtml.service.SeleniumService;
 import com.example.springboothtml.utils.ExcelUtils;
-import com.google.gson.Gson;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -19,13 +21,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class SeleniumServiceImpl implements SeleniumService {
@@ -40,7 +44,7 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     @Override
     public ResponseEntity<List<ListData.Mods.Item.Data.Auction>> scrapHtml(Integer startPage,
-                    Integer endPage, Boolean picture) {
+                                                                           Integer endPage, Boolean picture) {
 
         try {
             getSimpleQuery(startPage, endPage, picture, (ChromeDriver) driver);
@@ -54,7 +58,7 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     /*单个关键字查询*/
     private void getSimpleQuery(Integer startPage, Integer endPage, Boolean picture,
-                    ChromeDriver driver) {
+                                ChromeDriver driver) {
         LOGGER.info("采集信息方法");
 
         //最外层采集结果保存 最大值是2^32个产品信息
@@ -62,74 +66,122 @@ public class SeleniumServiceImpl implements SeleniumService {
         List<ListData.Mods.Item.Data.Auction> resultList = new ArrayList<>();
 
         // 单页数据获取
+        boolean flag = true;
         for (int page = startPage; page <= endPage; page++) {
-            getSimplePage(driver, resultList, page);
+            try {
+                // 首次页面初始话
+                flag = isFlag(driver, flag, page);
+
+                getSimplePage(driver, resultList, page);
+            } catch (Exception e) {
+                LOGGER.error("页面 " + page + "出现异常", e);
+            }
         }
         //excel存储工具
         excelAdapter(resultList, q, picture);
         LOGGER.info("采集信息结束");
     }
 
+    private boolean isFlag(ChromeDriver driver, boolean flag, int page) {
+        /*
+         * 由于做了缓存driver，因此很多数据导致混乱
+         * 因此需要在这里做首页初始化
+         * */
+        if (flag) {
+            WebElement element = modelPersonTurnPage(driver);
+
+            // 输入查询页数
+            WebElement page_num_input = driver.findElementByCssSelector("div.form input.input.J_Input");
+            page_num_input.clear();
+            page_num_input.sendKeys(String.valueOf(page));
+            try {
+                TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));
+            } catch (InterruptedException e) {
+                LOGGER.error("等待点击操作失败");
+            }
+
+            element.click();
+            //等这个页面五秒钟缓冲时间
+            driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+        }
+        return false;
+    }
+
     /*单个页面查询*/
     private void getSimplePage(ChromeDriver driver, List<ListData.Mods.Item.Data.Auction> resultList, int page) {
         LOGGER.info("当前页面为<<{}>>", page);
-        /*
-         * 模拟人互动网页的行为
-         * 300-500  500-700 然后底部
-         * */
-        ((JavascriptExecutor) driver)
-                        .executeScript("window.scrollBy(0, " + (300 + new Random().nextInt(200)) + ")");
-        try {
-            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
-        } catch (InterruptedException e) {
-            LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
-        }
-        ((JavascriptExecutor) driver)
-                        .executeScript("window.scrollBy(0, " + (500 + new Random().nextInt(200)) + ")");
-        try {
-            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
-        } catch (InterruptedException e) {
-            LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
-        }
-        /*((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight -" + new Random().nextInt(150) +")");
-        try {
-            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
-        } catch (InterruptedException e) {
-            LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
-        }*/
-        driver.executeScript("arguments[0].scrollIntoView();", driver.findElementByCssSelector("span.btn.J_Submit"));
-
+        WebElement element = modelPersonTurnPage(driver);
 
         // 输入查询页数
         WebElement page_num_input = driver.findElementByCssSelector("div.form input.input.J_Input");
         page_num_input.clear();
-        page_num_input.sendKeys(String.valueOf(page));
+        page_num_input.sendKeys(String.valueOf(page + 1));
         try {
             TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));
         } catch (InterruptedException e) {
             LOGGER.error("等待点击操作");
         }
-        WebElement element = driver.findElementByCssSelector("span.btn.J_Submit");
+
         element.click();
         //等这个页面五秒钟缓冲时间
         driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-        //获取页面代码
-        String html_info = driver.getPageSource();
-        // 格式化json
-        Pattern pattern = Pattern.compile("g_page_config = .*?g_srp_loadCss", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(html_info);
-        String info = null;
-        while (matcher.find()) {
-            info = matcher.group();
+        convertConfiginfoToObj(driver, resultList, page);
+    }
+
+    /*
+     * 将页面首部的数据转成对象
+     * */
+    private void convertConfiginfoToObj(ChromeDriver driver, List<ListData.Mods.Item.Data.Auction> resultList, int page) {
+        String currentUrl = driver.getCurrentUrl();
+        System.out.println(currentUrl);
+        Document document = Jsoup.parse(driver.getPageSource());
+        Element body = document.body();
+
+        // 获取所有的item的信息
+        Element itemCollection = body.getElementById("mainsrp-itemlist");
+        // 所有的items
+        List<Element> itemList = itemCollection.getElementsByAttributeValue("data-category", "auctions");
+
+        for (Element item : itemList) {
+            ListData.Mods.Item.Data.Auction auction = new ListData.Mods.Item.Data.Auction();
+            Element data_src_alt = item.select("img.J_ItemPic.img").get(0);
+            String pic_url = data_src_alt.attr("data-src");
+            String raw_title = data_src_alt.attr("alt");
+            auction.setPic_url(pic_url);
+            auction.setRaw_title(raw_title);
+
+            String view_price = item.select("div.row.row-1.g-clearfix").select("strong").html();
+            String view_scales = item.select("div.row.row-1.g-clearfix").select("div.deal-cnt").html();
+            auction.setView_price(view_price);
+            auction.setView_sales(view_scales);
+
+            String detail_url = item.select("div.row.row-2.title").select("a").attr("href");
+            auction.setDetail_url(detail_url);
+
+            //String nick_name = item.select("div.row.row-3.g-clearfix").select("a.shopname span:eq(1)").html();
+            String nick_url = item.select("div.row.row-3.g-clearfix").select("a.shopname").attr("href");
+            auction.setShopLink(nick_url);
+
+            String nick_name = item.select("div.row.row-4.g-clearfix").select("div.wangwang span").attr("data-nick");
+            auction.setNick(nick_name);
+            String commen_url = item.select("div.row.row-4.g-clearfix").select("div.wangwang span a").attr("href");
+            auction.setComment_url(commen_url);
+
+            List<Element> iconList = item.select("div.row.row-4.g-clearfix").select("ul.icons").select("li.icon");
+            List<ListData.Mods.Item.Data.Auction.Icon> iconListInfo = new ArrayList<>();
+            for (Element icon : iconList) {
+                ListData.Mods.Item.Data.Auction.Icon icon_info = new ListData.Mods.Item.Data.Auction.Icon();
+                String title = icon.select("a").attr("title");
+                icon_info.setTitle(title);
+                String dom_class = icon.select("a span").attr("class");
+                icon_info.setDom_class(dom_class);
+                iconListInfo.add(icon_info);
+            }
+            auction.setIcon(iconListInfo);
+            resultList.add(auction);
         }
 
-        if (null != info) {
-            info = info.replace("g_page_config = ", "");
-            info = info.substring(0, info.lastIndexOf(";"));
-            Gson gson = new Gson();
-            ListData listData = gson.fromJson(info, ListData.class);
-            resultList.addAll(listData.getMods().getItemlist().getData().getAuctions());
-        }
+
         /*五秒之上的时间随便选*/
         try {
             TimeUnit.MILLISECONDS.sleep(5000 + new Random().nextInt(5000));
@@ -137,6 +189,34 @@ public class SeleniumServiceImpl implements SeleniumService {
             LOGGER.error("对于下一个页面数据的抓取的休息时间报错");
         }
         LOGGER.info("当前页面为<<{}>>结束", page);
+    }
+
+    /*
+     * 模仿翻页行为代码
+     * */
+    private WebElement modelPersonTurnPage(ChromeDriver driver) {
+        /*
+         * 模拟人互动网页的行为
+         * 300-500  500-700 然后底部
+         * */
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollBy(0, " + (300 + new Random().nextInt(200)) + ")");
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
+        } catch (InterruptedException e) {
+            LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
+        }
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollBy(0, " + (500 + new Random().nextInt(200)) + ")");
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000 + new Random().nextInt(1000));
+        } catch (InterruptedException e) {
+            LOGGER.error("模仿人鼠标行为滑动操作  出现异常");
+        }
+        WebElement element = driver.findElementByCssSelector("span.btn.J_Submit");
+        ((JavascriptExecutor) driver)
+                .executeScript("window.scrollBy(0, " + (element.getLocation().getY() - 100 + new Random().nextInt(20)) + ")");
+        return element;
     }
 
     /*
@@ -152,7 +232,7 @@ public class SeleniumServiceImpl implements SeleniumService {
         String reportPath = String.format("%s/search/%s.xls", userDir, fileName);*/
         File file = new File(reportPath);
         try (InputStream fileInputStream = new FileInputStream(new File(relativelyPath));
-                        FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+             FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             HSSFWorkbook hssfWorkbook = new HSSFWorkbook(fileInputStream);
             hssfWorkbook = ExcelUtils.createDataSheet(hssfWorkbook, null, resultList, "数据分析抓取", picture);
             hssfWorkbook.write(fileOutputStream);
@@ -168,6 +248,9 @@ public class SeleniumServiceImpl implements SeleniumService {
 
     }
 
+    /*
+     * 重新打开登录页面窗口
+     * */
     public ResponseEntity relogin() {
         driver = new ChromeDriver();
         // 最大化操作界面

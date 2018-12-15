@@ -14445,3 +14445,76 @@ jsonp889({
      "shopcardOff": true
    }
  }
+
+
+
+ <div class="item J_MouserOnverReq  " data-category="auctions" data-index="0">
+   <div class="pic-box J_MouseEneterLeave J_PicBox">
+     <div class="pic-box-inner">
+       <div class="pic">
+         <a id="J_Itemlist_PLink_552981443751" class="pic-link J_ClickStat J_ItemPicA" data-nid="552981443751" data-recommend-nav="" href="//detail.tmall.com/item.htm?id=552981443751&amp;ns=1&amp;abbucket=3" data-href="//detail.tmall.com/item.htm?id=552981443751&amp;ns=1&amp;abbucket=3" target="_blank" trace="msrp_auction" traceidx="0" trace-index="0" trace-nid="552981443751" trace-num="44" trace-price="29.90" trace-recommend-nav="" trace-risk="" trace-pid="">
+             <img id="J_Itemlist_Pic_552981443751" class="J_ItemPic img" src="//g-search2.alicdn.com/img/bao/uploaded/i4/i3/880734502/O1CN011kIGBl1j7xZZAoHO6_!!0-item_pic.jpg_230x230.jpg_.webp" data-src="//g-search2.alicdn.com/img/bao/uploaded/i4/i3/880734502/O1CN011kIGBl1j7xZZAoHO6_!!0-item_pic.jpg" alt="【三只松鼠_手撕面包1kg/整箱】网红早餐营养食品小零食蛋糕点心" />
+         </a>
+       </div>
+   <div class="similars">
+     <a class="btn disabled" target="_blank">
+         <s class="shim"></s>
+         <s class="bar"></s>
+         <span class="text">找同款</span>
+     </a>
+     <a class="btn " target="_blank" href="/search?type=similar&amp;app=i2i&amp;rec_type=1&amp;uniqpid=&amp;nid=552981443751">
+         <s class="shim"></s>
+         <span class="text">找相似</span>
+     </a>
+   </div>
+       <div class="report">
+         <a href="//jubao.taobao.com/index.htm?itemId=552981443751" target="_blank" title="举报该宝贝">
+           <span class="icon-btn-report"></span>
+         </a>
+       </div>
+     </div>
+   </div>
+   <div class="ctx-box J_MouseEneterLeave J_IconMoreNew">
+     <div class="row row-1 g-clearfix">
+       <div class="price g_price g_price-highlight">
+         <span>¥</span><strong>29.90</strong>
+       </div>
+       <div class="deal-cnt">296882人收货</div>
+         <div class="ship icon-service-free"></div>
+     </div>
+     <div class="row row-2 title">
+       <a id="J_Itemlist_TLink_552981443751" class="J_ClickStat" data-nid="552981443751" href="//detail.tmall.com/item.htm?id=552981443751&amp;ns=1&amp;abbucket=3" target="_blank" trace="msrp_auction" traceidx="0" trace-index="0" trace-nid="552981443751" trace-num="44" trace-price="29.90" trace-pid="">
+         <span class="baoyou-intitle icon-service-free"></span>
+         【三只松鼠_手撕面包1kg/整箱】网红<span class="H">早餐</span>营养食品小零食蛋糕点心
+       </a>
+     </div>
+       <div class="row row-3 g-clearfix">
+         <div class="shop">
+       <a class="shopname J_MouseEneterLeave J_ShopInfo" data-userid="880734502" data-nid="552981443751" href="//store.taobao.com/shop/view_shop.htm?user_number_id=880734502" target="_blank">
+         <span class="dsrs">
+             <span class="dsr morethan"></span>
+             <span class="dsr morethan"></span>
+             <span class="dsr morethan"></span>
+         </span>
+         <span>三只松鼠旗舰店</span>
+       </a>
+         </div>
+         <div class="location">安徽 芜湖</div>
+       </div>
+     <div class="row row-4 g-clearfix">
+       <div class="feature-icons icon-has-more" id="J_Itemlist_Icons_552981443751">
+         <ul class="icons">
+             <li class="icon " data-index="0">
+                   <a href="//www.tmall.com/" target="_blank" title="尚天猫，就购了" trace="srpservice" traceidx="0"><span class="icon-service-tianmao"></span></a>
+             </li>
+         </ul>
+       </div>
+         <div class="wangwang">
+           <span class="ww-light ww-small" data-nick="三只松鼠旗舰店" data-display="inline" data-item="552981443751" data-icon="small" data-encode="true"><a href="https://amos.alicdn.com/getcid.aw?v=3&amp;groupid=0&amp;s=1&amp;charset=utf-8&amp;uid=%E4%B8%89%E5%8F%AA%E6%9D%BE%E9%BC%A0%E6%97%97%E8%88%B0%E5%BA%97&amp;site=cntaobao&amp;fromid=cntaobaolicunzhi199445" target="_blank" class="ww-inline ww-online" title="点此可以直接和卖家交流选好的宝贝，或相互交流网购体验，还支持语音视频噢。"><span>旺旺在线</span></a></span>
+         </div>
+     </div>
+   </div>
+ </div>
+
+//产品信息
+<div class="item J_MouserOnverReq  " data-category="auctions".*?alt="(.*?)".?*</div>
