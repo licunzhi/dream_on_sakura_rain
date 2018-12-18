@@ -1,0 +1,28 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-user-service-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka8001.com:8001/eureka,http://eureka8002.com:8002/eureka,http://eureka8003.com:8003/eureka
+  instance:
+    instance-id: gateway-9527.com
+    prefer-ip-address: true
+
+zuul:
+#  ignored-services: cloud-user-service-demo
+  prefix: /sakura_rain # 设置访问路径的统一前缀
+  ignored-services: * # 忽略多个使用*
+  routes:
+    user.serviceId: cloud-user-service-demo # 微服务的名称
+    user.path: /user/** # 映射的统一路径
+
+info:
+  app.name: cloud user service zuul gateway
+  company.name: www.sakura.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
