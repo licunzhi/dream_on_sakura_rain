@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Aquaman/Aquaman.iml" filepath="$PROJECT_DIR$/Aquaman/Aquaman.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-eureka-demo-final.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-eureka-demo-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-config-demo/cloud-user-config-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-config-demo/cloud-user-config-demo.iml" />

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name:  cloud-user-config-demo
+    name: cloud-user-config-demo
   cloud:
     config:
       server:
