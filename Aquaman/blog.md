@@ -79,9 +79,8 @@
     ![词云效果](./aquaman.png)
 
 
-- 相关资源
+- 我有话说
     - 源码获取
-        - 公众号（sakura rain博客） 私信aquaman(有惊喜)
-        - github
+        - [github](https://github.com/licunzhi/dream_on_sakura_rain/tree/master/Aquaman)
     - Java交流
-        - 欢迎加群(),初创欢迎大家进群交流
+        - 欢迎加群(556212318),初创欢迎大家进群折腾
