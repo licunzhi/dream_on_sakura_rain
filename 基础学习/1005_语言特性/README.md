@@ -121,3 +121,63 @@
     Apache BeanUtils、PropertyUtils,Spring BeanUtils,Cglib BeanCopier  
     从测试效率上看 Cglib BeanCopier > Spring BeanUtil > apache BeanUtils
 
+- switch的case类型  
+    1.7版本之前支持int byte short char   1.7版本之后支持String
+
+- String对相中的方法 intern()  空间中查询字符串是否已经存在  
+    ```code
+        public native String intern();
+        原生接口  底层进行实现
+    ```
+    
+- 隐式转换  
+    += 和 = + 之间的区别  
+    前者进行运算的时候 会将结果强转和前面一致的数据类型 不考虑精度丢失的问题  
+    但是后者在进行运算的时候 有可能会出现异常或者是报错的情况  
+
+- 内部类的作用  
+    - 简单说法，当前类中的某个方法和继承或实现类中的方法冲突可以使用内部类去实现或者是继承重写其中的方法  
+    外部类有完全的访问权限访问到内部类的内容，因此满足了上面的问题。但是这个并不能完全解释有点  
+    - 严格上来，可以使用内部类的方式最终实现多继承  
+    也有隐藏内部类 封装属性的作用
+    
+- final的用法
+    - final修饰类  修饰方法 修饰属性参数 常量
+    - 修饰类不能被继承 String
+    - 修饰方法不能被overwrite
+    - 修饰方法 jvm进行内联 提高程序运行的效率
+    - final的修饰的常量 在编译阶段放入到常量池中
+    
+    
+- java中的数据类型占用自己字节的大小
+    -  scfild 占用位数 224488 字节数 乘以8
+    
+- int和Integer
+    - 占用内存的大小不同
+    - 原始数据类型 Integer是一个对象
+    
+- String, StringBuilder, StringBuffer
+    - String 字符串常量，大量字符串会导致进行GC操作 影响性能
+    - StringBuilder 字符串变量 线程不安全
+    - StringBuffer 字符串变量 线程安全的 大量字符串拼接操作建议使用 synchronized关键字操作
+
+- BigDecimal和double标识浮点数在精度上有误差  因此对于价格这种要求精确度十分高的需要使用BigDecimal进行运算
+
+- 常见的垃圾回收算法
+    - 标记清除法
+    - 标记复制法
+    - 标记整理法
+    - 分代回收法
+
+- 对象的存活性判断
+    - 引用计数法
+    - 对象可达性分析（推荐回答）
+    
+- System.gc() 只是通知GC开始工作，但是真正开始工作的时间并不知道
+
+- wait() 和 sleep() wait()是object中的方法会释放当前的线程锁
+
+- 手动写一个生产消费者模式的代码
+
+- 使用线程池的好处  
+    避免重复申请资源导致的开销，统一化管理资源

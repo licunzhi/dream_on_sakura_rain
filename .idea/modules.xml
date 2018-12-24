@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Aquaman/Aquaman.iml" filepath="$PROJECT_DIR$/Aquaman/Aquaman.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-eureka-demo-final.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-eureka-demo-final/cloud-eureka-demo-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-api-demo/cloud-user-api-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-config-demo/cloud-user-config-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-config-demo/cloud-user-config-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/cloud-user-consumer-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-demo/cloud-user-consumer-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/cloud-user-consumer-feign-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-feign-demo/cloud-user-consumer-feign-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-hystrix-demo/cloud-user-consumer-hystrix-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-consumer-hystrix-demo/cloud-user-consumer-hystrix-demo.iml" />
@@ -14,8 +16,10 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-final/cloud-user-service-demo-final.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-final/cloud-user-service-demo-final.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/cloud-user-service-demo-next.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/cloud-user-service-demo-next.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-hystrix-demo/cloud-user-service-hystrix-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-hystrix-demo/cloud-user-service-hystrix-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-zuul-gateway/cloud-user-service-zuul-gateway.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-zuul-gateway/cloud-user-service-zuul-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" filepath="$PROJECT_DIR$/loadingcache_demo/loadingcache.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" filepath="$PROJECT_DIR$/springboot_initAction_demo/plum (1).iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />

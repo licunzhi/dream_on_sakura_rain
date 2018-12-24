@@ -97,6 +97,8 @@
         <module>cloud-user-consumer-feign-demo</module>
         <module>cloud-user-consumer-hystrix-demo</module>
         <module>cloud-user-service-hystrix-demo</module>
+        <module>cloud-user-service-zuul-gateway</module>
+        <module>cloud-user-config-demo</module>
     </modules>
 
 </project>
