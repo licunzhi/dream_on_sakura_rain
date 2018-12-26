@@ -3,6 +3,7 @@
 - plumparkparentlock 父类maven模块
 
 ### 模块列表
+- [我每天的计划](./000_每天任务信息)
 - [冒泡算法](./bubble_sorting_demo)
 - [设计模式](./java_design_model_demo)
 - [Java8stream操作](./java_stream_demo)
