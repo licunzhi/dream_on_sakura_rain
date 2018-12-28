@@ -24,6 +24,17 @@ public class CountJob implements Job {
     public void execute(JobExecutionContext context) {
         int count = context.getJobDetail().getJobDataMap().getInt("count");
 
+        if (count == 0) {
+            count++;
+            context.getJobDetail().getJobDataMap().put("count", count);
+            try {
+                scheduler.addJob(context.getJobDetail(), true, true);
+            } catch (SchedulerException e) {
+                System.out.println("首次数据更新");
+            }
+            return;
+        }
+
         if (count < 30) {
             System.out.println("执行次数：" + count);
             count++;
