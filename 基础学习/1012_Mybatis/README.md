@@ -1,3 +1,5 @@
+## Mybatis相关问题
+
 ### 缓存级别
 
 - 一级缓存
@@ -19,3 +21,10 @@
     不同的sqlsession进行查询的时候 可以判断缓存中是否存在该数据  如果存在直接在缓存中获取而不用再次去查询
     - 范围更大  
     区别一级缓存针对的单独的sqlSession 二级缓存可以多个session共享一个mapper缓存信息
+
+
+### Mybatis的运行原理  核心技术
+![整体原理图](./框架.png)
+> 解释参照https://blog.csdn.net/luanlouis/article/details/40422941 个人总结使用  故在这里注明
+
+- 传统的Mybatis查询方式
