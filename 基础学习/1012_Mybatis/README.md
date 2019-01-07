@@ -27,4 +27,90 @@
 ![整体原理图](./框架.png)
 > 解释参照https://blog.csdn.net/luanlouis/article/details/40422941 个人总结使用  故在这里注明
 
-- 传统的Mybatis查询方式
+- 组件构成
+    - `sqlSession` 负责会话管理
+    - `Executor` 执行器
+    - `StatementHandler` 分装jdbcTemplate
+    - `ParameterHandler` 封装jdbcTemplate操作
+    - `ResultSetHandler` 返回结果处理
+    - `TypeHandler` java数据类型和数据库中的数据类型之间的转换
+    - `MappedStatement` 维护增删改查节点封装
+    - `sqlSource` 动态生成sql语句到BoundSql对象中
+    - `BoundSql` 标识动态生成的sql语句以及相应的参数信息
+    - `Configuration` Mybatis中所有的配置信息都在其中
+    
+- query
+```code
+BaseExecutor.java
+@Override
+  public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+    // 方法获取BoundSql 
+    BoundSql boundSql = ms.getBoundSql(parameter);
+                                        |||// 断点设置位置
+                        public BoundSql getBoundSql(Object parameterObject) {
+                            BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
+                                            |||// 断点设置位置
+                                            public BoundSql getBoundSql(Object parameterObject) {
+                                                SqlSource sqlSource = createSqlSource(parameterObject);
+                                                return sqlSource.getBoundSql(parameterObject);
+                                              }
+                            List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+                            if (parameterMappings == null || parameterMappings.isEmpty()) {
+                              boundSql = new BoundSql(configuration, boundSql.getSql(), parameterMap.getParameterMappings(), parameterObject);
+                            }
+                        
+                            // check for nested result maps in parameter mappings (issue #30)
+                            for (ParameterMapping pm : boundSql.getParameterMappings()) {
+                              String rmId = pm.getResultMapId();
+                              if (rmId != null) {
+                                ResultMap rm = configuration.getResultMap(rmId);
+                                if (rm != null) {
+                                  hasNestedResultMaps |= rm.hasNestedResultMaps();
+                                }
+                              }
+                            }
+                        
+                            return boundSql;
+                          }
+    //创建缓存key 有二级缓存
+    CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);
+                                   |||
+                                   public CacheKey createCacheKey(MappedStatement ms, Object parameterObject, RowBounds rowBounds, BoundSql boundSql) {
+                                       if (closed) {
+                                         throw new ExecutorException("Executor was closed.");
+                                       }
+                                       // 创建缓存key 设置相关属性信息 msid + offset + limit + sql
+                                       CacheKey cacheKey = new CacheKey();
+                                       cacheKey.update(ms.getId());
+                                       cacheKey.update(rowBounds.getOffset());
+                                       cacheKey.update(rowBounds.getLimit());
+                                       cacheKey.update(boundSql.getSql());
+                                       List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+                                       TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();
+                                       // mimic DefaultParameterHandler logic
+                                       for (ParameterMapping parameterMapping : parameterMappings) {
+                                         if (parameterMapping.getMode() != ParameterMode.OUT) {
+                                           Object value;
+                                           String propertyName = parameterMapping.getProperty();
+                                           if (boundSql.hasAdditionalParameter(propertyName)) {
+                                             value = boundSql.getAdditionalParameter(propertyName);
+                                           } else if (parameterObject == null) {
+                                             value = null;
+                                           } else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
+                                             value = parameterObject;
+                                           } else {
+                                             MetaObject metaObject = configuration.newMetaObject(parameterObject);
+                                             value = metaObject.getValue(propertyName);
+                                           }
+                                           cacheKey.update(value);
+                                         }
+                                       }
+                                       if (configuration.getEnvironment() != null) {
+                                         // issue #176
+                                         cacheKey.update(configuration.getEnvironment().getId());
+                                       }
+                                       return cacheKey;
+                                     }
+    return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
+ }
+```

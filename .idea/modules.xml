@@ -17,6 +17,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/cloud-user-service-demo-next.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-demo-next/cloud-user-service-demo-next.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-hystrix-demo/cloud-user-service-hystrix-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-hystrix-demo/cloud-user-service-hystrix-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-zuul-gateway/cloud-user-service-zuul-gateway.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/cloud-user-service-zuul-gateway/cloud-user-service-zuul-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis_pagehelper_demo/demo.iml" filepath="$PROJECT_DIR$/mybatis_pagehelper_demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/dream_on_sakura_rain.iml" filepath="$PROJECT_DIR$/dream_on_sakura_rain.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" filepath="$PROJECT_DIR$/java_design_model_demo/java_design_model.iml" />
       <module fileurl="file://$PROJECT_DIR$/java_face_demo/java_face_demo.iml" filepath="$PROJECT_DIR$/java_face_demo/java_face_demo.iml" />
