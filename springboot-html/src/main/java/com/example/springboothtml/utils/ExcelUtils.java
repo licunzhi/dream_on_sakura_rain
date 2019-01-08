@@ -115,7 +115,7 @@ public class ExcelUtils {
         titleStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 11; i++) {
             chart.getRow(0).getCell(i).setCellStyle(titleStyle);
         }
 
@@ -132,11 +132,13 @@ public class ExcelUtils {
             valueRowCell.setCellStyle(cellStyle);
 
             HSSFCell ipRowCell = labelRow.createCell(2);
-            ipRowCell.setCellValue(auction.getView_price());
+            ipRowCell.setCellValue(Double.parseDouble(auction.getView_price()));
             ipRowCell.setCellStyle(cellStyle);
 
             HSSFCell cpuRowCell = labelRow.createCell(3);
-            cpuRowCell.setCellValue(auction.getView_sales() == null ? "" : auction.getView_sales().replace("人收货", ""));
+            int view_sales = auction.getView_sales() == null ? 0 :
+                            Integer.parseInt(auction.getView_sales().replace("人收货", "").replace("人付款", ""));
+            cpuRowCell.setCellValue(view_sales);
             cpuRowCell.setCellStyle(cellStyle);
 
             HSSFCell nicks = labelRow.createCell(4);
@@ -147,15 +149,15 @@ public class ExcelUtils {
             pics.setCellValue(auction.getPic_url());
             pics.setCellStyle(cellStyle);
 
-            HSSFCell comment = labelRow.createCell(6);
+            /*HSSFCell comment = labelRow.createCell(6);
             comment.setCellValue(auction.getComment_url());
-            comment.setCellStyle(cellStyle);
+            comment.setCellStyle(cellStyle);*/
 
-            HSSFCell shopLink = labelRow.createCell(7);
+            HSSFCell shopLink = labelRow.createCell(6);
             shopLink.setCellValue(auction.getShopLink());
             shopLink.setCellStyle(cellStyle);
 
-            HSSFCell detail = labelRow.createCell(8);
+            HSSFCell detail = labelRow.createCell(7);
             detail.setCellValue(auction.getDetail_url());
             detail.setCellStyle(cellStyle);
 
@@ -175,7 +177,7 @@ public class ExcelUtils {
     private static void picAgain(HSSFWorkbook hssfWorkbook, HSSFPatriarch patriarch, int i,
                     ListData.Mods.Item.Data.Auction auction) {
         try {
-            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 0, 255, (short) 9, i, (short) 10, i);
+            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 0, 255, (short) 8, i, (short) 9, i);
             anchor.setAnchorType(0);
             URL url = new URL("https:" + auction.getPic_url());
             /*BufferedImage bufferImg = ImageIO.read(url);*/
@@ -186,7 +188,6 @@ public class ExcelUtils {
             byte[] buffer = new byte[1024];
             int length;
 
-            ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
             while ((length = dataInputStream.read(buffer)) > 0) {
                 output.write(buffer, 0, length);
             }
@@ -217,11 +218,11 @@ public class ExcelUtils {
                 tMall = "是";
             }
         }
-        HSSFCell jinpaiCell = labelRow.createCell(10);
+        HSSFCell jinpaiCell = labelRow.createCell(9);
         jinpaiCell.setCellValue(jinpai);
         jinpaiCell.setCellStyle(cellStyle);
 
-        HSSFCell tMallCell = labelRow.createCell(11);
+        HSSFCell tMallCell = labelRow.createCell(10);
         tMallCell.setCellValue(tMall);
         tMallCell.setCellStyle(cellStyle);
 

@@ -107,6 +107,8 @@ public class ListData {
                     //@ApiModelProperty(value = "天猫卖家信息")
                     private ShopCard shopcard;
 
+                    private String nid;
+
                     public String getTitle() {
                         return title;
                     }
@@ -193,6 +195,14 @@ public class ListData {
 
                     public void setShopcard(ShopCard shopcard) {
                         this.shopcard = shopcard;
+                    }
+
+                    public String getNid() {
+                        return nid;
+                    }
+
+                    public void setNid(String nid) {
+                        this.nid = nid;
                     }
 
                     public static class ShopCard {
