@@ -445,12 +445,12 @@ Map接口 传说中的地图   index-location
              
         - HashMap的数据如何获取  
             通过计算hash值直接获取对应values，如果计算的时候出现hash值相同的情况，需要进而使用equals()方法再次比较  
-            因此使用String Integer这种包装类作为键存储是比较好的选择，可以避免出现hash值碰撞的情况 collision detection
+            因此使用String Integer这种`不可变对象`包装类作为键存储是比较好的选择，可以避免出现hash值碰撞的情况 collision detection
             
         - HashMap容量超出之后如何进行处理  
             默认的负载因子是0.75，默认容量大小是16，本质上是超出16*0.75就会出现扩容操作resize()方法，扩大为原来的两倍  
             原来的对象放在新的数组中--rehashing  
-            查出阈值8会变成红黑树
+            超出阈值8会变成红黑树
             
         - HashMap大小重新调整出现的问题  
             多线程导致条件竞争,多个扩容请求,链表在多线程条件下变成循环链表死循环  
