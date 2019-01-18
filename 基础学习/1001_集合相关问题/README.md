@@ -143,12 +143,17 @@ public V get(Object key) {
 ```
 
    - 初始化参数  
-    默认大小11 每次扩展为原来的2n+1
+    默认大小`11` 每次扩展为原来的`2n+1`
+```code
+public Hashtable() {
+    this(11, 0.75f);
+}
+```
 
 ### Vector
 - Vector是线程安全的，效率上来说应该是比ArrayList低
 - Vector满了之后扩容是之前的一倍，ArrayList仅仅是一半
-- Vector分配空间需要连续的存储空间，如果数据量较大的情况容易导致内存分配失败
+- `Vector分配空间需要连续的存储空间，如果数据量较大的情况容易导致内存分配失败`
 - 只能在尾部进行插入删除操作
 
 存储空间翻倍的原因
@@ -192,7 +197,7 @@ private void grow(int minCapacity) {
 
 
 ### Map interface
-Map接口 传说中的地图   lindex-location
+Map接口 传说中的地图   index-location
 - 常见使用的接口
 ```
     - int size()                                返回键值对的数量 最大值为maxInteger
