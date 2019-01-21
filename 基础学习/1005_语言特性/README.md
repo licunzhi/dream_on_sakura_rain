@@ -5,6 +5,17 @@
 - 继承 
 - 多态
 
+### 基本数据类型所占字节
+byte     1字节  
+boolean  false/true(理论上占用1bit,1/8字节，实际处理按1byte处理)   
+short    2字节               
+char     2字节（C语言中是1字节）可以存储一个汉字
+int      4字节               
+float    4字节               
+long     8字节               
+double   8字节    
+bbscifld           
+
 ### 多态的好处
 - 允许不同对象对同一个消息做出相应，不同的对应可采用同种行为的操作方式  
     优点：  
@@ -48,8 +59,8 @@
 			<td style="vertical-align:middle;">抽象方法可以有public,protected和default等修饰</td>
 			<td style="vertical-align:middle;">接口默认是public,不能使用其他修饰符</td>
 		</tr><tr><td style="vertical-align:middle;">多继承</td>
-			<td style="vertical-align:middle;">一个子类只能存在一个父类</td>
-			<td style="vertical-align:middle;">一个子类可以存在多个接口</td>
+			<td style="vertical-align:middle;">一个子类只能继承一个父类</td>
+			<td style="vertical-align:middle;">一个子类可以实现多个接口</td>
 		</tr><tr><td style="vertical-align:middle;">添加新方法</td>
 			<td style="vertical-align:middle;">想抽象类中添加新方法,可以提供默认的实现,因此可以不修改子类现有的代码</td>
 			<td style="vertical-align:middle;">如果往接口中添加新方法,则子类中需要实现该方法.</td>
