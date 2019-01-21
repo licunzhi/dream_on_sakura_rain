@@ -154,3 +154,4 @@ public class ExecutorDemo implements Callable<String> {
 ### 总结
 - 使用Callable的实现方式可以获取线程返回值
 - 线程池可以一次执行多个线程，可以获取到线程池中每个线程的执行结果
+- 使用Future对象可以对执行方法进行判断，判断是否执行完成
