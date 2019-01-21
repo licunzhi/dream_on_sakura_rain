@@ -155,3 +155,15 @@ public class ExecutorDemo implements Callable<String> {
 - 使用Callable的实现方式可以获取线程返回值
 - 线程池可以一次执行多个线程，可以获取到线程池中每个线程的执行结果
 - 使用Future对象可以对执行方法进行判断，判断是否执行完成
+
+
+
+### 基本概念问题
+- 线程的生命周期： 新建 就绪 运行 阻塞 死亡
+- 线程的优先级：min_priority 1 normal_priority 5 max_priority 10
+- 默认创建会分配一个normal优先级的线程 优先级高的线程对程序更重要
+- 采用实现接口的方式创建线程可以继承其他类  使用Thread创建多线程比较简单，获取当前线程使用this即可
+- 线程过多的创建不一定是的程序执行效率变大，很有可能会降低
+- holdsLock() 方法可以检查一个线程是否枷锁
+- volatile 一个轻量级别的synchronized 保证共享变量的可见性
+- 可重入锁：线程可以进入任何一个它已经拥有的锁所同步着的代码块
