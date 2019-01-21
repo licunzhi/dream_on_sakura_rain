@@ -14,6 +14,12 @@ Atomicity 每个操作都是最小单位 有始有终 无始无终 否则回滚�
 Correspondence 事务开始和事务结束之后  数据库完整性约束没有被破坏
 Isolation 串行化或者是序列化同一时间同一个操作行为
 Durability 事务完成之后 数据真实有效存储在数据库中
+
+### 事务隔离级别
+read-uncommitted 读取未提交---- 脏读 不可重读 幻读  
+read-committed 读取已提交------ 不可重复读 幻读  
+repeatable-read 可重复读------- 幻读  
+serializable  可串行化
 ___  
   
 
