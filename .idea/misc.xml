@@ -6,17 +6,6 @@
     </list>
   </component>
   <component name="MavenProjectsManager">
-    <option name="originalFiles">
-      <list>
-        <option value="$PROJECT_DIR$/springboot-html/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-cloud-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_face_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/Aquaman/pom.xml" />
-        <option value="$PROJECT_DIR$/quartz_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
-        <option value="$PROJECT_DIR$/mybatis_pagehelper_demo/pom.xml" />
-      </list>
-    </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
