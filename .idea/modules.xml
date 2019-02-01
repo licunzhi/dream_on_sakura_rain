@@ -26,6 +26,7 @@
       <module fileurl="file://$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" filepath="$PROJECT_DIR$/springboot_webflux_demo/plum (2).iml" />
       <module fileurl="file://$PROJECT_DIR$/quartz_demo/quartz_demo.iml" filepath="$PROJECT_DIR$/quartz_demo/quartz_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-data-jpa/spring-data-jpa.iml" filepath="$PROJECT_DIR$/spring-data-jpa/spring-data-jpa.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-html/springboot-html.iml" filepath="$PROJECT_DIR$/springboot-html/springboot-html.iml" />
     </modules>
   </component>

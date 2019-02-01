@@ -6,6 +6,11 @@
     </list>
   </component>
   <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/spring-data-jpa/pom.xml" />
+      </list>
+    </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/java_design_model_demo/pom.xml" />
