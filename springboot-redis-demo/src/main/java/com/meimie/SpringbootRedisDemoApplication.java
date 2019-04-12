@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @EnableScheduling
 @EnableCaching
 public class SpringbootRedisDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringbootRedisDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootRedisDemoApplication.class, args);
+    }
 }

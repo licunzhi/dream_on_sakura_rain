@@ -1,5 +1,7 @@
 package com.meimie.api;
 
+import com.meimie.model.User;
+import com.meimie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -7,6 +9,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -20,30 +23,35 @@ import javax.annotation.Resource;
 @RequestMapping("/hello")
 public class HelloController {
 
-    /*
-    * 原生的配置信息查找可以在源码包中
-    * readme文件
-    *
-    * 官方介绍文档原生配置方式https://docs.spring.io/spring-data/redis/docs/2.0.11.RELEASE/reference/html/
-    * */
-
     @Autowired
-    private RedisTemplate redisTemplate;
+    private UserService userService;
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    @RequestMapping("/adduser")
+    public int addUser(@RequestParam("name")String name, @RequestParam("age")String age){
+        return userService.addUser(name, age);
+    }
+    @RequestMapping("/findUser")
+    public User findUser(@RequestParam("id") String id){
+        return userService.findById(id);
+    }
+    @RequestMapping("/updataById")
+    public String updataById(@RequestParam("id") String id,@RequestParam("name") String name){
+        try {
+            userService.updataById(id, name);
+        } catch (Exception e) {
+            return "error";
+        }
+        return "success";
+    }
 
-    // inject the template as ListOperations
-    @Resource(name="redisTemplate")
-    private ListOperations<String, String> listOps;
-
-    @GetMapping("/{info}")
-    public void addInfo(@PathVariable("info") String info) {
-        /*
-        * 实现命令
-        *
-        * */
-        stringRedisTemplate.opsForList().leftPush("name", info);
+    @RequestMapping("/deleteById")
+    public String deleteById(@RequestParam("id") String id){
+        try {
+            userService.deleteById(id);
+        } catch (Exception e) {
+            return "error";
+        }
+        return "success";
     }
 
 }
