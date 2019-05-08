@@ -45,6 +45,7 @@ public class UserController {
         return restTemplate.postForObject(USER_URL_PREFIX+"/user/create", user, Boolean.class);
     }
 
+
     // 测试@EnableDiscoveryClient,消费端可以调用服务发现
     @RequestMapping(value = "/user/discovery")
     public Object discovery()
