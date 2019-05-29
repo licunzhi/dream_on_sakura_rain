@@ -8,8 +8,9 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/spring-data-jpa/pom.xml" />
-        <option value="$PROJECT_DIR$/spring_jdbctemplate_demo/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-cloud-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/html_bind_event/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
