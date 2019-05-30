@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>监听事件，自定义监听</title>
+    <!--引入jQuery-->
+    <script src="../../js/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<!--假装写个样式-->
+<div style="width: 20%; text-align: center; float: left">
+    <input type="text" lczer="name">
+    <hr>
+    <textarea type="text" lczer="desc"></textarea>
+    <hr>
+    <select name="city" lczer="city">
+        <option value="">请选择</option>
+        <option value="1">北京</option>
+        <option value="2">上海</option>
+        <option value="3">南京</option>
+    </select>
+    <hr>
+    <input type="checkbox" name="hobby" lczer="hobby" k="1" v="篮球">篮球
+    <input type="checkbox" name="hobby" lczer="hobby" k="2" v="乒乓球">乒乓球
+    <hr>
+    <input type="radio" name="drink" lczer="drink" k="1" v="啤酒">啤酒
+    <input type="radio" name="drink" lczer="drink" k="2" v="牛奶">牛奶
+    <hr>
+    <button onclick="see()">我想看看结果</button>
+    <hr>
+    <button onclick="city()">city属性被修改</button>
+    <hr>
+    <button onclick="hobby()">爱好属性被修改</button>
+    <hr>
+    <button onclick="drink()">喝的属性被修改</button>
+
+</div>
+<pre>
+    <div style="width: 50%; height: 600px; border: 1px black solid; float: left" id="resultInfo">
+
+    </div>
+</pre>
+</body>
+<script type="text/javascript">
+
+
+    /**
+     * @desc 数据的单向绑定,拜托以前的手动采集
+     *
+     * @param tag 自定义tag，避免tag冲突
+     * @param outObject 动态输出对象，需要定义全局对象
+     * @param defaultValue 默认监听的对象无数据的时候默认值,不传输默认null
+     */
+    function bindWatchEvent(tag, outObject, defaultValue) {
+        outObject = outObject || {};
+        //单选   radio
+        $(`[${tag}]`).each(function () {
+            if ($.inArray($(this)[0].tagName.toLocaleLowerCase(), ['input', 'textarea']) >= 0 &&
+                $.inArray($(this)[0].type.toLocaleLowerCase(), ['text', 'textarea']) >= 0) {
+                $(this).bind('input propertychange', 'textarea', function () {
+                    if ($(this).val()) {
+                        outObject[$(this).attr(tag)] = $(this).val();
+                    } else {
+                        outObject[$(this).attr(tag)] = defaultValue || null;
+                    }
+                });
+            } else if ($(this)[0].tagName.toLocaleLowerCase() === 'select') {
+                $(this).bind('select change', function () {
+                    if ($(this).val()) {
+                        outObject[$(this).attr(tag)] = {
+                            k: $(this).children('option:selected').val(),
+                            v: $(this).children('option:selected').text()
+                        };
+                    } else {
+                        outObject[$(this).attr(tag)] = defaultValue || null;
+                    }
+                });
+            } else if ($(this)[0].tagName.toLocaleLowerCase() === 'input' && $(this)[0].type.toLocaleLowerCase() === 'checkbox') {
+                $(this).on('click', function () {
+                    var tagValue = $(this).attr(tag);
+                    outObject[tagValue] = [];
+                    $('[' + tag + '=' + $(this)[0].getAttribute(tag) + ']').each(function () {
+                        if ($(this)[0].checked) {
+                            outObject[tagValue].push({
+                                k: $(this)[0].getAttribute('k'),
+                                v: $(this)[0].getAttribute('v')
+                            });
+                        }
+                    });
+                });
+            } else if ($(this)[0].tagName.toLocaleLowerCase() === 'input' && $(this)[0].type.toLocaleLowerCase() === 'radio') {
+                $(this).on('click', function () {
+                    if ($(this)[0].checked) {
+                        outObject[$(this).attr(tag)] = {
+                            k: $(this)[0].getAttribute('k'),
+                            v: $(this)[0].getAttribute('v')
+                        };
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * @desc 数据的双向绑定
+     *
+     * @param tag 自定义tag，避免tag冲突
+     * @param inObject 动态输出对象，需要定义全局对象
+     */
+    function bindEachEvent(tag, inObject, outObject) {
+        var nameArr = [];
+        $(`[${tag}]`).each(function () {
+            if ($.inArray($(this).attr(tag), nameArr) >= 0) {
+                return;
+            }
+            nameArr.push($(this).attr(tag));
+            var tagValue = $(this).attr(tag);
+            Object.defineProperty(inObject, tagValue, {
+                get: function () {
+                    return name;
+                },
+                set: function (value) {
+                    console.log(tagValue, "--------", value);
+                    $('[' + tag + '="' + tagValue + '"' + ']').each(function () {
+                        if ($.inArray($(this)[0].tagName.toLocaleLowerCase(), ['input', 'textarea']) >= 0 &&
+                            $.inArray($(this)[0].type.toLocaleLowerCase(), ['text', 'textarea']) >= 0) {
+                            $(this).val(inObject[tagValue]);
+                            outObject[tagValue] = $(this).val();
+                        } else if ($(this)[0].tagName.toLocaleLowerCase() === 'select') {
+                            $(this).find(`[value=${value.k}]`).prop('selected', true);
+                            outObject[tagValue] = value;
+                        } else if ($(this)[0].tagName.toLocaleLowerCase() === 'input' && $(this)[0].type.toLocaleLowerCase() === 'checkbox') {
+                            for (var i = 0; i < value.length; i++) {
+                                $(`[${tag}=${tagValue}][k=${value[i].k}]`).prop('checked', true);
+                            }
+                            outObject[tagValue] = value;
+                        } else if ($(this)[0].tagName.toLocaleLowerCase() === 'input' && $(this)[0].type.toLocaleLowerCase() === 'radio') {
+                            $(`[${tag}=${tagValue}][k=${value.k}]`).prop('checked', true);
+                            outObject[tagValue] = value;
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+
+    var outObject = {};
+    var inObject = {};
+    $(function () {
+        bindWatchEvent('lczer', outObject);
+
+        bindEachEvent('lczer', inObject, outObject);
+        
+    });
+
+    function see() {
+        $('#resultInfo').text(JSON.stringify(outObject, null, 4));
+    }
+    
+    function city() {
+        inObject.city = {
+            k: 2,
+            v: '上海'
+        };
+    }
+    
+    function hobby() {
+        inObject.hobby = [
+            {
+                k: "1",
+                v: "篮球"
+            },
+            {
+                k: "2",
+                v: "乒乓球"
+            }
+        ]
+    }
+    
+    function drink() {
+        inObject.drink = {
+                k: "1",
+                v: "啤酒"
+            }
+    }
+</script>
+</html>
