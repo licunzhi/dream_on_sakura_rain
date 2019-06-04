@@ -17,7 +17,6 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import sun.misc.BASE64Decoder;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

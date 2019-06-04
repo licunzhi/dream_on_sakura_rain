@@ -50,6 +50,7 @@ public class Main {
         base64Model.setDataConent(new BASE64Encoder().encode(bytes));
         dataMap.put("image_base", base64Model);
 
+        /*暂不可用，等待优化*/
         PptModel<String> tableModel = new PptModel<>();
         tableModel.setDataType(PptUtils.TABLE_DATA);
         tableModel.setDataConent("name,password,address;sakura,123456,nanjing;plumpark,123456,bozhou");
