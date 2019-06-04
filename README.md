@@ -1,9 +1,15 @@
 # dream_on_sakura_rain
+
+[![HOME](https://img.shields.io/badge/HOME-PlumLi-brightgreen.svg.svg)](https://github.com/licunzhi/dream_on_sakura_rain)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/licunzhi/dream_on_sakura_rain/pulls)
+![GitHub stars](https://img.shields.io/github/stars/licunzhi/dream_on_sakura_rain.svg?style=social)
+![GitHub forks](https://img.shields.io/github/forks/licunzhi/dream_on_sakura_rain.svg?style=social)
+
 项目下有更不同的demo，运行执行指定的项目模块即可
 - plumparkparentlock 父类maven模块
 
 ### 模块列表
-- [我每天的计划](./000_每天任务信息)
+- [POI操作](./java_ppt_demo)
 - [冒泡算法](./bubble_sorting_demo)
 - [设计模式](./java_design_model_demo)
 - [Java8stream操作](./java_stream_demo)
