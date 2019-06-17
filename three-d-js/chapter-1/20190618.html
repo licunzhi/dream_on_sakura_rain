@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三维场景</title>
+</head>
+<script src="../common/three.js"></script>
+<script src="../common/jquery.min.js"></script>
+<body>
+
+<script>
+    // 自学demo记录 案例所在地址
+    // 项目地址 https://github.com/licunzhi/dream_on_sakura_rain/blob/master/three-d-js/chapter-1/20190618.html
+
+
+    // 创建渲染
+    var renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+    // 像素
+    renderer.setPixelRatio(window.devicePixelRatio);
+    // 尺寸
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.gammaOutput = true;
+    renderer.gammaFactor = 2.2;
+    document.body.appendChild(renderer.domElement);
+
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50);
+    // 视角所在位置
+    camera.position.set(0, -20, 40);
+
+    // 切换相机视角
+    // camera.rotation.y = 0.5;
+    camera.rotation.x = 0.3 * Math.PI;
+    // camera.rotation.z = 0.5;
+
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0xe5e5e5 );
+
+    /*坐标*/
+    var axes = new THREE.AxisHelper(20);
+    scene.add(axes);
+
+    // 添加平面几何
+    var geometry = new THREE.PlaneGeometry( 40, 20, 32, 32 );// x 轴参数 y 轴参数 面分段数 高度分段数
+    var material = new THREE.MeshBasicMaterial( {color: 0x808080, side: THREE.DoubleSide} );// 渲染颜色 渲染面数
+    var mesh = new THREE.Mesh( geometry, material );
+    mesh.rotation.set(-0.3*Math.PI, 0, 0);
+    scene.add( mesh );
+
+    // 立方体
+    var geometry = new THREE.BoxBufferGeometry( 5, 5, 5);
+    var material = new THREE.MeshBasicMaterial( {color: 0xA0522D} );
+    var cube = new THREE.Mesh( geometry, material );
+    cube.position.set(0, 10, 0);
+    cube.rotation.set(-0.3*Math.PI, 0, 0);
+    scene.add( cube );
+
+    // 尺寸改变
+    window.addEventListener( 'resize', onWindowResize, false );//默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。
+
+
+    animate();
+
+    function animate() {
+        requestAnimationFrame( animate );
+
+        // mesh.rotation.y += 0.01;//添加动画
+        // if (mesh.rotation.y > Math.PI * 2) {
+        //     mesh.rotation.y -= Math.PI * 2;
+        // }
+
+        cube.rotation.z += 0.01;//添加动画
+        cube.rotation.x += 0.01;//添加动画
+        if (cube.rotation.z > Math.PI * 2) {
+            cube.rotation.z -= Math.PI * 2;
+            cube.rotation.x -= Math.PI * 2;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+
+</script>
+</body>
+</html>
