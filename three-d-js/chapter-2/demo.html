@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>如何进行划线处理</title>
+    <style>
+        body { margin: 0; }
+        canvas { width: 100%; height: 100% }
+    </style>
+</head>
+<body>
+<script src="../common/three.js"></script>
+<script src="../common/jquery.min.js"></script>
+<script>
+    // 初始化渲染器
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    // 设置远景相机
+    var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+    camera.position.set( 0, 0, 100 );
+    camera.lookAt( 0, 0, 0 );
+
+    // 创建场景
+    var scene = new THREE.Scene();
+
+
+    // 创建 线对象   LineBasicMaterial or LineDashedMaterial
+    var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+
+    // 定义定点对象   Geometry（简单操作）或BufferGeometry
+    var geometry = new THREE.Geometry();
+    geometry.vertices.push(new THREE.Vector3( -10, 0, 0) );
+    geometry.vertices.push(new THREE.Vector3( 0, 10, 0) );
+    geometry.vertices.push(new THREE.Vector3( 10, 0, 0) );
+
+    // 点和线对象进行组合
+    var line = new THREE.Line(geometry, material);
+
+    // 场景中进行渲染或者说是绘制
+    scene.add( line );
+    renderer.render( scene, camera );
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实例解析demo1</title>
+    <style>
+        body {
+            background-color: #cce0ff;
+            color: #000000;
+        }
+        a {
+            color: #080;
+        }
+    </style>
+</head>
+<body>
+   <div id="info">
+        Simple cloth Simulation<br/>
+       Verlet integration with relaxed constraints<br/>
+
+   </div>
+   <script src="../common/three.js"></script>
+   <script src="../common/WebGL.js"></script>
+   <script src="../common/Cloth.js"></script>
+
+   <script>
+       /*判断浏览器是否支持*/
+       var isSupportWEBGL = WEBGL.isWebGLAvailable();
+       console.log(isSupportWEBGL);
+       if (!isSupportWEBGL) {
+           document.body.appendChild(WEBGL.getWebGLErrorMessage());
+       }
+
+        /*创建一个容器 container*/
+       var container;
+       container = document.createElement('div');
+       document.body.appendChild(container);
+
+       // 创建一个场景
+       var scene;
+       scene = new THREE.Scene();
+       // 背景颜色
+       scene.background = new THREE.Color(0xcee0ff);
+       // 物体雾的类型-color-near-Float
+       scene.fog = new THREE.Fog(0xcce0ff, 500, 10000);
+
+       // 创建相机
+       var camera;
+       // 远景相机 fov-椎体角度 aspect-椎体比例 near-近端面 far-远端面
+       camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 10000);
+       // 设置位置 三维向量 x-y-z
+       camera.position.set(1000, 50, 1500);
+
+       // 添加光  物体可见
+       var lights = new THREE.AmbientLight(0x666666);
+       // 添加到场景中
+       scene.add(lights);
+       // 平行光 模拟阳光适用 color-intensity 颜色-强度
+       var directLight = new THREE.DirectionalLight(0xdfebdd, 1);
+       // 设置光线角度
+       directLight.position.set(50, 200, 100);
+       // 传入的向量和该参数进行相乘
+       directLight.position.multiplyScalar(1.3);
+       // 阴影 计算参数设置 2的幂次方  参数增大会牺牲计算时间提供更好的阴影效果
+       directLight.castShadow = true;
+       directLight.shadow.mapSize.width = 1024;
+       directLight.shadow.mapSize.height = 1024;
+       // 定义阴影的方向
+       var d = 300;
+       directLight.shadow.camera.left = -d;
+       directLight.shadow.camera.rigth = d;
+       directLight.shadow.camera.top = d;
+       directLight.shadow.camera.bottom = -d;
+       scene.add(directLight);
+       // 加载衣服图片 纹理类实现
+       var loader = new THREE.TextureLoader();
+       // 加载位置图片
+       let clothTexture = loader.load('circuit_pattern.png');
+       // 设置纹理
+       clothTexture.anisotropy = 16;
+       // 材质
+       var clothMaterial = new THREE.MeshLambertMaterial( {
+           map: clothTexture,
+           side: THREE.DoubleSide,
+           alphaTest: 0.5
+       } );
+       clothGeometry = new THREE.ParametricBufferGeometry( clothFunction, cloth.w, cloth.h );
+       object = new THREE.Mesh( clothGeometry, clothMaterial );
+       object.position.set( 0, 0, 0 );
+       object.castShadow = true;
+       scene.add( object );
+       object.customDepthMaterial = new THREE.MeshDepthMaterial( {
+
+           depthPacking: THREE.RGBADepthPacking,
+           map: clothTexture,
+           alphaTest: 0.5
+
+       } );
+       // 加载草地
+       var groundTexture = loader.load( 'grasslight-big.jpg' );
+       groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+       groundTexture.repeat.set( 25, 25 );
+       groundTexture.anisotropy = 16;
+
+       var groundMaterial = new THREE.MeshLambertMaterial( { map: groundTexture } );
+
+       var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 20000, 20000 ), groundMaterial );
+       mesh.position.y = - 250;
+       mesh.rotation.x = - Math.PI / 2;
+       mesh.receiveShadow = true;
+       scene.add( mesh );
+       /*绘制杆子*/
+       var poleGeo = new THREE.BoxBufferGeometry( 5, 375, 5 );
+       var poleMat = new THREE.MeshLambertMaterial();
+
+       var mesh = new THREE.Mesh( poleGeo, poleMat );
+       mesh.position.x = - 125;
+       mesh.position.y = - 62;
+       mesh.receiveShadow = true;
+       mesh.castShadow = true;
+       scene.add( mesh );
+
+       var mesh = new THREE.Mesh( poleGeo, poleMat );
+       mesh.position.x = 125;
+       mesh.position.y = - 62;
+       mesh.receiveShadow = true;
+       mesh.castShadow = true;
+       scene.add( mesh );
+
+       var mesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 255, 5, 5 ), poleMat );
+       mesh.position.y = - 250 + ( 750 / 2 );
+       mesh.position.x = 0;
+       mesh.receiveShadow = true;
+       mesh.castShadow = true;
+       scene.add( mesh );
+
+       var gg = new THREE.BoxBufferGeometry( 10, 10, 10 );
+       var mesh = new THREE.Mesh( gg, poleMat );
+       mesh.position.y = - 250;
+       mesh.position.x = 125;
+       mesh.receiveShadow = true;
+       mesh.castShadow = true;
+       scene.add( mesh );
+
+       var mesh = new THREE.Mesh( gg, poleMat );
+       mesh.position.y = - 250;
+       mesh.position.x = - 125;
+       mesh.receiveShadow = true;
+       mesh.castShadow = true;
+       scene.add( mesh );
+
+       /*预览展示*/
+       renderer = new THREE.WebGLRenderer( { antialias: true } );
+       renderer.setPixelRatio( window.devicePixelRatio );
+       renderer.setSize( window.innerWidth, window.innerHeight );
+
+       container.appendChild( renderer.domElement );
+
+       renderer.gammaInput = true;
+       renderer.gammaOutput = true;
+
+       renderer.shadowMap.enabled = true;
+
+       renderer.render( scene, camera );
+   </script>
+</body>
+</html>
