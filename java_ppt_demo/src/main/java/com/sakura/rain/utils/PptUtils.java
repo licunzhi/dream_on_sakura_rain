@@ -43,10 +43,10 @@ public class PptUtils {
     public static final int TABLE_DATA = 6;
 
     /**
-     * @desc return file stream to user
-     * @param file template file @notnull
+     * @param file    template file @notnull
      * @param dataMap template data information
      * @throws Exception exceptions
+     * @desc return file stream to user
      */
     public static XMLSlideShow createPtt(File file, Map<String, PptModel> dataMap) throws Exception {
         /*validate file exist*/
@@ -68,8 +68,8 @@ public class PptUtils {
     }
 
     /**
-     * @desc inner method
      * @param dataMap template data information
+     * @desc inner method
      */
     private static void renderShape(XMLSlideShow xmlSlideShow, XSLFSlide xslfShapes, XSLFShape shape, Map<String, PptModel> dataMap) throws Exception {
         if (shape instanceof XSLFGroupShape) {
@@ -86,8 +86,8 @@ public class PptUtils {
     }
 
     /**
-     * @desc inner methods
      * @param dataMap template data information
+     * @desc inner methods
      */
     private static void renderShapeContent(XMLSlideShow xmlSlideShow, XSLFSlide xslfShape, XSLFTextShape shape, Map<String, PptModel> dataMap) throws Exception {
         Set<String> dataKeys = getDataKeys(shape);
@@ -96,7 +96,7 @@ public class PptUtils {
             PptModel pptModel = dataMap.get(key);
             int dataType = pptModel.getDataType();
             switch (dataType) {
-                case 1 :
+                case TEXT_DATA:
                     List<XSLFTextParagraph> paragraphList = shape.getTextParagraphs();
                     for (XSLFTextParagraph p : paragraphList) {
                         for (XSLFTextRun textRun : p.getTextRuns()) {
@@ -106,9 +106,7 @@ public class PptUtils {
                         }
                     }
                     break;
-                case 2 :
-                    break;
-                case 3 :
+                case PICTURE_PATH_DATA:
                     String value = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (value == null) {
                         throw new FileNotFoundException("文件不存在");
@@ -121,7 +119,7 @@ public class PptUtils {
                     pic.setAnchor(shape.getAnchor());
                     xslfShape.removeShape(shape);
                     break;
-                case 4 :
+                case PICTRUE_FILE_DATA:
                     File file = (File) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (file == null) {
                         throw new FileNotFoundException("文件不存在");
@@ -132,18 +130,18 @@ public class PptUtils {
                     picFile.setAnchor(shape.getAnchor());
                     xslfShape.removeShape(shape);
                     break;
-                case 5 :
+                case PICTRUE_BASE64_DATA:
                     String base64 = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (base64 == null) {
                         throw new FileNotFoundException("base64数据值存在问题");
                     }
-                    byte[] decodeBuffer = new BASE64Decoder().decodeBuffer(base64);
+                    byte[] decodeBuffer = new BASE64Decoder().decodeBuffer(base64.split("base64,")[1]);
                     int idxBaseFile = xmlSlideShow.addPicture(decodeBuffer, XSLFPictureData.PICTURE_TYPE_JPEG);
                     XSLFPictureShape picBaseFile = xslfShape.createPicture(idxBaseFile);
                     picBaseFile.setAnchor(shape.getAnchor());
                     xslfShape.removeShape(shape);
                     break;
-                case 6 :
+                case TABLE_DATA:
                     String tableData = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (tableData == null) {
                         break;
