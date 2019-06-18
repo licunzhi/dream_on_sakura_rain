@@ -1,63 +1,109 @@
+<!--
+本片代码将介绍如何创建第一个三维场景
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>三维场景</title>
 </head>
+<!--引入three.js的代码代码-->
 <script src="../common/three.js"></script>
+<!--引入鼠标控制控件 这里不对如何实现进行介绍，以后的视屏中可能会分享其中的代码实现-->
+<script src="../common/OrbitControls.js"></script>
+<!--除了使用原声document的方式还可以使用jquery的方式操作js方式-->
 <script src="../common/jquery.min.js"></script>
 <body>
 
 <script>
-    // 自学demo记录 案例所在地址
-    // 项目地址 https://github.com/licunzhi/dream_on_sakura_rain/blob/master/three-d-js/chapter-1/20190618.html
+    /*
+    * 介绍：
+    * 视屏不适合初级入门，介绍初级操作
+    * 感兴趣的或者对源代码有问题的可以在这个链接拿到源代码
+    * https://github.com/licunzhi/dream_on_sakura_rain/blob/master/three-d-js/chapter-1/20190618.html
+    * */
 
 
-    // 创建渲染
+    /*
+    * 常规的流程我们需要创建基本要素
+    * 首先是渲染器（姑且这么说吧）
+    * 视频中出现的属性的设置我都会简单备注一下
+    * 具体较为深刻的理解自己感兴趣可以源码或者是百度查询相关专业知识
+    * */
     var renderer = new THREE.WebGLRenderer({
-        antialias: true
+        antialias: true // 抗锯齿，简单来说就是3D物体边缘会呈现锯齿 这个属性就是对边缘进行柔化处理
     });
-    // 像素
+    /*
+    * 设置设备像素比。通常用于避免HiDPI设备上绘图模糊
+    * */
     renderer.setPixelRatio(window.devicePixelRatio);
-    // 尺寸
+    /*
+    * 调整输出的canvas的尺寸（考虑设备像素比例）
+    * */
     renderer.setSize(window.innerWidth, window.innerHeight);
+    /*
+    * 设置伽玛矫正
+    * 默认是false
+    * */
     renderer.gammaOutput = true;
     renderer.gammaFactor = 2.2;
     document.body.appendChild(renderer.domElement);
 
+    /*
+    * 相机创建
+    * 参数代表的含义 分别是垂直视野  在摄像机中的长宽比例  椎体近端面  远端面
+    * */
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 50);
-    // 视角所在位置
-    camera.position.set(0, -20, 40);
+    /*
+    * 设置相机所在的位置
+    * 待会出现物体的时候会结合物体角度讲解
+    * */
+    camera.position.set(0, 0, 40);
 
-    // 切换相机视角
-    // camera.rotation.y = 0.5;
-    camera.rotation.x = 0.3 * Math.PI;
-    // camera.rotation.z = 0.5;
-
+    /*
+    * 创建一个场景，简单来说所有的物体创建完成之后都是放到你事先创建好的场景中的
+    * */
     var scene = new THREE.Scene();
+    /*
+    * 设置场景的背景颜色，至于参数的为什么是Color()
+    * 参看其中的api可知
+    * */
     scene.background = new THREE.Color( 0xe5e5e5 );
 
-    /*坐标*/
+    /*
+    * 这里我使用了其中的工具类，
+    * 这样在页面上可以看到基准线，方便定位
+    * */
     var axes = new THREE.AxisHelper(20);
     scene.add(axes);
 
+    /*鼠标控制器*/
+    var controls =  new THREE.OrbitControls(camera, renderer.domElement);
+    // 添加惯性
+    controls.enableDamping = true;
+
     // 添加平面几何
+    /*
+    * 解释理解： 分段数的作用，根据曲线拟合的原理，当分段数非常多的时候近似曲面
+    * */
     var geometry = new THREE.PlaneGeometry( 40, 20, 32, 32 );// x 轴参数 y 轴参数 面分段数 高度分段数
     var material = new THREE.MeshBasicMaterial( {color: 0x808080, side: THREE.DoubleSide} );// 渲染颜色 渲染面数
     var mesh = new THREE.Mesh( geometry, material );
-    mesh.rotation.set(-0.3*Math.PI, 0, 0);
+    // mesh.rotation.set(-0.3*Math.PI, 0, 0);
     scene.add( mesh );
 
-    // 立方体
+    /*
+    * 创建一个立方体
+    * */
     var geometry = new THREE.BoxBufferGeometry( 5, 5, 5);
     var material = new THREE.MeshBasicMaterial( {color: 0xA0522D} );
     var cube = new THREE.Mesh( geometry, material );
-    cube.position.set(0, 10, 0);
+    cube.position.set(0, 0, 10);
     cube.rotation.set(-0.3*Math.PI, 0, 0);
     scene.add( cube );
 
     // 尺寸改变
-    window.addEventListener( 'resize', onWindowResize, false );//默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。
+    window.addEventListener( 'resize', onWindowResize, false );
 
 
     animate();
@@ -65,13 +111,14 @@
     function animate() {
         requestAnimationFrame( animate );
 
-        // mesh.rotation.y += 0.01;//添加动画
-        // if (mesh.rotation.y > Math.PI * 2) {
-        //     mesh.rotation.y -= Math.PI * 2;
-        // }
-
-        cube.rotation.z += 0.01;//添加动画
-        cube.rotation.x += 0.01;//添加动画
+        /*
+        * 这里代码使得上面的立方体处于运动状态
+        * 牵涉到了其中弧度计算方法
+        * rotation这些属性的设置可以在Object3D中找到
+        * 物体局部旋转，旋转的方式是弧度制
+        * */
+        cube.rotation.z += 0.01;
+        cube.rotation.x += 0.01;
         if (cube.rotation.z > Math.PI * 2) {
             cube.rotation.z -= Math.PI * 2;
             cube.rotation.x -= Math.PI * 2;
@@ -80,8 +127,15 @@
         renderer.render(scene, camera);
     }
 
+    /*
+    * 如何页面尺寸发生改变的时候
+    * 更改摄像机中的是主体的比例属性
+    * */
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
+        /*
+        *需要调用这个方法使得修改的参数生效
+        * */
         camera.updateProjectionMatrix();
 
         renderer.setSize(window.innerWidth, window.innerHeight);
