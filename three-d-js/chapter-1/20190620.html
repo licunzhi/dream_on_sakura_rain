@@ -1,0 +1,92 @@
+<!--
+本次视屏将会展示一个贴图的创建过程
+展示的最终的效果。。。
+
+首先引入所需要的相关文件信息
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建场景贴图</title>
+</head>
+<!--引入three.js的代码代码-->
+<script src="../common/three.js"></script>
+<!--引入鼠标控制代码-->
+<script src="../common/OrbitControls.js"></script>
+<body>
+
+<script>
+    /*接下我们需要创建基本要素*/
+
+    // 视屏完全属于自学教程录制，如有不正确地方还望见谅
+    //所有的代码可以在github地址找到  具体看视屏介绍的评论
+    // 以后所有的视屏都将按照这种方式录制   还望支持
+
+    // 渲染器
+    var renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    // 设置分辨率 大小等
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.gammaOutput = true;
+    renderer.gammaFactor = 2.2;
+    document.body.appendChild(renderer.domElement);
+
+    // 相机
+    // 参数代表的含义 垂直视野 长宽比例 椎体 远 近可视
+    var camera = new THREE.PerspectiveCamera(75, window.innerHeight / window.innerHeight, 0.1, 10000);
+
+    // 设置相机所在的位置 参数含义x y z
+    camera.position.set(0, 0, 100);
+
+    // 场景
+    var scene = new THREE.Scene();
+    // 为了不然个屏幕显示看起来黑不拉几 这里面设置了一个颜色作为基础背景颜色
+    scene.background = new THREE.Color(0xe5e5e5);
+
+    // 引入鼠标的控制
+    /*
+    * 鼠标控制的本质是什么，就是监听鼠标的点击事件，改变相机的位置和翻转角度等实现的
+    * */
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // 加载草地图片作为材质
+    let texture = new THREE.TextureLoader().load('grass.jpg');
+    /*加载重复
+    * 此处属性设置错误
+    * 再看最中效果
+    * */
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    /*
+    * 如果我在这里再次设置这几个参数
+    * 就能很明显看到参数的含义
+    *
+    * */
+    texture.repeat.set(10, 10);
+    var material = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+
+    // 添加一个几何平面
+    var geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
+
+    var mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    /*
+    * 现在先看一下页面的效果
+    * 我们在这个地方加上循环调用渲染的代码
+    * */
+    animate();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+
+    }
+</script>
+</body>
+</html>
