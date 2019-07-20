@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vue.mapper.LoginMapper">
+
+    <select id="login" resultType="HashMap" parameterType="HashMap">
+        SELECT * FROM user_info WHERE phone = #{phone} AND user_pass = #{password}
+    </select>
+
+    <insert id="registered" parameterType="HashMap" useGeneratedKeys="true" keyColumn="user_id">
+        INSERT into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_name != null">
+                user_name,
+            </if>
+            <if test="user_pass != null">
+                user_pass,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="role_id != null">
+                role_id,
+            </if>
+            <if test="user_avatar != null">
+                user_avatar,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_name != null">
+                #{user_name},
+            </if>
+            <if test="user_pass != null">
+                #{user_pass},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="role_id != null">
+                #{role_id},
+            </if>
+            <if test="user_avatar != null">
+                #{user_avatar},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="account" resultType="HashMap" parameterType="HashMap">
+        SELECT * FROM user_info WHERE user_id = #{user_id} AND user_account = #{user_account} and account_pass = #{account_pass}
+    </select>
+
+    <update id="updateMoney" parameterType="HashMap">
+        update user_info set account_money = #{account_money} where user_id = #{user_id}
+    </update>
+</mapper>

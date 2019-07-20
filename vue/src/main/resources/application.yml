@@ -1,0 +1,42 @@
+server:
+  port: 8888
+  address: 127.0.0.1
+  context-path: /sakura
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/vue?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.jdbc.Driver
+    type: org.springframework.jdbc.datasource.DriverManagerDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat,wall
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    mode: LEGACYHTML5
+    suffix: .html
+    encoding: utf-8
+    enabled: true
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml

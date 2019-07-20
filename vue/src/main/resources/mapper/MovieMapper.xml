@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vue.mapper.MovieMapper">
+
+    <select id="search" parameterType="HashMap" resultType="HashMap">
+        select *, DATE_FORMAT(movie_time, '%Y-%m-%d') as released_time from movie_info
+        <where>
+            <if test="kind != null and kind != '[]'">
+                movie_kind like concat('%', #{kind}, '%')
+            </if>
+            <if test="period != null and period != '[]'">
+                and movie_period like concat('%', #{period}, '%')
+            </if>
+            <if test="region != null and region != '[]'">
+                and movie_region like concat('%', #{region}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="halls" parameterType="HashMap" resultType="HashMap">
+        select si.*,hi.*,ci.*,DATE_FORMAT(si.screen_time, '%Y-%m-%d %H:%i') as SCREENTIME from screening_infor si
+           join hall_info hi on si.cinema_id = hi.cinema_id and si.hall_id = hi.hadll_id
+           join cinema_info ci on ci.cinema_id = si.cinema_id
+        <where>
+            <if test="cinemaId != null and cinemaId != ''">
+                si.cinema_id =#{cinemaId}
+            </if>
+            <if test="movieId != null and movieId != ''">
+                and si.movie_id =#{movieId}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

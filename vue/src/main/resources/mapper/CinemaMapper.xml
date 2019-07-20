@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vue.mapper.CinemaMapper">
+
+    <select id="search" parameterType="HashMap" resultType="HashMap">
+        select ci.*, bi.branch_name, si.spacial_name from cinema_info ci
+          join cinema_branch cb on cb.cinema_id = ci.cinema_id
+        <if test="branch_id != null and branch_id != ''">
+            and cb.branch_id = #{branch_id}
+        </if>
+          join branch_info bi on bi.branch_id = cb.branch_id
+          join cinema_special cs on cs.cinema_id = ci.cinema_id
+        <if test="special_id != null and special_id != ''">
+            and cs.special_id = #{special_id}
+        </if>
+          join special_info si on si.special_id = cs.special_id
+        group by ci.cinema_id
+    </select>
+
+</mapper>
