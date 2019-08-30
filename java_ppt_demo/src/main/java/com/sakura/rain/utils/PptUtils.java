@@ -16,7 +16,6 @@ import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import sun.misc.BASE64Decoder;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,6 +34,7 @@ import java.util.regex.Pattern;
  * @notice java version support 1.8 or later
  */
 public class PptUtils {
+
     public static final int TEXT_DATA = 1;
     public static final int NUMBER_DATA = 1;
     public static final int PICTURE_PATH_DATA = 3;
@@ -62,6 +62,13 @@ public class PptUtils {
                     renderShape(xmlSlideShow, xslfSlide, shape, dataMap);
                 }
             }
+            PptModel removeList = dataMap.get("removeLis");
+            if (removeList != null) {
+                String[] removeListArr = removeList.getDataConent().toString().split(",");
+                for (String aRemoveListArr : removeListArr) {
+                    xmlSlideShow.removeSlide(Integer.parseInt(aRemoveListArr));
+                }
+            }
             return xmlSlideShow;
         }
 
@@ -80,6 +87,9 @@ public class PptUtils {
         } else if (shape instanceof XSLFTextShape) {
             XSLFTextShape txShape = (XSLFTextShape) shape;
             renderShapeContent(xmlSlideShow, xslfShapes, txShape, dataMap);
+        } else if (shape instanceof XSLFTable) {
+            XSLFTable tableShape = (XSLFTable) shape;
+            renderTableContent(xmlSlideShow, xslfShapes, tableShape, dataMap);
         } else {
             System.out.println(shape.getClass());
         }
@@ -109,7 +119,8 @@ public class PptUtils {
                 case PICTURE_PATH_DATA:
                     String value = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (value == null) {
-                        throw new FileNotFoundException("文件不存在");
+                        System.out.println("文件不存在");
+                        break;
                     }
 
                     File image = new File(pptModel.getDataConent().toString());
@@ -122,7 +133,8 @@ public class PptUtils {
                 case PICTRUE_FILE_DATA:
                     File file = (File) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (file == null) {
-                        throw new FileNotFoundException("文件不存在");
+                        System.out.println("文件不存在");
+                        break;
                     }
                     byte[] pictureFileData = IOUtils.toByteArray(new FileInputStream(file));
                     int idxFile = xmlSlideShow.addPicture(pictureFileData, XSLFPictureData.PICTURE_TYPE_JPEG);
@@ -133,40 +145,13 @@ public class PptUtils {
                 case PICTRUE_BASE64_DATA:
                     String base64 = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     if (base64 == null) {
-                        throw new FileNotFoundException("base64数据值存在问题");
+                        System.out.println("base64数据值存在问题");
+                        break;
                     }
-                    byte[] decodeBuffer = new BASE64Decoder().decodeBuffer(base64.split("base64,")[1]);
+                    byte[] decodeBuffer = new BASE64Decoder().decodeBuffer(base64);
                     int idxBaseFile = xmlSlideShow.addPicture(decodeBuffer, XSLFPictureData.PICTURE_TYPE_JPEG);
                     XSLFPictureShape picBaseFile = xslfShape.createPicture(idxBaseFile);
                     picBaseFile.setAnchor(shape.getAnchor());
-                    xslfShape.removeShape(shape);
-                    break;
-                case TABLE_DATA:
-                    String tableData = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
-                    if (tableData == null) {
-                        break;
-                    }
-                    XSLFTable table = xslfShape.createTable();
-                    String tableVlaue = pptModel.getDataConent().toString();
-                    String[] a = tableVlaue.split(";");
-                    for (int m = 0; m < a.length; m++) {
-                        XSLFTableRow firstRow = table.addRow();
-                        String[] aa = a[m].split(",");
-                        for (int n = 0; n < aa.length; n++) {
-                            XSLFTableCell firstCell = firstRow.addCell();
-                            firstCell.setBorderBottomColor(new Color(10, 100, 120));
-                            firstCell.setBorderRightColor(new Color(10, 100, 120));
-                            firstCell.setBorderLeftColor(new Color(10, 100, 120));
-                            firstCell.setBorderTopColor(new Color(10, 100, 120));
-                            firstCell.setText(aa[n]);
-                            firstCell.setBorderLeft(10);
-                            firstCell.setBorderRight(10);
-                            firstCell.setBorderTop(10);
-                            firstCell.setBorderBottom(10);
-                        }
-                    }
-                    table.setAnchor(shape.getAnchor());
-                    System.out.println(table.getRows().get(0).getCells().get(0).getText());
                     xslfShape.removeShape(shape);
                     break;
                 default:
@@ -174,6 +159,28 @@ public class PptUtils {
             }
         }
     }
+
+    /**
+     * template table data
+     */
+    private static void renderTableContent(XMLSlideShow xmlSlideShow, XSLFSlide xslfShape, XSLFTable shape, Map<String, PptModel> dataMap) {
+        Set<String> dataKeys = getDataKeys(shape);
+        for (String key : dataKeys) {
+            key = key.replaceAll("#", "");
+            PptModel pptModel = dataMap.get(key);
+            if (pptModel.getDataType() != TABLE_DATA) {
+                return;
+            }
+            for (XSLFTableRow row : shape.getRows()) {
+                for (XSLFTableCell cell : row.getCells()) {
+                    String value = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
+                    String text = cell.getText().replaceAll(key, value).replaceAll("#", "");
+                    cell.setText(text);
+                }
+            }
+        }
+    }
+
 
     private static Set<String> getDataKeys(XSLFTextShape shape) {
         String regex = "#[^#]*#";
@@ -186,4 +193,21 @@ public class PptUtils {
         }
         return dataMapKeys;
     }
+
+    private static Set<String> getDataKeys(XSLFTable shape) {
+        String regex = "#[^#]*#";
+        Set<String> dataMapKeys = new LinkedHashSet<>();
+        Pattern pattern = Pattern.compile(regex);
+        StringBuilder cellContent = new StringBuilder("");
+        shape.getRows().forEach(row -> row.getCells().forEach(cell -> {
+            cellContent.append(cell.getText()).append(" ");
+        }));
+        Matcher matcher = pattern.matcher(cellContent.toString());
+        while (matcher.find()) {
+            System.out.println(matcher.group());
+            dataMapKeys.add(matcher.group());
+        }
+        return dataMapKeys;
+    }
 }
+
