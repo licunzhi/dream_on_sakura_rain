@@ -69,6 +69,7 @@ public class PptUtils {
                     xmlSlideShow.removeSlide(Integer.parseInt(aRemoveListArr));
                 }
             }
+//            xmlSlideShow.getSlides()[0].getShapes()[]
             return xmlSlideShow;
         }
 
@@ -173,9 +174,12 @@ public class PptUtils {
             }
             for (XSLFTableRow row : shape.getRows()) {
                 for (XSLFTableCell cell : row.getCells()) {
+                    cell.getXmlObject();
                     String value = (String) (pptModel.getDataConent() == null ? pptModel.getDefaultContent() : pptModel.getDataConent());
                     String text = cell.getText().replaceAll(key, value).replaceAll("#", "");
                     cell.setText(text);
+                    System.out.println(text);
+                    System.out.println(cell.getText());
                 }
             }
         }

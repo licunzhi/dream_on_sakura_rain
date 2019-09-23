@@ -20,7 +20,7 @@ import java.util.Map;
  * @Date 2019/05/05 11:46
  */
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         /*
         * 基础数据准备
         * */
@@ -53,17 +53,19 @@ public class Main {
         /*暂不可用，等待优化*/
         PptModel<String> tableModel = new PptModel<>();
         tableModel.setDataType(PptUtils.TABLE_DATA);
-        tableModel.setDataConent("name,password,address;sakura,123456,nanjing;plumpark,123456,bozhou");
+        tableModel.setDataConent("name");
         dataMap.put("table_data", tableModel);
+
+        /*PptModel<String> dasd = new PptModel<>();
+        dasd.setDataType(PptUtils.TEXT_DATA);
+        dasd.setDataConent("12");
+        dataMap.put("table_data", dasd);*/
 
         String modelPath = Main.class.getResource("/model/template_model.pptx").getFile();
         File file = new File(modelPath);
-        try (OutputStream outputStream = new FileOutputStream(new File("result.pptx"))) {
-            XMLSlideShow ptt = PptUtils.createPtt(file, dataMap);
-            ptt.write(outputStream);
-        } catch (Exception e) {
-            System.out.println("程序运行出现问题...");
-        }
+        OutputStream outputStream = new FileOutputStream(new File("result.pptx"));
+        XMLSlideShow ptt = PptUtils.createPtt(file, dataMap);
+        ptt.write(outputStream);
 
     }
 }

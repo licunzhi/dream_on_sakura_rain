@@ -43,7 +43,10 @@ public class TicketService {
         double totalPrice = tCount * moviePrice;
         double accountMoney = Double.parseDouble(String.valueOf(accountInfo.get("account_money")));
         if (accountMoney < totalPrice) {
-            return new ResponseBean(HttpStatus.BAD_REQUEST.value(), "失败", "账户余额不足");
+            HashMap<String, Object> message = new HashMap<>();
+            message.put("message", "账户余额不足");
+            message.put("money", accountMoney);
+            return new ResponseBean(HttpStatus.BAD_REQUEST.value(), "失败", message);
         }
 
         /*扣去订单金额 update*/
@@ -72,6 +75,7 @@ public class TicketService {
             HashMap<String, Object> resultCode = new HashMap<>();
             resultCode.put("order_code", orderCode);
             resultCode.put("order_pass", orderPass);
+            resultCode.put("money", restMoney);
             return new ResponseBean(HttpStatus.OK.value(), "成功", resultCode);
         }
     }

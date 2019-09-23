@@ -54,7 +54,14 @@
       <!-- 最右侧边的用户头像 -->
       <div class="avatar">
         <div v-if="userStore && userStore['user_name']" class="demo-basic--circle" @click="centerDialogVisible = true">
-          <el-avatar slot="reference" :size="avSize" :src="userStore['user_avatar']"></el-avatar>
+          <el-popover
+            placement="top-start"
+            width="150"
+            :title="userStore['user_name']"
+            trigger="hover">
+            <p>账户余额：<span style="color: red">{{userStore['account_money']}}￥</span></p>
+            <el-avatar slot="reference" :size="avSize" :src="userStore['user_avatar']"></el-avatar>
+          </el-popover>
         </div>
         <div v-else class="demo-basic--circle" @click="dialogFormVisible = true">
             <el-avatar :size="avSize">登录</el-avatar>
@@ -208,7 +215,8 @@ export default {
                 user_name: userObj['user_name'],
                 phone: userObj['phone'],
                 user_avatar: userObj['user_avatar'],
-                user_id: userObj['user_id']
+                user_id: userObj['user_id'],
+                account_money: userObj['account_money']
               })
             } else {
               this.$message({

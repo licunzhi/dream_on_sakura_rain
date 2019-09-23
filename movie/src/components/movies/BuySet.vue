@@ -22,7 +22,7 @@
       <div class="screen-ico"></div>
       <div class="set-container">
         <div v-for="row in 10" :key="row" class="screen-set">
-          <span :style="setsChoose.indexOf(row+'-'+clo) >= 0 ? setChoseIco : setIco" v-for="(clo,index) in 20" :key="clo * index" @click="chooseThis($event, row, clo)"></span>
+          <span :style="setsChoose.indexOf(row+'-'+clo) >= 0 ? setChoseIco : setIco" v-for="(clo,index) in 20" :key="clo * index" @click="setsChoose.indexOf(row+'-'+clo) >= 0 ? '' : chooseThis($event, row, clo)"></span>
         </div>
       </div>
     </div>
@@ -59,6 +59,7 @@
 
 <script>
 import ImageConst from '@/components/constants/ImageConst'
+import {mapMutations, mapGetters} from 'vuex'
 
 export default {
   name: 'BuySet',
@@ -88,12 +89,18 @@ export default {
   computed: {
     totalMoney: function () {
       return this.price * this.setArr.length
-    }
+    },
+    ...mapGetters({
+      userStore: 'getUser'
+    })
   },
   created: function () {
     this.getSetChooseInfo()
   },
   methods: {
+    ...mapMutations({
+      storeUserInfo: 'initUserInformation'
+    }),
     // 查询已选座位数据
     getSetChooseInfo: function () {
       const screenId = this.item['screen_id']
@@ -174,10 +181,13 @@ export default {
           })
         } else {
           this.$message({
-            message: '查询失败，请确认网络环境后重试',
+            message: response['data']['data']['message'],
             type: 'error'
           })
         }
+        const updateUser = this.userStore
+        updateUser.account_money = response['data']['data']['money']
+        this.storeUserInfo(updateUser)
       }).catch(exception => {
         this.loading = false
         this.$message({

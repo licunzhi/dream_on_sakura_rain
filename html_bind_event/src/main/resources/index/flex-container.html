@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性布局</title>
+    <style>
+        div.container {
+            width: 300px;
+            background: #3F3F3F;
+            display: flex;
+        }
+        div.small-container {
+            height: 30px;
+            width: 30px;
+            background: #39af4e;
+            margin: 2px;
+        }
+        div.small-round-container {
+            width: 30px;
+            height: 50px;
+            background: #af484e;
+            margin: 2px;
+        }
+        /*排序方向*/
+        .flex-direction {
+            flex-direction: row;
+        }
+        /*换行方式*/
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        /*横向对齐方式*/
+        .justify-content {
+            justify-content: space-between;
+        }
+        /*纵向对齐方式*/
+        .align-items {
+            align-items: center;
+        }
+        .item {
+            order: 1;
+        }
+        .item-grow {
+            flex-grow: 10;
+        }
+        .item-shrink {
+            flex-shrink: 3;
+        }
+        .align-self {
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container flex-direction flex-wrap justify-content align-items">
+        <div class="small-container item">1</div>
+        <div class="small-container item align-self">2</div>
+        <div class="small-container">3</div>
+        <div class="small-container">4</div>
+        <div class="small-round-container item-grow">5</div>
+        <div class="small-container item-shrink">6</div>
+        <div class="small-container">7</div>
+        <div class="small-container">8</div>
+        <div class="small-container">9</div>
+        <div class="small-container">10</div>
+        <div class="small-round-container">11</div>
+        <div class="small-container">12</div>
+        <div class="small-round-container">13</div>
+    </div>
+</body>
+</html>
