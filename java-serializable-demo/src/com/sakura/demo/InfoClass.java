@@ -18,5 +18,7 @@ public class InfoClass {
 
         Bean bean = (Bean) objectInputStream.readObject();
         System.out.println(bean.toString());
+
+        objectInputStream.close();
     }
 }
