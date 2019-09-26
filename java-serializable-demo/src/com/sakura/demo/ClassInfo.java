@@ -19,7 +19,7 @@ public class ClassInfo {
         bean.setDate(new Date());
 
 
-        FileOutputStream fileOutputStream = new FileOutputStream("./sakura.txt");
+        FileOutputStream fileOutputStream = new FileOutputStream("sakura.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(bean);
 
