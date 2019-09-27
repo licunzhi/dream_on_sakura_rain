@@ -6,4 +6,3 @@ spring:
     port: 6379
     password: 123
     database: 0
-    max-age:
