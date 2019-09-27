@@ -28,4 +28,11 @@ public class TestController {
         }
         return user.toString();
     }
+
+
+    @GetMapping("/logoutOut")
+    public String logoutOut(HttpSession session) {
+        session.invalidate();
+        return "注销登录信息";
+    }
 }
