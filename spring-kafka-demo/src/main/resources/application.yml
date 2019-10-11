@@ -3,4 +3,7 @@ server:
 spring:
   kafka:
     producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # –Ú¡–ªØ
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: 192.168.198.131:9092
+    consumer:
+      group-id: first

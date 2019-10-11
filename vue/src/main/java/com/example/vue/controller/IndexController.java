@@ -2,6 +2,7 @@ package com.example.vue.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @ClassName IndexController
@@ -15,5 +16,12 @@ public class IndexController {
     @RequestMapping("/index")
     public String index() {
         return "index";
+    }
+
+    @RequestMapping("/demoTest")
+    @ResponseBody
+    public String demoTest() {
+        return "This is java server response";
+//        return "This is sakura server response";
     }
 }
