@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水波效果</title>
+    <style>
+        .wave_wrapper {
+            margin: 20% auto;
+            width: 800px;
+            height: 800px;
+            background-color: rgb(248, 41, 171);
+            transform: matrix(0.707, 0.707, -0.707, 0.707, 0, 0);
+            border-radius: 20%;
+        }
+        span {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+            border: 0.2rem solid rgba(248, 41, 171, 0.28);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        span.wave_scale {
+            animation: wave_scale 3s linear infinite;
+            -webkit-animation: wave_scale 3s linear infinite;
+        }
+        span.wave_scale.delay {
+            animation: wave_scale 3s linear infinite 0.3s;
+            -webkit-animation: wave_scale 3s linear infinite 0.3s;
+        }
+        @keyframes wave_scale {
+            from {
+                transform: translate3d(-41px, -41px, 0px) scale(1, 1);
+                -webkit-transform: scale(1, 1);
+                opacity: 1;
+            }
+            to {
+                transform: translate3d(-41px, -41px, 0px) scale(10, 10);
+                -webkit-transform: scale(5, 5);
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes wave_scale {
+            from {
+                transform: translate3d(-41px, -41px, 0px) scale(1, 1);
+                -webkit-transform: scale(1, 1);
+                opacity: 1;
+            }
+            to {
+                transform: translate3d(-41px, -41px, 0px) scale(10, 10);
+                -webkit-transform: scale(5, 5);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wave_wrapper">
+        <span class="wave_scale">
+
+        </span>
+        <span class="wave_scale delay">
+
+        </span>
+    </div>
+</body>
+</html>
