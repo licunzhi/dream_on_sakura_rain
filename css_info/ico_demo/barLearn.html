@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进度条</title>
+    <style>
+        /* Spinner LoadBar */
+        .bar {
+            margin: 20%;
+            width: 1000px;
+            height: 18px;
+            border: 1px #000 solid;
+            border-radius: 4px;
+            background: linear-gradient(-60deg, transparent 0%, transparent 50%, #39af4e 50%, #66af6d 75%, transparent 75%, transparent);
+            background-size: 20px 30px;
+            background-position: 0 0;
+            -webkit-animation: spLoadBar 0.8s infinite linear;
+            animation: spLoadBar 0.8s infinite linear;
+        }
+
+        @-webkit-keyframes spLoadBar {
+            from {
+                background-position: 0px 0px;
+            }
+            to {
+                background-position: -20px 0px;
+            }
+        }
+        @keyframes spLoadBar {
+            from {
+                background-position: 0px 0px;
+            }
+            to {
+                background-position: -20px 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bar"></div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>进度条</title>
+    <style>
+        .bar {
+            margin: 10% auto;
+            width: 50%;
+            /*为了更方便展示原理 这里的高度暂时设置的稍微高一点*/
+            height: 60px;
+            border: 1px #000 solid;
+            /*为了美观给一个圆角*/
+            border-radius: 20px;
+            /*渐变填充色*/
+            background: linear-gradient(-60deg, white 0%, white 50%, #39af4e 50%, #1b39af 75%, white 75%, white);
+            background-size: 68px 123px;
+            background-position: 0 0;
+            -webkit-animation: BAR 0.8s infinite linear;
+            animation: BAR 0.8s infinite linear;
+        }
+
+        @-webkit-keyframes BAR {
+            from {
+                background-position: 0px 0px;
+            }
+            to {
+                background-position: -68px 0px;
+            }
+        }
+        @keyframes BAR {
+            from {
+                background-position: 0px 0px;
+            }
+            to {
+                background-position: -68px 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bar"></div>
+</body>
+</html>

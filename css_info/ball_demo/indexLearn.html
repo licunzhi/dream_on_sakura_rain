@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ball教学</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+</body>
+<script>
+    /*这里进行获取canvas对象 也可以使用id*/
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    /*
+    * 定义一个颜色
+    * */
+    const colorBg = '#fffdfd';
+    const color = '#957dad';
+
+    /*简单画个圈尝试效果*/
+    // ctx.fillStyle = color;
+    // ctx.beginPath();
+    // ctx.arc(70,18,15,0,Math.PI*2,true);
+    // ctx.closePath();
+    // ctx.fill();
+
+    /*尝试在不同位置画多个小球*/
+
+    /*定义要画的小球的个数*/
+    const ballNums = 100;
+
+    /*获取到当前屏幕的长宽*/
+    const width = canvas.width = window.innerWidth;
+    const height = canvas.height = window.innerHeight;
+
+    /*循环画小球*/
+    ctx.fillStyle = color;
+    for (let i = 0; i < ballNums; i++) {
+        ctx.beginPath();
+        let x = Math.random() * width;
+        let y = Math.random() * height;
+        const size = Math.random() * 10 + 10;
+        ctx.arc(x,y,size,0,Math.PI*2,true);
+        ctx.fill();
+    }
+
+    /*给小球添加移动动作*/
+    /*ctx.fillStyle = '#5933ad';
+    ctx.beginPath();
+    let x = Math.random() * width;
+    let y = Math.random() * height;
+    const size = Math.random() * 10 + 10;
+    ctx.arc(x,y,size,0,Math.PI*2,true);
+    ctx.fill();*/
+
+    /*let xtemp = 1;
+    let ytemp = 1;
+
+    let x = Math.random() * width;
+    let y = Math.random() * height;
+    const size = Math.random() * 10 + 10;
+
+    function loop() {
+
+        /!*背景重置*!/
+        ctx.fillStyle = colorBg;
+        ctx.fillRect(0, 0, width, height);
+
+        /!*重新赋予新的色笔*!/
+        ctx.fillStyle = color;
+        /!*进行运动轨迹计算*!/
+        if (x + size >= width) {
+            xtemp = -xtemp;
+        }
+        if (x - size <= 0) {
+            xtemp = -xtemp;
+        }
+        if (y + size >= height) {
+            ytemp = -ytemp;
+        }
+        if (y - size <= 0) {
+            ytemp = -ytemp;
+        }
+        x += xtemp;
+        y += ytemp;
+        ctx.beginPath();
+        ctx.arc(x,y,size,0,Math.PI*2,true);
+        ctx.fill();
+
+        requestAnimationFrame(loop);
+    }
+
+    loop();*/
+
+    /*小球存储位置*/
+    let balls = [];
+    /*小球个数*/
+    const ballNum = 100;
+    /*定义颜色数据*/
+    const colorsArr = [
+        '#99e5c3', // green
+        '#fec8d8', // pink
+        '#99e1e5', // blue
+        '#f6f6c6' // yellow
+    ];
+    /*初始化小球数据*/
+    function initBall() {
+        return {
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 15 + 10,
+            xspeed: Math.random() * 15,
+            yspeed: Math.random() * 15,
+            /*给个颜色*/
+            color:colorsArr[parseInt(Math.random() * 4)]
+        }
+    }
+
+    /*出事话100个小球的数据*/
+    for (let i = 0; i < ballNum; i++) {
+        let ball = initBall();
+        balls.push(ball);
+    }
+
+    function loop() {
+        /*背景刷新*/
+        ctx.fillStyle = colorBg;
+        ctx.fillRect(0, 0, width, height);
+
+        /*执行绘画动作*/
+        const TAU = 2 * Math.PI;
+        for (let i = 0; i < balls.length; i++) {
+            ctx.beginPath();
+            ctx.fillStyle = balls[i].color; // 颜色可以随时变 后面再实现
+            ctx.arc(balls[i].x, balls[i].y, balls[i].size, 0, TAU); // To draw circle
+            ctx.fill();
+        }
+
+        /*更新小球位置*/
+        for (let i = 0; i < balls.length; i++) {
+            if (balls[i].x + balls[i].size >= width) {
+                balls[i].xspeed = -balls[i].xspeed;
+            }
+
+            if (balls[i].x - balls[i].size <= 0) {
+                balls[i].xspeed = -balls[i].xspeed;
+            }
+
+            if (balls[i].y + balls[i].size >= height) {
+                balls[i].yspeed = -balls[i].yspeed;
+            }
+
+            if (balls[i].y - balls[i].size <= 0) {
+                balls[i].yspeed = -balls[i].yspeed;
+            }
+
+            balls[i].x += balls[i].xspeed;
+            balls[i].y += balls[i].yspeed;
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+    loop();
+
+</script>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas>
+
+    </canvas>
+</body>
+<script type="text/javascript">
+    /*这里进行获取canvas对象 也可以使用id*/
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    /*获取到当前屏幕的长宽*/
+    const width = canvas.width = window.innerWidth;
+    const height = canvas.height = window.innerHeight;
+
+    /*等待使用的元素，色调*/
+    const colorBg = '#957dad'; // purple
+    const colorsArr = [
+        '#99e5c3', // green
+        '#fec8d8', // pink
+        '#99e1e5', // blue
+        '#f6f6c6' // yellow
+    ];
+    const candyArr = [];
+
+    const paintCanvasBg = () => {
+        ctx.fillStyle = colorBg;
+        ctx.fillRect(0, 0, width, height);
+    };
+
+    const randomNrInc = (minNum, maxNum) => {
+        const min = Math.ceil(minNum);
+        const max = Math.floor(maxNum);
+
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    const Ball = {
+        init(x, y, vel, color, size) {
+            this.x = x;
+            this.y = y;
+            this.velX = randomNrInc(vel * -1, vel);
+            this.velY = randomNrInc(vel * -1, vel);
+            this.color = color;
+            this.size = size;
+
+            return this;
+        },
+        draw() {
+            const TAU = 2 * Math.PI;
+
+            ctx.beginPath();
+            ctx.fillStyle = this.color; // Ball Color
+            ctx.arc(this.x, this.y, this.size, 0, TAU); // To draw circle
+            ctx.fill();
+        },
+        update() {
+            if (this.x + this.size >= width) {
+                this.velX = -this.velX;
+            }
+
+            if (this.x - this.size <= 0) {
+                this.velX = -this.velX;
+            }
+
+            if (this.y + this.size >= height) {
+                this.velY = -this.velY;
+            }
+
+            if (this.y - this.size <= 0) {
+                this.velY = -this.velY;
+            }
+
+            this.x += this.velX;
+            this.y += this.velY;
+        },
+        collisionDetect(max, min) {
+            for (let i = 0; i < candyArr.length; i++) {
+                if (!(this === candyArr[i])) {
+                    const dx = this.x - candyArr[i].x;
+                    const dy = this.y - candyArr[i].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < this.size + candyArr[i].size) {
+                        candyArr[i].size = candyArr[i].size >= max ? min : this.size++;
+                    }
+                }
+            }
+        } };
+
+
+    const sa = width * height;
+    const candy = {
+        totalBalls: Math.ceil(Math.sqrt(sa / 400)),
+        ballVelocity: Math.floor(Math.sqrt(sa / 20000)),
+        maxBallSize: 18,
+        minBallSize: 8,
+        ballSize() {
+            return randomNrInc(this.minBallSize, this.maxBallSize);
+        },
+        ballX() {
+            return randomNrInc(this.ballSize(), width - this.ballSize());
+        },
+        ballY() {
+            return randomNrInc(this.ballSize(), height - this.ballSize());
+        },
+        ballColor() {
+            const randomColor = Math.floor(Math.random() * colorsArr.length);
+            return colorsArr[randomColor];
+        },
+        generate() {
+            for (let i = 0; i < this.totalBalls; i++) {
+                const newBall = Object.create(Ball).init(
+                    this.ballX(),
+                    this.ballY(),
+                    this.ballVelocity,
+                    this.ballColor(),
+                    this.ballSize());
+
+                candyArr.push(newBall);
+            }
+        } };
+
+    candy.generate();
+
+    function loop() {
+        paintCanvasBg();
+
+        // Based on Mozillas's object building practice code
+        for (let i = 0; i < candyArr.length; i++) {
+            candyArr[i].draw();
+            candyArr[i].update();
+            candyArr[i].collisionDetect(candy.maxBallSize, candy.minBallSize);
+        }
+
+        requestAnimationFrame(loop);
+    }
+    loop();
+
+</script>
+</html>

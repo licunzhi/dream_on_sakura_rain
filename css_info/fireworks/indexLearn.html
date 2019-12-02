@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星光</title>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1400" height="600"></canvas>
+</body>
+<script>
+    // canvas对象获取
+    var canvas = document.getElementById("canvas");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var gl = canvas.getContext('webgl');
+
+    if(!gl){
+        alert("Unable to initialize WebGL.");
+    }
+
+    // Set clear color to black, fully opaque
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    // Clear the color buffer with specified clear color
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+</script>
+</html>

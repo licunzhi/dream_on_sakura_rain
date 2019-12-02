@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播滑动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrap {
+            width: 80%;
+            height: 60%;
+            margin-left:10%;88
+            position: relative;
+            overflow: hidden;
+        }
+        .picture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: center no-repeat url("http://temp.im/640x260/ccc")
+        }
+        .picture_one {
+            perspective: none;
+            -webkit-perspective: none;
+            perspective-origin: 50% 50%;
+            animation: picture_one 2s linear both;
+            -webkit-animation: picture_one 1s linear both;
+        }
+        @keyframes picture_one {
+            from {
+                left: 0;
+                top: 0;
+                transform: rotateY(0deg);
+                -webkit-transform: rotateY(0deg);
+                z-index: 0;
+            }
+            to {
+                left: 4%;
+                top: 10%;
+                transform: rotateY(360deg) scale(1.5, 1.5);
+                -webkit-transform: rotateY(360deg) scale(1.5, 1.5);
+                z-index: 10;
+            }
+        }
+        @-webkit-keyframes picture_one {
+            from {
+                left: 0;
+                top: 0;
+                transform: rotateY(0deg);
+                -webkit-transform: rotateY(0deg);
+            }
+            to {
+                left: 4%;
+                top: 10%;
+                transform: rotateY(360deg) scale(1.5, 1.5);
+                -webkit-transform: rotateY(360deg) scale(1.5, 1.5);
+            }
+        }
+        .picture_two {
+            animation: picture_two 2s linear both;
+        }
+        @keyframes picture_two {
+            from {
+                left: 0
+            }
+            to {
+                left: 8%;
+            }
+        }
+        @-webkit-keyframes picture_two {
+            from {
+                left: 0
+            }
+            to {
+                left: 8%;
+            }
+        }
+        .picture_three {
+            animation: picture_three 2s linear both;
+        }
+        @keyframes picture_three {
+            from {
+                left: 0
+            }
+            to {
+                left: 12%;
+            }
+        }
+        @-webkit-keyframes picture_three {
+            from {
+                left: 0
+            }
+            to {
+                left: 12%;
+            }
+        }
+        .picture_four {
+            animation: picture_four 2s linear both;
+        }
+        @keyframes picture_four {
+            from {
+                left: 0
+            }
+            to {
+                left: 16%;
+            }
+        }
+        @-webkit-keyframes picture_four {
+            from {
+                left: 0
+            }
+            to {
+                left: 16%;
+            }
+        }
+        .picture_five {
+            animation: picture_five 2s linear both;
+        }
+        @keyframes picture_five {
+            from {
+                left: 0
+            }
+            to {
+                left: 20%;
+            }
+        }
+        @-webkit-keyframes picture_five {
+            from {
+                left: 0
+            }
+            to {
+                left: 20%;
+            }
+        }
+        .picture_six {
+            animation: picture_six 2s linear both;
+            -webkit-animation: picture_six 2s linear both;
+        }
+        @keyframes picture_six {
+            from {
+                left: 0
+            }
+            to {
+                left: 24%;
+            }
+        }
+        @-webkit-keyframes picture_six {
+            from {
+                left: 0
+            }
+            to {
+                left: 24%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="picture picture_one"></div>
+        <div class="picture picture_two"></div>
+        <div class="picture picture_three"></div>
+        <div class="picture picture_four"></div>
+        <div class="picture picture_five"></div>
+        <div class="picture picture_six"></div>
+    </div>
+</body>
+</html>
