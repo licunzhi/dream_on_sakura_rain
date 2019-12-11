@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #222;
+        }
+        h1 {
+            color: white;
+        }
+
+        .color_0 {
+            color: #e74c3c;
+        }
+        .color_1 {
+            color: #8e44ad;
+        }
+
+        .color_2 {
+            color: #3498db;
+        }
+
+        .color_3 {
+            color: #2ecc71;
+        }
+
+        #word_wrapper {
+            font-family: Lato, sans-serif;
+            font-weight: 600;
+            font-size: 36px;
+            vertical-align: top;
+        }
+        #word_wrapper>span {
+            position: absolute;
+            display: flex;
+            opacity: 0.2;
+        }
+
+        #word_wrapper .letter {
+            transform-origin: center center 25px;
+        }
+        #word_wrapper .letter.out {
+            transform: rotateX(90deg);
+            transition: 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
+        }
+        #word_wrapper .letter.in {
+            transition: 0.38s ease;
+        }
+        #word_wrapper .letter.behind {
+            transform: rotateX(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="word_wrapper">
+
+    </div>
+</body>
+<script>
+    var wordList = ["这样的文字调换效果你喜欢吗", "再次切换是另一种状态", "感觉可还行呀"];
+
+    var wordOutter = document.getElementById("word_wrapper");
+    wordList.forEach(function (words, index) {
+        var letters = words.split("");
+
+        /*本来是打算写随机生成颜色的*/
+        var outSpan = document.createElement("span");
+        outSpan.className = "color_" + index + " word";
+        letters.forEach(function (letter) {
+            var innerSpan = document.createElement("span");
+            innerSpan.textContent = letter;
+            innerSpan.className = "letter";
+            outSpan.append(innerSpan);
+        });
+
+        wordOutter.append(outSpan);
+    });
+
+
+    var currentLocation = 0;
+    var maxLocation = wordList.length - 1;
+    var wordDomObjs = document.querySelectorAll(".word");
+    wordDomObjs[0].style.opacity = "1";
+    function rotateWord() {
+        var currentWord = wordDomObjs[currentLocation];
+        var nextWord = currentLocation === maxLocation ? wordDomObjs[0] : wordDomObjs[currentLocation + 1];
+        Array.from(currentWord.children).forEach(function (letter, i) {
+            setTimeout(function () {
+                letter.className = "letter out";
+            }, i * 80);
+        });
+        nextWord.style.opacity = "1";
+        Array.from(nextWord.children).forEach(function (letter, i) {
+            letter.className = "letter behind";
+            setTimeout(function () {
+                letter.className = "letter in";
+            }, 340 + i * 80);
+        });
+        currentLocation =
+            currentLocation === maxLocation ? 0 : currentLocation + 1;
+    }
+    rotateWord();
+    setInterval(rotateWord, 4000);
+</script>
+</html>
