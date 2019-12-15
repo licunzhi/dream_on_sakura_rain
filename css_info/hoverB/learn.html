@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击切换效果</title>
+    <style>
+        body {
+            background: #6588af;
+        }
+        .wrapper {
+            margin-top: 20%;
+            margin-left: 20%;
+            align-items: center;
+            background-color: #fff;
+            display: flex;
+            width: 400px;
+            height: 80px;
+            position: absolute;
+        }
+        .wrapper-back {
+            margin-top: 20%;
+            margin-left: 20%;
+            align-items: center;
+            background-color: #fff;
+            display: flex;
+            width: 400px;
+            height: 80px;
+            position: absolute;
+            z-index: -100;
+            justify-content: space-between;
+        }
+        .item-simple {
+            width: 25%;
+            height: 100%;
+            text-align: center;
+            line-height: 80px;
+            background-color: #ffffff;
+        }
+        .item-back {
+            width: 20%;
+            height: 100%;
+            text-align: center;
+            line-height: 80px;
+            background-color: #ffffff;
+            color: #ffffff;
+        }
+        .item {
+            transform: rotate(90deg);
+        }
+        .menu {
+            width: 70%;
+            height: 70%;
+            line-height: 56px;
+            transform: rotate(45deg);
+            margin: -20% auto;
+            background-color: #409EFF;
+            border-radius: 15%;
+            color: #ffffff;
+            font-size: 10px;
+            box-shadow: 0 0 5px 0 #9fa2a6;
+        }
+        .add_menu {
+            display: block;
+            font-size: 20px;
+            transform: rotate(-45deg);
+        }
+        .menu-operation {
+            animation: 1s forwards ease MENU;
+            -webkit-animation: 1s forwards ease MENU;;
+        }
+
+        @keyframes MENU {
+            to {
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+            }
+        }
+        @-webkit-keyframes MENU{
+            to {
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+            }
+        }
+        .cancle_menu {
+            animation: 1s forwards ease CANCLEMENU;
+            -webkit-animation: 1s forwards ease CANCLEMENU;
+        }
+        @keyframes CANCLEMENU {
+            from {
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+            }
+            to {
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+        }
+        @-webkit-keyframes CANCLEMENU{
+            from {
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+            }
+            to {
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+            }
+        }
+
+        .menu_up {
+            animation: 1s forwards ease MENUUP;
+            -webkit-animation: 1s forwards ease MENUUP;
+        }
+        @keyframes MENUUP {
+            from {
+                border-radius: 50%;
+            }
+            75% {
+                transform: rotate(45deg);
+                color: #000000;
+            }
+            to {
+                margin: 0 9px 200px 9px;
+                border-radius: 30%;
+                transform: rotate(0deg);
+                color: #000000;
+            }
+        }
+        @-webkit-keyframes MENUUP {
+            from {
+                border-radius: 50%;
+            }
+            75% {
+                transform: rotate(45deg);
+            }
+            to {
+                margin: 0 9px 200px 9px;
+                border-radius: 30%;
+                transform: rotate(0deg);
+            }
+        }
+        .menu_down {
+            animation: 1s forwards ease MENUDWON;
+            -webkit-animation: 1s forwards ease MENUDWON;
+        }
+        @keyframes MENUDWON {
+            from {
+                margin: 0 9px 200px 9px;
+                border-radius: 30%;
+                transform: rotate(0deg);
+                color: #000000;
+            }
+            75% {
+                transform: rotate(45deg);
+                color: #ffffff;
+                border-radius: 50%;
+            }
+            to {
+                transform: rotate(90deg);
+                color: #ffffff;
+                border-radius: 50%;
+            }
+        }
+        @-webkit-keyframes MENUDWON {
+            from {
+                margin: 0 9px 200px 9px;
+                border-radius: 30%;
+                transform: rotate(0deg);
+                color: #000000;
+            }
+            75% {
+                transform: rotate(45deg);
+                color: #ffffff;
+                border-radius: 50%;
+            }
+            to {
+                transform: rotate(90deg);
+                color: #ffffff;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="wrapper">
+        <div class="item-simple">首页</div>
+        <div class="item-simple">进吧</div>
+        <div class="item-simple">
+            <div id="menu" class="menu" onclick="addAction()"><span class="add_menu">+</span></div>
+        </div>
+        <div class="item-simple">消息</div>
+        <div class="item-simple">我的</div>
+    </div>
+    <div class="wrapper-back">
+        <div class="item item-back">首页</div>
+        <div class="item item-back">进吧</div>
+        <div class="item item-back">消息</div>
+        <div class="item item-back">我的</div>
+    </div>
+</div>
+</body>
+<script src="../jquery.min.js"></script>
+<script>
+    function addAction() {
+        if ($("#menu").hasClass("menu-operation")) {
+            $("#menu").removeClass("menu-operation").addClass("cancle_menu");
+            $(".item").removeClass("menu_up").addClass("menu_down");
+        } else {
+            $("#menu").removeClass("cancle_menu").addClass('menu-operation');
+            $(".item").removeClass("menu_down").addClass("menu_up");
+        }
+    }
+</script>
+</html>
