@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学习转图</title>
+    <!--样式定义-->
+    <style>
+        html {
+            font-family: sans-serif;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #8c939d;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<canvas id="container" class="container">
+
+</canvas>
+</body>
+<script type="text/javascript">
+    /*get canvas object*/
+    var canvas = document.getElementById("container");
+    var context = canvas.getContext("2d");
+
+    console.log(canvas.toDataURL())
+</script>
+</html>

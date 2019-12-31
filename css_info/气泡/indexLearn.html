@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>兄弟来瓶雪碧吧</title>
+    <style>
+        /*雪碧背景*/
+        body {
+            background-color: #AEF48B;
+        }
+
+        .Sprite {
+            /*浏览器窗口位置相对定位*/
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            /*视口*/
+            perspective: 50vw;
+            /*transform: translateZ(-99999px);*/
+            /*设置元素展示方式为3D*/
+            transform-style: preserve-3d;
+        }
+
+        /*单个气泡颜色*/
+        .bubble {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 1) 80%);
+            /*transform: translateX(-50%);*/
+            will-change: top, left;
+        }
+
+        /*样式基本完成*/
+        .bubble::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 25%;
+            width: 33%;
+            height: 33%;
+            border: 3px solid;
+            border-color: rgba(255, 255, 255, 0.8) transparent transparent transparent;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="Sprite">
+<div class="bubble">
+
+</div>
+</body>
+<script>
+
+    /*const floatOn = options => {
+        let el = options.el,
+            x = options.x,
+            xIsPos = options.xIsPos || Math.floor(Math.random()),
+            updateX = options.updateX || Math.floor(Math.random()),
+            curTop = parseInt(el.style.top),
+            curLeft = parseInt(el.style.left);
+
+        if (curTop > -50) {
+            el.style.top = `${--curTop}px`;
+        } else {
+            el.style.top = `${innerHeight + 100}px`;
+        }
+
+        if (updateX) {
+            if (xIsPos) {
+                if (curLeft > x + 50) {
+                    xIsPos = false;
+                } else {
+                    el.style.left = `${curLeft + 1}px`;
+                }
+            } else {
+                if (curLeft < x - 50) {
+                    xIsPos = true;
+                } else {
+                    el.style.left = `${--curLeft}px`;
+                }
+            }
+        }
+
+        updateX = updateX ? false : true;
+
+        requestAnimationFrame(
+            floatOn.bind(null, { el: el, x: x, xIsPos: xIsPos, updateX: updateX })
+        );
+    };*/
+
+    /*初始化操作动作*/
+    function init(root, i) {
+        var bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        var x = Math.floor(Math.random() * innerWidth);
+        var y = Math.floor(Math.random() * innerHeight);
+        var scale = Math.random();
+        var pos = Math.round(Math.random());
+        bubble.style.top = `${y}px`;
+        bubble.style.left = `${x}px`;
+        bubble.style.transform = `translateZ(${pos ? "" : "-"}${scale.toFixed(2) * 1000}px)`;
+        setTimeout(() => {
+            root.appendChild(bubble);
+        }, i * 50);
+        //setTimeout(floatOn.bind(null, { el: bubble, x: x }), i * 50);
+    }
+
+    for (let i = 0; i < 100; i++) {
+        init(document.querySelector(".Sprite"), i);
+    }
+</script>
+</html>
