@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>来电气泡找找感觉</title>
+
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        body {
+            background-color: #AEF48B;
+        }
+
+        .Sprite {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            perspective: 50vw;
+            transform: translateZ(-99999px);
+            transform-style: preserve-3d;
+        }
+
+        .bubble {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 1) 80%);
+            transform: translateX(-50%);
+            will-change: top, left;
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 25%;
+            width: 33%;
+            height: 33%;
+            border: 3px solid;
+            border-color: rgba(255, 255, 255, 0.8) transparent transparent transparent;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+    </style>
+
+</head>
+<body>
+
+<div class='Sprite'></div>
+
+<script>
+    const floatOn = options => {
+        let el = options.el,
+            x = options.x,
+            xIsPos = options.xIsPos || Math.floor(Math.random()),
+            updateX = options.updateX || Math.floor(Math.random()),
+            curTop = parseInt(el.style.top),
+            curLeft = parseInt(el.style.left);
+
+        if (curTop > -50) {
+            el.style.top = `${--curTop}px`;
+        } else {
+            el.style.top = `${innerHeight + 50}px`;
+        }
+
+        if (updateX) {
+            if (xIsPos) {
+                if (curLeft > x + 10) {
+                    xIsPos = false;
+                } else {
+                    el.style.left = `${curLeft + 1}px`;
+                }
+            } else {
+                if (curLeft < x - 10) {
+                    xIsPos = true;
+                } else {
+                    el.style.left = `${--curLeft}px`;
+                }
+            }
+        }
+
+        updateX = updateX ? false : true;
+
+        requestAnimationFrame(
+            floatOn.bind(null, { el: el, x: x, xIsPos: xIsPos, updateX: updateX })
+        );
+    };
+
+    class Bubble {
+        constructor(target, i) {
+            this.bubble = document.createElement("div");
+            this.bubble.classList.add("bubble");
+            this.x = Math.floor(Math.random() * innerWidth);
+            this.y = Math.floor(Math.random() * innerHeight);
+            this.scale = Math.random();
+            this.pos = Math.round(Math.random());
+
+            this.bubble.style.top = `${this.y}px`;
+            this.bubble.style.left = `${this.x}px`;
+            this.bubble.style.transform = `translateZ(${
+                this.pos ? "" : "-"
+                }${this.scale.toFixed(2) * 1000}px)`;
+
+            setTimeout(() => {
+                target.appendChild(this.bubble);
+            }, i * 50);
+            setTimeout(floatOn.bind(null, { el: this.bubble, x: this.x }), i * 50);
+        }
+    }
+
+    for (let i = 0; i < 100; i++) {
+        new Bubble(document.querySelector(".Sprite"), i);
+    }
+</script>
+
+
+</body>
+</html>
