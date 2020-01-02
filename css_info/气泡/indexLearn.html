@@ -56,7 +56,7 @@
 </body>
 <script>
 
-    /*const floatOn = options => {
+    const floatOn = options => {
         let el = options.el,
             x = options.x,
             xIsPos = options.xIsPos || Math.floor(Math.random()),
@@ -91,7 +91,7 @@
         requestAnimationFrame(
             floatOn.bind(null, { el: el, x: x, xIsPos: xIsPos, updateX: updateX })
         );
-    };*/
+    };
 
     /*初始化操作动作*/
     function init(root, i) {
@@ -107,7 +107,7 @@
         setTimeout(() => {
             root.appendChild(bubble);
         }, i * 50);
-        //setTimeout(floatOn.bind(null, { el: bubble, x: x }), i * 50);
+        setTimeout(floatOn.bind(null, { el: bubble, x: x }), i * 50);
     }
 
     for (let i = 0; i < 100; i++) {
