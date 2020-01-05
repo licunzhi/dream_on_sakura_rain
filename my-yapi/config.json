@@ -1,0 +1,19 @@
+{
+   "port": "1228",
+   "adminAccount": "2718272293@qq.com",
+   "db": {
+      "servername": "127.0.0.1",
+      "DATABASE": "yapi",
+      "port": "27017"
+   },
+   "mail": {
+      "enable": true,
+      "host": "smtp.163.com",
+      "port": 465,
+      "from": "18375335212@163.com",
+      "auth": {
+         "user": "18375335212@163.com",
+         "pass": "**"
+      }
+   }
+}
