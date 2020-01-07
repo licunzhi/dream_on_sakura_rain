@@ -7,6 +7,8 @@
 
 项目下有更不同的demo，运行执行指定的项目模块即可
 - plumparkparentlock 父类maven模块
+---
+2019之后此项目不在更新，新版本的项目使用grable-有用项目会重新做一个整合
 
 ### 模块列表
 - [POI操作](./java_ppt_demo)
