@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Ticklish Button (Click Effect)</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle, #e7e7e7, #d7d7d7);
+            font-size: 16px;
+        }
+
+        .ticklishbutton {
+            display: inline-block;
+            transition: all 0.1s ease-out;
+            user-select: none;
+            cursor: pointer;
+            font-family: sans-serif;
+            transform-style: preserve-3d;
+        }
+
+        .ticklishbutton:hover {
+            transform: translateZ(30px);
+        }
+
+        .ticklishbutton:hover .surface {
+            background-size: 100% 200%;
+        }
+
+        .surface {
+            border-radius: 40px;
+            background-image: radial-gradient(ellipse at 80% 100%, #C42505, #E8B106);
+            background-size: 100% 100%;
+            transition: all 0.2s ease;
+            color: #fff;
+            padding: 20px 45px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            will-change: background-size;
+        }
+
+        .text {
+            transform: translateZ(60px);
+            text-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ticklishbutton" id="tick" onclick="tap(event)">
+    <div class="surface">
+        <div class="text">打爆小贵梅</div>
+    </div>
+</div>
+<script>
+    var translation = 0;
+    var rotationX = 0;
+    var rotationY = 0;
+
+    requestAnimationFrame(tick);
+
+    function tap(event) {
+        var obj = document.getElementById("tick");
+        const tapX = event.offsetX;
+        const tapY = event.offsetY;
+        const width = obj.offsetWidth;
+        const height = obj.offsetHeight;
+        const ratioX = tapX / width;
+        const ratioY = tapY / height;
+        const rotationalForceX = ratioX - .5;
+        const rotationalForceY = ratioY - .5;
+        const translationalForce = Math.abs((ratioX - .5) * 2) - 1;
+
+        rotationX += rotationalForceX;
+        rotationY += rotationalForceY;
+        translation += translationalForce;
+    };
+
+    function tick() {
+        var obj = document.getElementById("tick");
+        let rotationValueX = rotationX * 45;
+        let rotationValueY = rotationY * 20;
+        let translationValue = translation * 40;
+
+        obj.style.transform = `perspective(500px) translateZ(${translationValue}px) rotateY(${rotationValueX}deg) rotateX(${-rotationValueY}deg)`;
+
+        if (Math.abs(translation) < 0.01) translation = 0; else
+            translation *= .95;
+        if (Math.abs(rotationX) < 0.01) rotationX = 0; else
+            rotationX *= .95;
+        if (Math.abs(rotationY) < 0.01) rotationY = 0; else
+            rotationY *= .95;
+
+        requestAnimationFrame(tick);
+    };
+</script>
+
+</body>
+</html>
