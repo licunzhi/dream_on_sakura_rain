@@ -38,7 +38,7 @@
             transition: all 0.2s ease;
             color: #fff;
             padding: 20px 45px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(0, 0, 0, 0.2);
+            box-shadow: -8px -8px 80px -8px #873940 inset;
             pointer-events: none;
             will-change: background-size;
         }
@@ -52,15 +52,16 @@
 </head>
 <body>
 
-<div class="ticklishbutton" id="tick" onclick="tap(event)">
+<div class="ticklishbutton" id="tick" onclick="tap(event)" onmousedown="mouseDown(event)" onmouseup="mouseUp()">
     <div class="surface">
-        <div class="text">打爆小贵梅</div>
+        <div class="text">点一点</div>
     </div>
 </div>
 <script>
     var translation = 0;
     var rotationX = 0;
     var rotationY = 0;
+    var interval = 0;
 
     requestAnimationFrame(tick);
 
@@ -79,7 +80,45 @@
         rotationX += rotationalForceX;
         rotationY += rotationalForceY;
         translation += translationalForce;
+    }
+
+    function mouseDown(event) {
+        var intervalInner = setInterval(function () {
+            var obj = document.getElementById("tick");
+            const tapX = event.offsetX;
+            const tapY = event.offsetY;
+            const width = obj.offsetWidth;
+            const height = obj.offsetHeight;
+            const ratioX = tapX / width;
+            const ratioY = tapY / height;
+            const rotationalForceX = ratioX - .5;
+            const rotationalForceY = ratioY - .5;
+            const translationalForce = Math.abs((ratioX - .5) * 2) - 1;
+
+            rotationX += rotationalForceX;
+            rotationY += rotationalForceY;
+            translation += translationalForce;
+
+        }, 100);
+        if (interval !== intervalInner) {
+            clearInterval(interval);
+            interval = intervalInner;
+        }
+
+    }
+
+    document.onmousemove = function (event) {
+        var target = event.target;
+        var obj = document.getElementById("tick");
+        if (!obj.contains(target)) {
+            clearInterval(interval);
+        }
+
     };
+
+    function mouseUp() {
+        clearInterval(interval);
+    }
 
     function tick() {
         var obj = document.getElementById("tick");
@@ -89,12 +128,21 @@
 
         obj.style.transform = `perspective(500px) translateZ(${translationValue}px) rotateY(${rotationValueX}deg) rotateX(${-rotationValueY}deg)`;
 
-        if (Math.abs(translation) < 0.01) translation = 0; else
+        if (Math.abs(translation) < 0.01) {
+            translation = 0;
+        } else {
             translation *= .95;
-        if (Math.abs(rotationX) < 0.01) rotationX = 0; else
+        }
+        if (Math.abs(rotationX) < 0.01) {
+            rotationX = 0;
+        } else {
             rotationX *= .95;
-        if (Math.abs(rotationY) < 0.01) rotationY = 0; else
+        }
+        if (Math.abs(rotationY) < 0.01) {
+            rotationY = 0;
+        } else {
             rotationY *= .95;
+        }
 
         requestAnimationFrame(tick);
     };
