@@ -8,7 +8,7 @@
 项目下有更不同的demo，运行执行指定的项目模块即可
 - plumparkparentlock 父类maven模块
 ---
-2019之后此项目不在更新，新版本的项目使用grable-有用项目会重新做一个整合
+后续版本此项目可能不在更新，新版本的项目使用grable-有用项目会重新做一个整合,届时地址将会在下面更新出来
 
 ### 模块列表
 - [POI操作](./java_ppt_demo)
@@ -29,3 +29,4 @@
 - [序列化问题](./java-serializable-demo)
 - [SpringSession演示](./springboot-session-demo)
 - [node.js-express学习](./express-app-demo)
+- [java文件分片上传](./springboot_slice_file)
