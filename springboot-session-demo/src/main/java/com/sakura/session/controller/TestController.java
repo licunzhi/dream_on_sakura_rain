@@ -25,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class TestController {
 
-//    @Resource
-//    @Qualifier(value = "redisTemplate")
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -65,7 +63,7 @@ public class TestController {
         Object oldValue = redisTemplate.opsForValue().getAndSet("name", "park");
         System.out.println(oldValue);
 
-        /*数据追加 有问题*/
+        /*数据追加*/
         redisTemplate.opsForValue().set("demo", "licunzhi");
         System.out.println(redisTemplate.opsForValue().get("demo"));
         redisTemplate.opsForValue().append("demo", "park");
@@ -76,19 +74,24 @@ public class TestController {
         redisTemplate.opsForList().leftPushAll("list", arr);
         Long siz = redisTemplate.opsForList().size("list");
         System.out.println(redisTemplate.opsForList().range("list", 0 , -1));
+
         /*左右塞入*/
         redisTemplate.opsForList().leftPush("list", "left");
         redisTemplate.opsForList().rightPush("list", "right");
         System.out.println(redisTemplate.opsForList().range("list", 0 , -1));
+
         /*位置数据替换*/
         redisTemplate.opsForList().set("list", 1, "no.1");
         System.out.println(redisTemplate.opsForList().range("list", 0, -1));
+
         /*删除首个满足的情况*/
         redisTemplate.opsForList().remove("list", 1, "no.1");
         System.out.println(redisTemplate.opsForList().range("list", 0, -1));
+
         /*获取指定位置的数据*/
         Object list = redisTemplate.opsForList().index("list", 2);
         System.out.println(list);
+
         /*查看过期时间*/
         Long list1 = redisTemplate.getExpire("list");
         System.out.println(list1);
