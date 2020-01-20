@@ -19,7 +19,6 @@
 - [springboot_rabbit_demo](./springboot_rabbit_demo)
 - [web_socket_demo](./web_socket_demo)
 - [quartz_demo](./quartz_demo)
-- [java_lombok_demo](./java_lombok_demo)
 - [springboot_swagger_demo](./springboot_swagger_demo)
 - [java_frermark_demo](./java_frermark_demo)
 - [springboot_initAction_demo](./springboot_initAction_demo)
