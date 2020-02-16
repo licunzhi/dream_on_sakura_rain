@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+        }
+        html{
+            background:linear-gradient(#032861 0%,#000000 80%);
+            height: 100%;
+            width: 100%;
+            background-size: 100% 100%;
+        }
+
+        /*背景基础版本格式*/
+        .wall{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            overflow: hidden;
+        }
+        div#midground{
+            background: url("midground.png");
+            overflow: hidden;
+            animation: cc 20s linear infinite;
+        }
+        div#foreground{
+            background: url("foreground.png");
+            overflow: hidden;
+            animation: cc 10s linear infinite;
+        }
+        /*绑定动作事件*/
+        @keyframes cc {
+            0%{
+                background-position: 0 0;
+            }
+            100%{
+                background-position: 0 1000%;
+            }
+        }
+
+
+        .wrap{
+            height: 200px;
+            width: 200px;
+            margin: 250px auto;
+            position: relative;
+            perspective:2000px;
+
+            transform-style:preserve-3d;
+            transform:rotateX(20deg) rotateY(30deg);
+            transform-origin: 50% 50% 0;
+            animation:move 4s linear infinite;
+        }
+
+        .wrap .box{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.8;
+            transition: 2s;
+        }
+
+
+        .wrap>img:nth-child(1){
+            transform: rotateY(0deg) translateZ(100px);
+        }
+        .wrap>img:nth-child(2){
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+        .wrap>img:nth-child(3){
+            transform: rotateY(90deg) translateZ(100px);
+        }
+        .wrap>img:nth-child(4){
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        .wrap>img:nth-child(5){
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        .wrap>img:nth-child(6){
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        .wrap .square {
+            display: bloack;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 50px;
+            top:50px;
+        }
+        .wrap>img:nth-child(7){
+            transform: rotateY(0deg) translateZ(50px);
+        }
+        .wrap>img:nth-child(8){
+            transform: translateZ(-50px) rotateY(180deg);
+        }
+        .wrap>img:nth-child(9){
+            transform: rotateY(90deg) translateZ(50px);
+        }
+        .wrap>img:nth-child(10){
+            transform: rotateY(-90deg) translateZ(50px);
+        }
+        .wrap>img:nth-child(11){
+            transform: rotateX(90deg) translateZ(50px);
+        }
+        .wrap>img:nth-child(12){
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+        @-webkit-keyframes move{
+            0%{
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100%{
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .wrap:hover{
+            cursor:pointer;
+        }
+        .wrap:hover>img:nth-child(1){
+            transform: rotateY(0deg) translateZ(200px);
+        }
+        .wrap:hover>img:nth-child(2){
+            transform: translateZ(-200px) rotateY(180deg);
+        }
+        .wrap:hover>img:nth-child(3){
+            transform: rotateY(90deg) translateZ(200px);
+        }
+        .wrap:hover>img:nth-child(4){
+            transform: rotateY(-90deg) translateZ(200px);
+        }
+        .wrap:hover>img:nth-child(5){
+            transform: rotateX(90deg) translateZ(200px);
+        }
+        .wrap:hover>img:nth-child(6){
+            transform: rotateX(-90deg) translateZ(200px);
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="midground" class="wall"></div>
+<div id="foreground" class="wall"></div>
+
+<div class="wrap">
+
+    <img src="./a.jpg" alt="" class="box">
+    <img src="./b.jpg" alt="" class="box">
+    <img src="./c.jpg" alt="" class="box">
+    <img src="./d.jpg" alt="" class="box">
+    <img src="./e.jpg" alt="" class="box">
+    <img src="./g.jpg" alt="" class="box">
+
+    <img src="./h.jpg" alt="" class="square ">
+    <img src="./i.jpg" alt="" class="square ">
+    <img src="./j.jpg" alt="" class="square ">
+    <img src="./k.jpg" alt="" class="square ">
+    <img src="./l.jpg" alt="" class="square ">
+    <img src="./f.jpg" alt="" class="square ">
+
+</div>
+
+</body>
+</html>
