@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>A Pen by  r21nomi</title>
+
+    <style>
+        *{margin:0;padding:0;}
+        html {
+            overflow: hidden;
+            position: fixed;
+        }
+    </style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<canvas id="canvas"></canvas>
+
+<!-- Vertex Shader -->
+<script id="vertexShader" type="x-shader/x-vertex">
+attribute vec4 position;
+
+void main() {
+    gl_Position = position;
+}
+</script>
+
+<!-- Fragment Shader -->
+<script id="fragmentShader" type="x-shader/x-fragment">
+#ifdef GL_ES
+precision highp float;
+#endif
+
+  uniform sampler2D texture;
+  uniform float time;
+  uniform vec2 resolution;
+
+  vec2 directionalWaveNormal(vec2 uv, float amp, vec2 dir, float freq, float speed, float k) {
+      float a = dot(uv, dir) * freq + time * speed;
+      float b = 7.5 * k * freq * amp * pow((sin(a) + 1.0) * 0.5, k - 1.0) * cos(a);
+      return vec2(dir.x * b, dir.y * b);
+  }
+
+  vec3 summedWaveNormal(vec2 uv) {
+      vec2 sum = vec2(0.0);
+      sum += directionalWaveNormal(uv, 0.5, normalize(vec2(1.0, 1.0)), 5.0, 1.5, 1.0);
+      sum += directionalWaveNormal(uv, 0.25,normalize(vec2(1.4, 1.0)), 11.0, 2.5, 1.5);
+      sum += directionalWaveNormal(uv, 0.125, normalize(vec2(-0.8, -1.0)), 10.0, 3.0, 2.0);
+      sum += directionalWaveNormal(uv, 0.0625, normalize(vec2(1.3, 1.0)), 15.0, 4.0, 2.0);
+      sum += directionalWaveNormal(uv, 0.03125, normalize(vec2(-1.7, -1.0)), 5.0, 1.0, 3.0);
+      return normalize(vec3(-sum.x, -sum.y, 1.0));
+  }
+
+  void main( void ) {
+      vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+
+      uv *= 4.0;
+
+      vec3 normal = summedWaveNormal(uv);
+
+      vec3 color = mix(vec3(0.0, 5.0, 5.0), vec3(0.2, 1.0, 1.0), dot(normal, normalize(vec3(0.2, 0.2, 0.5))) * 0.5);
+      color = mix(color, vec3(0.9, 0.9, 2.0), pow(dot(normal, normalize(vec3(-2.0, -9.0, 0.5))) * 1.5 + 0.5, 1.0));
+
+      gl_FragColor = vec4(color, 1.0);
+  }
+</script>
+<!-- partial -->
+<script type="text/javascript">
+    var vertexShaderSource = document.getElementById('vertexShader').textContent;
+    var fragmentShaderSource = document.getElementById('fragmentShader').textContent;
+
+    const canvas = document.getElementById("canvas");
+    const gl = canvas.getContext('experimental-webgl', {preserveDrawingBuffer: true});
+    const startTime = Date.now();
+    let currentProgram;
+
+    const animate = () => {
+        requestAnimationFrame(animate.bind(this));
+        updateCanvas();
+    };
+
+    const updateCanvas = () => {
+        if (!gl) {
+            console.error('webgl is not available.');
+            return;
+        }
+
+        if (!currentProgram) {
+            let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+            let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+            if (!vertexShader || !fragmentShader) {
+                // Could not compile program.
+                console.error('Could not compile program.');
+            }
+            currentProgram = createProgram(gl, vertexShader, fragmentShader);
+        }
+
+        gl.useProgram(currentProgram);
+
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        let positions = [
+            -1, -1, 0,
+            1, -1, 0,
+            -1, 1, 0,
+            1, 1, 0
+        ];
+
+        let index = [
+            0, 1, 2,
+            1, 2, 3
+        ];
+
+        // position
+        let vbo = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+        let positionAttributeLocation = gl.getAttribLocation(currentProgram, 'position');
+        gl.enableVertexAttribArray(positionAttributeLocation);
+
+        let size = 3;  // xyz
+        let type = gl.FLOAT;
+        let normalize = false;
+        let stride = 0;
+        let offset = 0;
+        gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+
+        let ibo = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Int16Array(index), gl.STATIC_DRAW);
+
+        // resolution
+        let resolutionLocation = gl.getUniformLocation(currentProgram, 'resolution');
+        gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
+
+        // time
+        let timeLocation = gl.getUniformLocation(currentProgram, 'time');
+        let time = (Date.now() - startTime) / 1000;
+        gl.uniform1f(timeLocation, time);
+
+        let primitiveType = gl.TRIANGLES;
+        let vertexCount = index.length;
+        gl.drawElements(primitiveType, vertexCount, gl.UNSIGNED_SHORT, 0);
+        gl.flush();
+    };
+
+    const createShader = (gl, type, source) => {
+        let shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+
+        let success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+        if (!success) {
+            console.log(gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+
+            return null;
+        }
+
+        return shader;
+    };
+
+    const createProgram = (gl, vertexShader, fragmentShader) => {
+        let program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+
+        let success = gl.getProgramParameter(program, gl.LINK_STATUS);
+        if (!success) {
+            console.error(gl.getParameterInfoLog(program));
+            gl.deleteProgram(program);
+            return;
+        }
+        return program;
+    };
+
+    const onResize = () => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        canvas.setAttribute("width", width);
+        canvas.setAttribute("height", height);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+    };
+
+    window.addEventListener("resize", onResize);
+
+    onResize();
+    animate();
+</script>
+
+</body>
+</html>
