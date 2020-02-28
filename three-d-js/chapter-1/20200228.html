@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建形状集合大全</title>
+</head>
+<!--引入three.js的代码代码-->
+<script src="../common/three.js"></script>
+<!--引入鼠标控制代码-->
+<script src="../common/OrbitControls.js"></script>
+<body>
+<script>
+    // 渲染器
+    var renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    // 设置分辨率 大小等
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.gammaOutput = true;
+    renderer.gammaFactor = 2.2;
+    document.body.appendChild(renderer.domElement);
+
+    // 相机
+    // 参数代表的含义 垂直视野 长宽比例 椎体 远 近可视
+    var camera = new THREE.PerspectiveCamera(75, window.innerHeight / window.innerHeight, 0.1, 10000);
+
+    // 设置相机所在的位置 参数含义x y z
+    camera.position.set(0, -100, 100);
+
+    // 场景
+    var scene = new THREE.Scene();
+    // 为了不然个屏幕显示看起来黑不拉几 这里面设置了一个颜色作为基础背景颜色
+    scene.background = new THREE.Color(0xe5e5e5);
+
+
+
+    // 添加一个几何平面
+    var geometryPlain = new THREE.PlaneGeometry( 100, 100, 1 );
+    var materialPlain = new THREE.MeshBasicMaterial( {color: 4169E1, side: THREE.DoubleSide} );
+    var plane = new THREE.Mesh( geometryPlain, materialPlain );
+    scene.add( plane );
+
+    // 添加一个立方体
+    var geometryBox = new THREE.BoxBufferGeometry( 20, 20, 20 );
+    var materialBox = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    var box = new THREE.Mesh( geometryBox, materialBox );
+    box.position.set( 0,0,10 );
+    scene.add( box );
+
+    // 添加锥形
+    var geometryCone = new THREE.ConeBufferGeometry( 5, 20, 32 );
+    var materialCone = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var cone = new THREE.Mesh( geometryCone, materialCone );
+    cone.position.set( 16,0,10 );
+    cone.rotateX(Math.PI/2);
+    scene.add( cone );
+
+    // 添加球形
+    var geometrySphere = new THREE.SphereGeometry( 5, 32, 32 );
+    var materialSphere = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var sphere = new THREE.Mesh( geometrySphere, materialSphere );
+    sphere.position.set( 30,0,10 );
+    scene.add( sphere );
+
+
+    /*
+    * 现在先看一下页面的效果
+    * 我们在这个地方加上循环调用渲染的代码
+    * */
+    animate();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+
+    }
+
+    // 引入鼠标的控制
+    /*
+    * 鼠标控制的本质是什么，就是监听鼠标的点击事件，改变相机的位置和翻转角度等实现的
+    * */
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+
+</script>
+
+</body>
+</html>
