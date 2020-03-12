@@ -11,6 +11,19 @@ export default {
     return {
       answers: {}
     }
+  },
+  mounted () {
+    this.login()
+  },
+  methods: {
+    login () {
+      var body = {
+        'roamType': '1'
+      }
+      this.http.postBodyQuery('/serviceylncp/v2/pageSelect/timeControl', body, body).then(() => {
+
+      })
+    }
   }
 }
 </script>

@@ -17,9 +17,6 @@ axios.defaults.timeout = TIMEOUT
 // 每次去sessionStorage中获取token作为请求一部分
 axios.interceptors.request.use(config => {
   console.log(config)
-  config.headers = {
-    'Content-Type': 'application/json'
-  }
   // 配置token
   let token = sessionStorage.getItem(TOKEN_NAME)
   if (token) {
@@ -68,6 +65,25 @@ export default {
       axios.post(
         url,
         param
+      ).then(res => {
+        resolve(res)
+      }, err => {
+        reject(err)
+      })
+    })
+  },
+  // post请求
+  postBodyQuery (url, query, body) {
+    return new Promise((resolve, reject) => {
+      axios.post(
+        url,
+        body,
+        {
+          params: query,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       ).then(res => {
         resolve(res)
       }, err => {

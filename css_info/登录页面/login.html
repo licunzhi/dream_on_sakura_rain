@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        .clearfix::before,
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        input, button{
+            outline: none;
+        }
+
+        html{
+            font-size: 10px;
+        }
+
+        body{
+            font-size: 1.6rem;
+            /*background: url("../images/timg (9).jpg") no-repeat center center;
+            background-size: 100%;*/
+        }
+
+        a{
+            color: purple;
+        }
+
+        #content{
+            width: 50rem;
+            /*height: 60rem;*/
+            border: 0.1rem solid #e0e0e0;
+            /*background-color: red;*/
+            margin: 10rem auto;
+        }
+
+        #content .content-header a{
+            width: 50%;
+            height: 60px;
+            background-color: #f5f5f5;
+            display: inline-block;
+            float: left;
+            text-align: center;
+            line-height: 60px;
+            color: #262626;
+        }
+
+        #content .content-header a.current{
+            background-color: transparent;
+            color: purple;
+        }
+
+        #content .content-body{
+            /*background-color: red;*/
+            padding: 4rem;
+        }
+
+        #content .content-body .dom{
+            width: 100%;
+            display: none;
+        }
+
+        #content .content-body .dom .s1{
+            /*background-color: red;*/
+            margin-bottom: 2rem;
+        }
+
+        #content .content-body .dom .s1 h4{
+            color: #666666;
+        }
+
+        #content .content-body .dom .s1 input{
+            width: 100%;
+            height: 4rem;
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+        }
+
+        #content .content-body .dom .s2{
+            /*background-color: red;*/
+            margin-bottom: 2rem;
+        }
+
+        #content .content-body .dom .btn{
+            width: 100%;
+            height: 4rem;
+            border: none;
+            font-size: 2rem;
+            color: #fff;
+            background-color: purple;
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #content .content-body .dom-footer .login-another{
+            /*background-color: red;*/
+            color: #666666;
+            margin-bottom: 2rem;
+        }
+
+        #content .content-body .dom-footer .login-another span{
+            margin: 0 5px;
+        }
+
+        #content .content-body .dom-footer .login-three{
+            /*background-color: red;*/
+            color: #666666;
+            text-align: center;
+        }
+
+        #content .content-body .dom-footer .login-three span{
+            /*background-color: red;*/
+            position: relative;
+        }
+
+        #content .content-body .dom-footer .login-three span::before,
+        #content .content-body .dom-footer .login-three span::after{
+            content: '';
+            display: inline-block;
+            width: 10rem;
+            height: 0.1rem;
+            border-bottom: 1px solid #e0e0e0;
+
+            position: absolute;
+            top: 50%;
+        }
+
+        #content .content-body .dom-footer .login-three span::before{
+            left: -65%;
+        }
+
+        #content .content-body .dom-footer .login-three span::after{
+            right: -65%;
+        }
+
+        #content .content-body .dom-footer .login-icon{
+            margin-top: 2rem;
+        }
+
+        #content .content-body .dom-footer .login-icon img{
+            width: 5rem;
+        }
+
+        #content .content-body .dom  .msg-code input{
+            width: 60%;
+        }
+
+
+        #content .content-body .dom  .msg-code input:last-child{
+            color: #666666;
+            cursor: pointer;
+            width: 38%;
+
+        }
+    </style>
+    <script type="text/javascript" th:src=@{/static/js/jquery.min.js}></script>
+</head>
+<body>
+<section id="content">
+    <!--头部-->
+    <div class="content-header clearfix">
+        <a href="javascript:;" class="current">登录</a>
+        <a href="javascript:;">注册</a>
+    </div>
+    <!--内容-->
+    <div class="content-body">
+        <div class="dom" style="display: block;">
+            <form action="#">
+                <div class="s1">
+                    <h4>账号</h4>
+                    <input id="user" type="text" placeholder="用户名/手机/邮箱">
+                </div>
+                <div class="s1">
+                    <h4>密码</h4>
+                    <input id="pwd" type="password" placeholder="请输入密码">
+                </div>
+                <div class="s2">
+                    <input type="checkbox">
+                    <span>记住密码</span>
+                </div>
+                <input onclick="login()" class="btn" value="登&nbsp;录">
+            </form>
+            <div class="dom-footer">
+                <div class="login-another">
+                    <a href="#">找回密码</a>
+                    <span>|</span>
+                    <span>还没有注册帐号?</span>
+                    <a href="#">立即注册</a>
+                </div>
+                <div class="login-three">
+                    <span>使用第三方账号直接登录</span>
+                    <div class="login-icon">
+                        <a href="#">
+                            <img src="images/qq.png" alt="">
+                        </a>
+                        <a href="#">
+                            <img src="images/wechat.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dom">
+            <form action="#">
+                <div class="s1">
+                    <h4>手机号码</h4>
+                    <input name="phone" type="text" placeholder="填写你的手机号码作为登录账户">
+                </div>
+                <div class="s1">
+                    <h4>用户名</h4>
+                    <input name="user" type="text" placeholder="中、英文均可, 最长20个字符或10个汉字">
+                </div>
+                <div class="s1">
+                    <h4>密码</h4>
+                    <input name="pwd" type="text" placeholder="6-30位英文、数字、符号, 区分大小写">
+                </div>
+                <div class="s1 msg-code">
+                    <h4>短信验证码</h4>
+                    <input name="msg" type="text" placeholder="填写短信验证码">
+                    <input type="button" value="获取短信验证码">
+                </div>
+                <div class="s1">
+                    <h4>邀请码<span style="color: purple">(选填)</span></h4>
+                    <input name="code" type="text" placeholder="如果有邀请码, 请填写">
+                </div>
+                <input type="submit" class="btn" value="注&nbsp;册">
+            </form>
+            <div class="dom-footer">
+                <div class="login-three">
+                    <span>使用第三方账号直接登录</span>
+                    <div class="login-icon">
+                        <a href="#">
+                            <img src="images/qq.png" alt="">
+                        </a>
+                        <a href="#">
+                            <img src="images/wechat.png" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    window.onload = function () {
+        // 1.1 获取需要的标签
+        let as = document.getElementsByClassName('content-header')[0].getElementsByTagName('a');
+        let contents = document.getElementsByClassName('dom');
+
+        // 1.2 遍历
+        for (let i = 0; i < as.length; i++) {
+            // 1.2.1 取出单个对象
+            let a = as[i];
+            a.id = i;
+
+            // 1.2.2 监听鼠标的移动事件
+            a.onclick = function () {
+                // 让所有的a的class都清除
+                for (let j = 0; j < as.length; j++) {
+                    as[j].className = '';
+                    contents[j].style.display = 'none';
+                }
+
+                // 设置当前a的class
+                this.className = 'current';
+                // 从contents数组中取出对应的标签
+                contents[this.id].style.display = 'block';
+            }
+
+        }
+    }
+</script>
+<script>
+    function login() {
+        var username = $('#user').val();
+        var password = $('#pwd').val();
+
+        $.ajax({
+            url: '/servicequestions/login/login',
+            data: JSON.stringify({
+                username: username,
+                password: password
+            }),
+            type: 'post',
+            contentType: 'application/json',
+            success: function (data) {
+                window.location.href="/servicequestions/main"
+            },
+            error: function () {
+
+            }
+        });
+
+    }
+
+</script>
+</html>

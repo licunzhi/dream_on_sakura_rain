@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     changeOrigin: true,
     proxyTable: {
-      '/sakura': {
-        target: 'http://127.0.0.1:8888',
+      '/serviceylncp': {
+        target: 'http://127.0.0.1:10003',
         changeOrigin: true,
         pathRewrite: {
-          '^sakura': ''// 请求路径重写进行覆盖
+          '^serviceylncp': ''// 请求路径重写进行覆盖
         }
       }
     },
