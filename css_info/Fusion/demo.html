@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>斑点</title>
+
+    <style>
+        body {
+            display: flex;
+            font-size: 2rem;
+            overflow: hidden;
+        }
+
+        .Box {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: #fff;
+            filter: blur(4vmin) contrast(100);
+        }
+
+        .BigCircle,
+        .SmallCircle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: #000;
+        }
+
+        .BigCircle {
+            width: 30vmin;
+            height: 30vmin;
+            margin: -15vmin;
+            border-radius: 50%;
+        }
+
+        .SmallCircle {
+            width: 15vmin;
+            height: 15vmin;
+            margin: -7.5vmin;
+            background-color: #000;
+            border-radius: 50%;
+            animation: move 1.5s infinite alternate cubic-bezier(0.18, 0, 0.26, 1);
+        }
+
+        .SmallCircle:nth-child(1) {
+            --degree: 0deg;
+            animation-delay: 0s;
+            background-color: red;
+        }
+
+        .SmallCircle:nth-child(2) {
+            --degree: 45deg;
+            animation-delay: -0.375s;
+            background-color: #ffbf00;
+        }
+
+        .SmallCircle:nth-child(3) {
+            --degree: 90deg;
+            animation-delay: -0.75s;
+            background-color: #80ff00;
+        }
+
+        .SmallCircle:nth-child(4) {
+            --degree: 135deg;
+            animation-delay: -1.125s;
+            background-color: #00ff40;
+        }
+
+        .SmallCircle:nth-child(5) {
+            --degree: 180deg;
+            animation-delay: -1.5s;
+            background-color: cyan;
+        }
+
+        .SmallCircle:nth-child(6) {
+            --degree: 225deg;
+            animation-delay: -1.875s;
+            background-color: #0040ff;
+        }
+
+        .SmallCircle:nth-child(7) {
+            --degree: 270deg;
+            animation-delay: -2.25s;
+            background-color: #8000ff;
+        }
+
+        .SmallCircle:nth-child(8) {
+            --degree: 315deg;
+            animation-delay: -2.625s;
+            background-color: #ff00bf;
+        }
+
+        .SmallCircle:nth-child(9) {
+            --degree: 360deg;
+            animation-delay: -3s;
+            background-color: red;
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotate(var(--degree)) translateY(0);
+            }
+            70%,
+            100% {
+                transform: rotate(var(--degree)) translateY(-30vmin);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class='Box'>
+    <div class='BigCircle'></div>
+    <div class='SmallCircle'></div>
+    <!--<div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>
+    <div class='SmallCircle'></div>-->
+</div>
+
+</body>
+</html>
