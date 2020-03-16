@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .blur {
+            width: 50%;
+            filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+
+            -webkit-filter: blur(var(--bl)); /* Chrome, Opera */
+            -moz-filter: blur(var(--bl));
+            -ms-filter: blur(var(--bl));
+            filter: blur(var(--bl));
+
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=2, MakeShadow=false); /* IE6~IE9 */
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <img id="blur" style="--bl: 2px;" class="blur" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3261771247,3658090987&fm=26&gp=0.jpg" />
+    <button class="button" onclick="addBlur()">清晰+</button>
+    <button class="button" onclick="reduceBlur()">模糊-</button>
+    <script>
+        var tag = 2;
+        function addBlur() {
+            tag += 2;
+            let elementById = document.getElementById("blur");
+            elementById.style.setProperty('--bl', tag + 'px');
+        }
+        function reduceBlur() {
+            tag -= 2;
+            let elementById = document.getElementById("blur");
+            elementById.style.setProperty('--bl', tag + 'px');
+        }
+    </script>
+</body>
+</html>
