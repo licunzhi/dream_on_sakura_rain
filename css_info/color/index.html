@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <!-- jquery3  -->
+        <script src="js/jquery-3.3.1.js"></script>
+        <link rel="stylesheet" href="ceshi9_1.css" />
+        <link rel="stylesheet" href="ceshi9_2.css" />
+        <link rel="stylesheet" href="ceshi9_3.css" />
+        <title>Demo</title>
+    </head>
+    <style></style>
+    <body>
+        <div id="sum">
+            <!-- 节气信息 -->
+            <div id="message">
+                <ul>
+                    <li class="msgs" v-for="(item,index) in Arrays">{{item}}</li>
+                </ul>
+            </div>
+            <!-- 遮罩 -->
+            <li id="shade"></li>
+            <!-- 秒 -->
+            <div id="second">
+                <ul>
+                    <li v-for="item in flag">
+                        {{item}}          </li>
+                </ul>
+            </div>
+            <!-- 分 -->
+            <div id="minute">
+                <ul>
+                    <li v-for="item in flag_minute">
+                        {{item}}          </li>
+                </ul>
+            </div>
+            <!-- 时 -->
+            <div id="hour">
+                <ul>
+                    <li v-for="item in flag_hour">
+                        {{item}}          </li>
+                </ul>
+            </div>
+            <!-- 年 -->
+            <div id="year">
+                <ul>
+                    <li id="yearAll">天祈</li>
+                </ul>
+            </div>
+            <!-- 月 -->
+            <div id="mouth">
+                <ul>
+                    <li v-for="item in flag_mouth">
+                        {{item.name}}          </li>
+                </ul>
+            </div>
+            <!-- 节气 -->
+            <div id="solar">
+                <ul>
+                    <li
+                            v-for="(item,index) in flag_solar"
+                            :key="index"
+                            v-on:mouseover="showMsg(index)"
+                            v-on:mouseout="hideMsg()"
+                            class="mm"
+                    >
+                        {{item.name}}          </li>
+                </ul>
+            </div>
+            <!-- 日 -->
+            <div id="data">
+                <ul>
+                    <li v-for="item in flag_data">
+                        {{item.name}}          </li>
+                </ul>
+            </div>
+            <!-- 上下午 -->
+            <div id="AP">
+                <ul>
+                    <li v-for="item in flag_AP">
+                        {{item.name}}          </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <!-- vue引入 -->
+    <script src="vue.js"></script>
+    <script src="ceshi9.js"></script>
+
+</html>

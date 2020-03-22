@@ -1,0 +1,59 @@
+/* 节气信息 框*/
+#message {
+  position: absolute;
+  width: 240px;
+  height: 500px;
+  right: -310px;
+  font-size: 18px;
+  color: #b4eeb4;
+  font-family: fontOne;
+  /* display: inline; */
+  /* border: 1px solid white; */
+  /* display: flex;
+  align-items: center; */
+  box-sizing: border-box;
+}
+
+#message ul li {
+  position: absolute;
+  /* display: block; */
+  margin: 25px 3px;
+  width: 18px;
+  text-align: center;
+  word-wrap: break-word;
+  border: 1px solid white;
+  /* display: flex;
+  justify-content: center; */
+  /* border: 0; */
+}
+#message ul li:nth-child(1) {
+  /* top: 100px; */
+  right: 5px;
+}
+#message ul li:nth-child(2) {
+  right: 30px;
+}
+#message ul li:nth-child(3) {
+  right: 55px;
+}
+#message ul li:nth-child(4) {
+  right: 80px;
+}
+#message ul li:nth-child(5) {
+  right: 105px;
+}
+#message ul li:nth-child(6) {
+  right: 130px;
+}
+#message ul li:nth-child(7) {
+  right: 155px;
+}
+#message ul li:nth-child(8) {
+  right: 180px;
+}
+#message ul li:nth-child(9) {
+  right: 205px;
+}
+#message ul li:nth-child(10) {
+  right: 230px;
+}

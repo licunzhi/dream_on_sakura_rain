@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SAKURA</title>
+    <link rel="stylesheet" type="text/css" href="./js/lib-master/theme-chalk/index.css">
+    <link type="text/css" href="./css/animate.css">
+</head>
+<body>
+<!--一切操作从根节点开始-->
+<div id="app">
+    <audio style="display: none" id="bgAudio" src="./music/001.mp3" controls ></audio>
+    <audio style="display: none" id="bgTestAudio" src="./music/Varien - Future Funk.mp3" controls ></audio>
+
+    <div>
+        <img src="src">
+    </div>
+</div>
+
+</body>
+<script src="./js/vue/vue.js"></script>
+<script src="./js/lib-master/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                /*文件计时器*/
+                millisecondCount: 0,
+                /*背景音乐*/
+                bgAudio: '',
+                /*测试音效*/
+                testAudio: ''
+            }
+        },
+        mounted() {
+            /*流程步骤方法一步步执行*/
+            this.timelineCount();
+            this.likeTips();
+            this.playMusic();
+            // this.playMusicA();
+            // this.reduceMusicA();
+        },
+        methods: {
+            timelineCount() {
+                let vue = this;
+                setInterval(function () {
+                    vue.millisecondCount++;
+                    console.log(vue.millisecondCount);
+                }, 1000);
+            },
+            /*针对流程一步步走*/
+            likeTips() {
+                console.log("三联操作")
+            },
+            /*背景音乐贯穿结尾*/
+            playMusic() {
+                document.getElementById("bgAudio").play();
+                console.log("---------------背景音乐开始播放")
+            },
+            playMusicA() {
+                document.getElementById("bgTestAudio").play();
+                console.log("---------------协助测试背景音播放")
+            },
+            reduceMusicA() {
+                setTimeout(function () {
+                    console.log("---------------音量减小");
+                    document.getElementById("bgTestAudio").volume =0.2;
+                }, 10000);
+            }
+        },
+    });
+</script>
+
+<style lang='scss' scoped>
+body {
+    background-color: black;
+}
+</style>
+</html>
