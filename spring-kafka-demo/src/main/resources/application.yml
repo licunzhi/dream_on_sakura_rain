@@ -3,7 +3,14 @@ server:
 spring:
   kafka:
     producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    bootstrap-servers: 192.168.198.131:9092
+      batch-size: 16384
+      buffer-memory: 33554432
+    bootstrap-servers: 192.168.198.131:9092,192.168.198.132:9092,192.168.198.133:9092
     consumer:
       group-id: first
+      enable-auto-commit: true
+      auto-commit-interval: 2000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

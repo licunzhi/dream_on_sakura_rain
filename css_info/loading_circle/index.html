@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圆形选装</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #8c939d;
+        }
+        .outer_one,.outer_two,.outer_three {
+            position: absolute;
+            margin: 20% 50% auto;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            animation: move 1.5s infinite alternate cubic-bezier(0.18, 0, 0.26, 1);
+        }
+        .outer_one {
+            background-color: #409EFF;
+            transform: rotate(0deg) translateY(15px);
+        }
+        .outer_two {
+            background-color: #67C23A;
+            transform: rotate(120deg) translateY(15px);
+        }
+        .outer_three {
+            background-color: #F56C6C;
+            transform: rotate(240deg) translateY(15px);
+        }
+        @keyframes move {
+            0% {
+                transform: rotate(0) translateY(15px);
+            }
+            70%,
+            100% {
+                transform: rotate(180deg) translateY(15px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="outer_one"></div>
+<!--<div class="outer_two"></div>-->
+<!--<div class="outer_three"></div>-->
+</body>
+</html>
