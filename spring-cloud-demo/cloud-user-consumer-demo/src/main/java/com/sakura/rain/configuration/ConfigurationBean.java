@@ -1,7 +1,5 @@
 package com.sakura.rain.configuration;
 
-import com.netflix.loadbalancer.AbstractLoadBalancerRule;
-import com.netflix.loadbalancer.RoundRobinRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,16 +13,22 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ConfigurationBean {
 
+    /**
+     * 负载调用工具
+     */
     @Bean
     @LoadBalanced
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
 
-    @Bean
+    /*@Bean
     public AbstractLoadBalancerRule getBalanceRule() {
-        return new RoundRobinRule();//默认机制
-        //return new RandomRule();//随机策略
-        //return new RetryRule();//默认轮训的机制上有纠错的恢复功能
-    }
+        *//*随机策略*//*
+        //return new RandomRule();
+        *//*默认轮训的机制上有纠错的恢复功能*//*
+        //return new RetryRule();
+        *//*默认机制*//*
+        return new RoundRobinRule();
+    }*/
 }

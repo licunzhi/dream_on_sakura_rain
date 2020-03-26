@@ -2,6 +2,7 @@ package com.sakura.rain.dao;
 
 import com.sakura.rain.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 2018-11-29
  */
 @Mapper
+@Repository
 public interface UserDao {
 
     boolean insertUserModel(User user);

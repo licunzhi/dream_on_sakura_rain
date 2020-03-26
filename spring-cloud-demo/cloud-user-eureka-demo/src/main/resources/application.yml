@@ -12,5 +12,5 @@ eureka:
     register-with-eureka: false # 声明不向自己注册
     fetch-registry: false # 声明是不需要检索的服务
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # 这是没有集群的配置的版本，可以写成localhost
-#      defaultZone: http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # 这是没有集群的配置的版本，可以写成localhost
+      defaultZone: http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/

@@ -22,7 +22,10 @@ import java.util.Map;
 @RestController
 public class UserController {
 
-//    private static final String USER_URL_PREFIX = "http://cloud-user-demo-8088:8088";
+    /**
+     * restTemplate在cloud项目中内部也在使用
+     * 注册中的服务都可以被拉取到客户端进行一系列自定义访问策略或是默认负载配置进行访问
+     */
     private static final String USER_URL_PREFIX = "http://CLOUD-USER-SERVICE-DEMO";
 
     @Autowired

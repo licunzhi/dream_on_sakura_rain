@@ -1,10 +1,18 @@
 server:
   port: 80
 
-
+spring:
+  application:
+    name: cloud-user-consumer-demo
 # 消费者注册eureka
 eureka:
   client:
-    register-with-eureka: false
+#    register-with-eureka: false
     service-url:
       defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+
+info:
+  app.name: cloud-user-consumer-demo
+  company.name: www.sakura.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$

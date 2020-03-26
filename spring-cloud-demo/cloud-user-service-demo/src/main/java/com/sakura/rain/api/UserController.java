@@ -3,6 +3,7 @@ package com.sakura.rain.api;
 import com.sakura.rain.entity.User;
 import com.sakura.rain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    @Qualifier("discoveryClient")
     private DiscoveryClient client;
 
     @GetMapping("/get/{id}")
