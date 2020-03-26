@@ -14,9 +14,10 @@ eureka:
     prefer-ip-address: true
 
 zuul:
-  #  ignored-services: cloud-user-service-demo
-  prefix: /sakura_rain # 设置访问路径的统一前缀
-  ignored-services: * # 忽略多个使用*
+  # 设置访问路径的统一前缀
+  prefix: /sakura_rain
+  # 忽略多个使用*
+  ignored-services: /demo/*
   routes:
     user:
       serviceId: cloud-user-service-demo # 微服务的名称

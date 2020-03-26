@@ -6,10 +6,13 @@ feign:
   hystrix:
     enabled: true
 
+spring:
+  application:
+    name: cloud-user-consumer-feign-demo
 
 
 eureka:
   client:
-    register-with-eureka: false
+#    register-with-eureka: false
     service-url:
       defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/

@@ -1,15 +1,17 @@
 server:
-  port: 8001
+  port: 8091
 
 spring:
   application:
-    name: cloud-user-service-hystrix
+#    此部分可以演示hystrix真的只是监控请求成功的指标数据
+#    name: cloud-user-service-hystrix
+    name: cloud-user-service-demo
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/clouddb01?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123
+    password: root1234
     dbcp2:
       min-idle: 5 # the min survive counts connections in the pool
       initial-size: 5 # init the amount of connections

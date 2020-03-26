@@ -12,16 +12,17 @@ import java.util.List;
  * @desc 描述功能
  * @date 2018-12-02
  */
-public class RandomRule_3_Times extends AbstractLoadBalancerRule {
+public class RandomRule3Times extends AbstractLoadBalancerRule {
     // total = 0 // 当total==5以后，我们指针才能往下走，
     // index = 0 // 当前对外提供服务的服务器地址，
     // total需要重新置为零，但是已经达到过一个5次，我们的index = 1
     // 分析：我们5次，但是微服务只有8001 8002 8003 三台，OK？
-    //
 
 
-    private int total = 0; 			// 统计调用的次数
-    private int currentIndex = 0;	// 当前机器的标记, 默认开始的机器是第一个
+    /*统计调用的次数*/
+    private int total = 0;
+    /*当前机器的标记, 默认开始的机器是第一个*/
+    private int currentIndex = 0;
 
     public Server choose(ILoadBalancer lb, Object key)
     {

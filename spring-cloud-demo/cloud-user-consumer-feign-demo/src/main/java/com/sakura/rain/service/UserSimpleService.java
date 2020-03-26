@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 /**
- * @author licunzhi
- * @desc 描述功能
- * @date 2018-12-02
+ * @ClassName UserSimpleService
+ * @function [业务功能]
+ * @notice 针对原子操作的业务封装
+ * @Author lcz
+ * @Date 2020/03/26 12:19
  */
-/*可以实现接口加注解的方式实现接口的调用 类似mybatis的接口加注解@Mapper的实现方式*/
-//@FeignClient(value = "CLOUD-USER-SERVICE-DEMO")
-@FeignClient(value = "CLOUD-USER-SERVICE-DEMO", fallbackFactory = UserClientServiceFallbackFactory.class)
-public interface UserClientService {
+@FeignClient(value = "CLOUD-USER-SERVICE-DEMO")
+public interface UserSimpleService {
+
     @RequestMapping(value = "/user/get/{id}", method = RequestMethod.GET)
     User get(@PathVariable("id") long id);
 

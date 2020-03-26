@@ -1,2 +1,12 @@
 server:
   port: 9001
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+spring:
+  application:
+    name: hystrix-dashboard

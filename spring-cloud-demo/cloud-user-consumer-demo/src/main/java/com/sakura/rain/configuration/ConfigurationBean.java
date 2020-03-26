@@ -21,14 +21,4 @@ public class ConfigurationBean {
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
-
-    /*@Bean
-    public AbstractLoadBalancerRule getBalanceRule() {
-        *//*随机策略*//*
-        //return new RandomRule();
-        *//*默认轮训的机制上有纠错的恢复功能*//*
-        //return new RetryRule();
-        *//*默认机制*//*
-        return new RoundRobinRule();
-    }*/
 }

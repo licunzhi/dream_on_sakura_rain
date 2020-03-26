@@ -12,12 +12,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyRukes {
 
+    /**
+     * 如果初始化的时候没有对ribbon进行配置
+     * 这里我们将默认采用官方代码中给的轮询机制
+     * 业务上没有特殊处理的时候确实是无所谓的
+     * 但是一旦牵涉到定制化要求这边的代码就需要了
+     *
+     * new RandomRule()     Ribbon默认是轮询，我自定义为随机
+     * new RoundRobinRule() Ribbon默认是轮询，我自定义为随机
+     *
+     * @return 自定义规则
+     */
     @Bean
-    public IRule myRule()
-    {
-        //return new RandomRule();// Ribbon默认是轮询，我自定义为随机
-        //return new RoundRobinRule();// Ribbon默认是轮询，我自定义为随机
-
-        return new RandomRule_3_Times();// 我自定义为每台机器5次
+    public IRule myRule() {
+        /*我自定义为每台机器5次*/
+        return new RandomRule3Times();
     }
 }
