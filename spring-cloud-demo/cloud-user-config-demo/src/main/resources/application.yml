@@ -1,13 +1,19 @@
 server:
   port: 3344
-
 spring:
   application:
-    name: cloud-user-config-demo
+    name: cloud-config-center
   cloud:
     config:
       server:
         git:
           uri: https://github.com/licunzhi/SpringCloudConfig.git #GitHub上面的git仓库名字
-          username:
-          password:
+          username: licunzhi
+          password: woaiguimei1118
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+  server:
+    enable-self-preservation: false

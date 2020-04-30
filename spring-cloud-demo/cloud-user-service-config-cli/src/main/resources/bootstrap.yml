@@ -1,0 +1,17 @@
+server:
+  port: 8092
+
+spring:
+  cloud:
+    config:
+      name: config
+      profile: dev
+      label: master
+      uri: http://localhost:3344
+  application:
+    name: config-client
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/

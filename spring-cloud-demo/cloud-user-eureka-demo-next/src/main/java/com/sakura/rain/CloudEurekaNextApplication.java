@@ -2,17 +2,17 @@ package com.sakura.rain;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
  * @author licunzhi
- * @desc cloud config 启动类
- * @date 2018-12-27
+ * @desc 描述功能
+ * @date 2018-11-29
  */
 @SpringBootApplication
-@EnableConfigServer
-public class CloudConfigApplication {
+@EnableEurekaServer
+public class CloudEurekaNextApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CloudConfigApplication.class, args);
+        SpringApplication.run(CloudEurekaNextApplication.class, args);
     }
 }

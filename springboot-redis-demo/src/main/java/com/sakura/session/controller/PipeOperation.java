@@ -8,7 +8,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @ClassName PipeOperation
@@ -27,7 +29,7 @@ public class PipeOperation {
 
         long start = System.currentTimeMillis();
         List results = redisTemplate.executePipelined(
-                (RedisCallback<Object>) connection -> {
+                (RedisCallback<Boolean>) connection -> {
                     connection.openPipeline();
                     for (int i = 0; i < 100000; i++) {
                         connection.set((i + "").getBytes(), (System.currentTimeMillis() + "").getBytes());
@@ -53,6 +55,30 @@ public class PipeOperation {
 
         long end = System.currentTimeMillis();
         System.out.println(end-start);
+        return "ok";
+    }
+
+    @GetMapping("/pipeTest")
+    public String pipeTest() {
+
+        for (int j = 0; j < 100; j++) {
+            long start = System.currentTimeMillis();
+            int finalJ = j;
+            List results = redisTemplate.executePipelined(
+                    (RedisCallback<Boolean>) connection -> {
+                        connection.openPipeline();
+                        for (int i = 0; i < 100000; i++) {
+                            connection.set((i + "-" + finalJ).getBytes(), (System.currentTimeMillis() + "").getBytes());
+                        }
+                        return null;
+                    }
+            );
+            long end = System.currentTimeMillis();
+            System.out.println(end-start);
+            System.out.println(results.contains(false));
+            redisTemplate.getConnectionFactory().getConnection().closePipeline();
+        }
+
         return "ok";
     }
 }
