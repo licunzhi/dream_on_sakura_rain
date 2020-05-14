@@ -12,7 +12,7 @@ import com.sakura.creationalPatterns.AbstractFactoryPattern.factory.ColorlFactor
  */
 public class FactoryBean {
 
-    public static AbstractFactory produceFacroty(String choiceType) {
+    public static AbstractFactory produceFactory(String choiceType) {
         if (null == choiceType) {
             return null;
         }
