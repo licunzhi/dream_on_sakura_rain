@@ -39,7 +39,7 @@ public class AbstractFactoryPattern {
          *
          *
          */
-        AbstractFactory animalFactory = FactoryBean.produceFacroty("ANIMAL");
+        AbstractFactory animalFactory = FactoryBean.produceFactory("ANIMAL");
 
         AnimalInterface dog = animalFactory.produceAnimal("DOG");
         dog.animal();
@@ -48,7 +48,7 @@ public class AbstractFactoryPattern {
         AnimalInterface duck = animalFactory.produceAnimal("DUCK");
         duck.animal();
 
-        AbstractFactory colorFactory = FactoryBean.produceFacroty("COLOR");
+        AbstractFactory colorFactory = FactoryBean.produceFactory("COLOR");
 
         ColorInterface red = colorFactory.produceColor("RED");
         red.color();
