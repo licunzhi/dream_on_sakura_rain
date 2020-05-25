@@ -7,9 +7,19 @@ spring:
 # 消费者注册eureka
 eureka:
   client:
-#    register-with-eureka: false
+    register-with-eureka: false
+    fetch-registry: false
     service-url:
-      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+      defaultZone: http://eureka8001.com:8001/eureka/
+      #,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+  instance:
+    # 偏向显示ip信息的展示
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    # 注册时间间隔
+    lease-renewal-interval-in-seconds: 5
+    # 续约到期的时间
+    lease-expiration-duration-in-seconds: 10
 
 info:
   app.name: cloud-user-consumer-demo

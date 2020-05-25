@@ -24,10 +24,13 @@ mybatis:
 eureka:
   client: #客户端注册进eureka服务列表内
     service-url:
-      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+      #,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+      defaultZone: http://eureka8001.com:8001/eureka/
   instance:
     instance-id: cloud-user-demo-8088 # 自定义展示名称
     prefer-ip-address: true # 浮动是否展示ip
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
 
 info:
   app.name: sakura-cloud-user-demo
