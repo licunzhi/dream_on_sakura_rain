@@ -11,9 +11,9 @@ spring:
           username: licunzhi
           password: woaiguimei1118
 
-eureka:
-  client: #客户端注册进eureka服务列表内
-    service-url:
-      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
-  server:
-    enable-self-preservation: false
+#eureka:
+#  client: #客户端注册进eureka服务列表内
+#    service-url:
+#      defaultZone: http://eureka8001.com:8001/eureka/,http://eureka8002.com:8002/eureka/,http://eureka8003.com:8003/eureka/
+#  server:
+#    enable-self-preservation: false
