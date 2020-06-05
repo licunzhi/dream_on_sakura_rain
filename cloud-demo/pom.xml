@@ -88,6 +88,8 @@
     <modules>
         <module>eureka01</module>
         <module>eureka02</module>
+        <module>eureka03</module>
+        <module>auth_service</module>
     </modules>
 
 </project>
