@@ -1,0 +1,22 @@
+# 启动占用端口
+server:
+  port: 8003
+# 服务展示名称
+spring:
+  application:
+    name: EUREKA03
+
+eureka:
+  instance:
+    hostname: eureka03
+  # 客户端配置
+  client:
+    register-with-eureka: false # 声明不向自己注册
+    fetch-registry: false # 声明是不需要检索的服务
+    service-url:
+      defaultZone: http://eureka01:8001/eureka/,http://eureka02:8002/eureka/
+  # 服务端配置
+  server:
+    enable-self-preservation: false # 一旦出现网络问题丢失过多,导致服务列表中的数据不在更新
+    # renewal-percent-threshold: 0.85 # 丢失占比
+    # eviction-interval-timer-in-ms: 4000 # 测试环境，修改刷新时间，为了展示效果
