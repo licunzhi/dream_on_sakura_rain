@@ -19,6 +19,17 @@ public class MainMenuStart {
 
 
     public static void main(String[] args) {
+
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        }catch(Exception e) {
+            System.out.println(e);
+        }
         /*尺寸信息初始化*/
         SizeConstants.initSizeConstant();
 
@@ -47,7 +58,7 @@ public class MainMenuStart {
         ImageIcon icon = new ImageIcon("images\\jsb.png");
         jFrame.setIconImage(icon.getImage());
         /*黄金分割比例*/
-        jFrame.setSize(1536, 864);
+        jFrame.setSize(new Double(SizeConstants.windowWidth * 0.5).intValue(), new Double(SizeConstants.windowHeight * 0.5).intValue());
         jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
