@@ -62,5 +62,11 @@
             <version>1.2.7</version>
         </dependency>
         <!-- mybatis end -->
+        <!--ribbon start-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+        <!--ribbon end-->
     </dependencies>
 </project>

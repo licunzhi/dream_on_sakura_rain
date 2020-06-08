@@ -25,6 +25,9 @@ public class UserApi {
     @Autowired
     private RestTemplate restTemplateSinger;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/getUserList/{type}")
     public ResponseEntity<List> getUserList(@PathVariable(value = "type") Integer type) {
         String url = "http://127.0.0.1:8010";
@@ -42,5 +45,11 @@ public class UserApi {
                 break;
         }
         return restTemplateSinger.getForEntity(url + "/user/getUserList", List.class);
+    }
+
+    @GetMapping("/getUserList/loadBalance")
+    public ResponseEntity<List> loadBalance() {
+        String url = "http://AUTH-SERVICE";
+        return restTemplate.getForEntity(url + "/user/getUserList", List.class);
     }
 }
