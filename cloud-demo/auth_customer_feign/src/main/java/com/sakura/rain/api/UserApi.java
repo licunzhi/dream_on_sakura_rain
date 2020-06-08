@@ -1,5 +1,7 @@
 package com.sakura.rain.api;
 
+import com.sakura.rain.entity.UserInfo;
+import com.sakura.rain.feign.AuthFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,35 +23,17 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserApi {
 
-
     @Autowired
-    private RestTemplate restTemplateSinger;
+    private AuthFeignClient authFeignClient;
 
-    @Autowired
-    private RestTemplate restTemplate;
 
-    @GetMapping("/getUserList/{type}")
-    public ResponseEntity<List> getUserList(@PathVariable(value = "type") Integer type) {
-        String url = "http://127.0.0.1:8010";
-        switch (type) {
-            case 1:
-                url = "http://127.0.0.1:8010";
-                break;
-            case 2:
-                url = "http://127.0.0.1:8011";
-                break;
-            case 3:
-                url = "http://127.0.0.1:8012";
-                break;
-            default:
-                break;
-        }
-        return restTemplateSinger.getForEntity(url + "/user/getUserList", List.class);
-    }
-
-    @GetMapping("/getUserList/loadBalance")
-    public ResponseEntity<List> loadBalance() {
-        String url = "http://AUTH-SERVICE";
-        return restTemplate.getForEntity(url + "/user/getUserList", List.class);
+    /**
+     * 使用这种接口式声明的前提条件相当于吧其他为服务的地址和请求参数信息都拿到
+     * 简单来说，经过简单的封装可以使得调用微服务中的其他接口就行调用自己的服务一样
+     * @return ResponseEntity<List<UserInfo>>
+     */
+    @GetMapping("/getUserList")
+    public ResponseEntity<List<UserInfo>> getUserList() {
+        return authFeignClient.getUserList();
     }
 }

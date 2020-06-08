@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * @ClassName UserApi
@@ -26,6 +27,11 @@ public class UserApi {
 
     @GetMapping("/getUserList")
     public ResponseEntity<List<UserInfo>> getUserList() {
+        /*为了验证feign的效果，这里设置查询结果的时候动态返回成功失败的机会*/
+        int nextInt = new Random().nextInt(100);
+        if (nextInt % 2 == 0) {
+            return ResponseEntity.badRequest().body(null);
+        }
         return ResponseEntity.ok(userService.getUserList());
     }
 }

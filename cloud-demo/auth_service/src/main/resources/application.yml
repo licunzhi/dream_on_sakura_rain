@@ -25,3 +25,4 @@ spring:
       initial-size: 5 # init the amount of connections
       max-total: 5 # max counts of connections
       max-wait-millis: 200 # max time to get a connection
+
