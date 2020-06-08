@@ -92,7 +92,9 @@
         <module>auth_service</module>
         <module>auth_service_second</module>
         <module>auth_service_third</module>
-        <module>auth_customer</module>
+        <!--内部负载的调用方式-->
+        <module>auth_customer_ribbon</module>
+        <module>auth_customer_feign</module>
     </modules>
 
 </project>

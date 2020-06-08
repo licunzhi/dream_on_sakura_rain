@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>auth_customer</artifactId>
+    <artifactId>auth_customer_ribbon</artifactId>
 
 
     <dependencies>
