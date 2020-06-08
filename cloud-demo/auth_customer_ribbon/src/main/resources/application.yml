@@ -25,3 +25,11 @@ spring:
       initial-size: 5 # init the amount of connections
       max-total: 5 # max counts of connections
       max-wait-millis: 200 # max time to get a connection
+
+#ribbon:
+#  ConnectTimeout: 1000 #服务请求连接超时时间（毫秒）
+#  ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
+#  OkToRetryOnAllOperations: true #对超时请求启用重试机制
+#  MaxAutoRetriesNextServer: 1 #切换重试实例的最大个数
+#  MaxAutoRetries: 1 # 切换实例后重试最大次数
+#  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #修改负载均衡算法
