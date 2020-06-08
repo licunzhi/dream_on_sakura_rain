@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sakura.rain.mapper.UserInfoMapper">
+
+    <resultMap id="USER_INFO" type="com.sakura.rain.entity.UserInfo">
+        <result column="user_id" jdbcType="NUMERIC" property="user_id"/>
+        <result column="user_name" jdbcType="NUMERIC" property="user_name"/>
+        <result column="version" jdbcType="NUMERIC" property="version"/>
+    </resultMap>
+    
+    <select id="getUserList" resultMap="USER_INFO">
+        select * from user_info
+    </select>
+</mapper>
