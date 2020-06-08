@@ -1,5 +1,6 @@
 package main.sakura_rain.seven.menu_listener;
 
+import main.sakura_rain.seven.Bean.Project;
 import main.sakura_rain.seven.consts.ProjectConstants;
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @ClassName NewProjectListener
@@ -73,9 +76,11 @@ public class NewProjectListener implements ActionListener {
                         43));
                 desc.setBorder(border);
             } else {
-                simpleProject.put("projectName", projectNameText);
-                simpleProject.put("desc", desc.getText());
-                ProjectConstants.projectInfo.add(simpleProject);
+                Project project = new Project();
+                project.setUuid(UUID.randomUUID().toString());
+                project.setName(projectNameText);
+                project.setDesc(desc.getText());
+                ProjectConstants.projects.add(project);
                 jDialog.dispose();
             }
         });
@@ -101,6 +106,5 @@ public class NewProjectListener implements ActionListener {
         jDialog.setResizable(false);
 
     }
-
 
 }

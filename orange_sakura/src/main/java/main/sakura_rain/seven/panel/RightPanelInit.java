@@ -1,5 +1,7 @@
 package main.sakura_rain.seven.panel;
 
+import main.sakura_rain.seven.consts.ProjectConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,12 +14,10 @@ import java.awt.*;
  */
 public class RightPanelInit {
 
-    public JPanel initRightPanel(JFrame jFrame) {
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.gray);
+    public static void renderLeftPanelFont() {
+        ProjectConstants.INIT_RIGHT_PANEL.setBackground(Color.gray);
         JButton button = new JButton("Press me");
-        panel.add(button); // 将JButton实例添加到JPanel中
-        jFrame.add(panel, BorderLayout.EAST);
-        return panel;
+        ProjectConstants.INIT_RIGHT_PANEL.add(button);
+        ProjectConstants.JFRAME.add(ProjectConstants.INIT_RIGHT_PANEL, BorderLayout.EAST);
     }
 }

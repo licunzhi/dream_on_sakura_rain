@@ -1,5 +1,7 @@
 package main.sakura_rain.seven.panel;
 
+import main.sakura_rain.seven.consts.ProjectConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,13 +14,8 @@ import java.awt.*;
  */
 public class LeftPanelInit {
 
-    public JPanel initLeftPanel(JFrame jFrame) {
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.gray);
-        JButton button = new JButton("Press me");
-        panel.add(button); // 将JButton实例添加到JPanel中
-        jFrame.add(panel, BorderLayout.WEST);
-        return panel;
+    public static void renderLeftPanelFont() {
+        ProjectConstants.INIT_LEFT_PANEL.setBackground(Color.gray);
+        ProjectConstants.INIT_LEFT_PANEL.add(ProjectConstants.PROJECT_LIST);
     }
-
 }

@@ -90,6 +90,9 @@
         <module>eureka02</module>
         <module>eureka03</module>
         <module>auth_service</module>
+        <module>auth_service_second</module>
+        <module>auth_service_third</module>
+        <module>auth_customer</module>
     </modules>
 
 </project>

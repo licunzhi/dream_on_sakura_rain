@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import main.sakura_rain.seven.consts.SizeConstants;
 import main.sakura_rain.seven.menu_listener.NewProjectListener;
+import main.sakura_rain.seven.menu_listener.NewTestDemo;
 
 import javax.swing.*;
 
@@ -27,6 +28,7 @@ public class MenuBarInit {
         jmenuItem.addActionListener(new NewProjectListener(jFrame));
         menu.add(jmenuItem);
         jmenuItem = new JMenuItem("打开本地项目");
+        jmenuItem.addActionListener(new NewTestDemo());
         menu.add(jmenuItem);
         jmb.add(menu);
 

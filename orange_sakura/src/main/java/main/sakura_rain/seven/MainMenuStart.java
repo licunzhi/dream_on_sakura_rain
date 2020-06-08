@@ -1,10 +1,9 @@
 package main.sakura_rain.seven;
 
+import main.sakura_rain.seven.consts.ProjectConstants;
 import main.sakura_rain.seven.consts.SizeConstants;
+import main.sakura_rain.seven.main.MainContainer;
 import main.sakura_rain.seven.menu.MenuBarInit;
-import main.sakura_rain.seven.panel.LeftPanelInit;
-import main.sakura_rain.seven.panel.PanelSpiltUtils;
-import main.sakura_rain.seven.panel.RightPanelInit;
 
 import javax.swing.*;
 
@@ -27,38 +26,33 @@ public class MainMenuStart {
                     break;
                 }
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         /*尺寸信息初始化*/
         SizeConstants.initSizeConstant();
 
-        JFrame jFrame = new JFrame();
+        ProjectConstants.JFRAME = new JFrame();
 
         /*顶部菜单初始化*/
         MenuBarInit menuBarInit = new MenuBarInit();
-        menuBarInit.initMenuBar(jFrame);
-
-        /*左右两部分面板初始化，修正分割线的功能*/
-        LeftPanelInit leftPanelInit = new LeftPanelInit();
-        JPanel initLeftPanel = leftPanelInit.initLeftPanel(jFrame);
-        RightPanelInit rightPanelInit = new RightPanelInit();
-        JPanel initRightPanel = rightPanelInit.initRightPanel(jFrame);
-        PanelSpiltUtils.spiltPanelFont(jFrame, initLeftPanel, initRightPanel);
+        menuBarInit.initMenuBar(ProjectConstants.JFRAME);
 
 
         /*初始化整体样式*/
         MainMenuStart mainMenuStart = new MainMenuStart();
-        mainMenuStart.initLocalFont(jFrame);
+        mainMenuStart.initLocalFont(ProjectConstants.JFRAME);
+
+        ProjectConstants.JFRAME.setContentPane(MainContainer.outerPanel);
     }
 
     public void initLocalFont(JFrame jFrame) {
         /*项目标题*/
-        jFrame.setTitle("sakura_seven");
+        jFrame.setTitle("七樱");
         ImageIcon icon = new ImageIcon("images\\jsb.png");
         jFrame.setIconImage(icon.getImage());
         /*黄金分割比例*/
-        jFrame.setSize(new Double(SizeConstants.windowWidth * 0.5).intValue(), new Double(SizeConstants.windowHeight * 0.5).intValue());
+        jFrame.setSize(new Double(SizeConstants.windowWidth * 0.8).intValue(), new Double(SizeConstants.windowHeight * 0.8).intValue());
         jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);

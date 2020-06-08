@@ -1,12 +1,12 @@
 server:
-  port: 8010
+  port: 8012
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka01:8001/eureka/,http://eureka01:8002/eureka/,http://eureka0:8003/eureka/
   instance:
-    instance-id:  AUTH_SERVICE # 自定义展示名称
+    instance-id:  AUTH_SERVICE_THIRD # 自定义展示名称
     prefer-ip-address: true # 浮动是否展示ip
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 10
