@@ -1,0 +1,23 @@
+server:
+  port: 8031
+
+# 监控集群，实际上不需要展示在页面上
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:8001/eureka/,http://eureka01:8002/eureka/,http://eureka0:8003/eureka/
+  instance:
+    instance-id:  AUTH-CUSTOMER-TURBINE # 自定义展示名称
+    prefer-ip-address: true # 浮动是否展示ip
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+
+spring:
+  application:
+    name: AUTH-CUSTOMER-TURBINE # eureka上显示的服务名称标识
+
+turbine:
+  app-config: auth_customer,auth_customer_hystrix
+  cluster-name-expression: "default"
+
+

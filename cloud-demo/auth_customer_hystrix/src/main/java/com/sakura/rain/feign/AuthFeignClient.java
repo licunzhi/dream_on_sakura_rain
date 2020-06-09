@@ -1,7 +1,7 @@
 package com.sakura.rain.feign;
 
 import com.sakura.rain.entity.UserInfo;
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @Author lcz
  * @Date 2020/06/08 16:15
  */
-@FeignClient(name = "auth-service", fallbackFactory = AuthFeignClientCallBack.class)
+@FeignClient(name = "AUTH-SERVICE", fallbackFactory = AuthFeignClientCallBack.class)
 public interface AuthFeignClient {
 
     /**

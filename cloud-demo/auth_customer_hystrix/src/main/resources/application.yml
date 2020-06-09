@@ -1,24 +1,24 @@
 server:
-  port: 8021
+  port: 8022
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka01:8001/eureka/,http://eureka01:8002/eureka/,http://eureka0:8003/eureka/
   instance:
-    instance-id:  AUTH-CUSTOMER-FEIGN # 自定义展示名称
+    instance-id:  AUTH-CUSTOMER-HYSTRIX # 自定义展示名称
     prefer-ip-address: true # 浮动是否展示ip
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 10
 
 spring:
   application:
-    name: AUTH-CUSTOMER-FEIGN # eureka上显示的服务名称标识
+    name: AUTH-CUSTOMER-HYSTRIX # eureka上显示的服务名称标识
   datasource:
     server:
       type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.jdbc.Driver
-      jdbcUrl: jdbc:mysql://127.0.0.1:3306/auth_service?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+      url: jdbc:mysql://127.0.0.1:3306/auth_service?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
       username: root
       password: root1234
       min-idle: 5 # the min survive counts connections in the pool
@@ -26,40 +26,16 @@ spring:
       max-total: 5 # max counts of connections
       max-wait-millis: 200 # max time to get a connection
 
-# feign的配置
+# 配置feign的日志
 feign:
+  #开启对hystrix的支持
+  hystrix:
+    enabled: true
+  #日志展示级别，方便排查问题
   client:
     config:
       auth-service:
         loggerLevel: FULL
-# 配置打印日志 两个都要有才能配置出来  也可以自定义配置类的方式
-logging:
-  level:
-    com.sakura.rain.feign: DEBUG
-
-  hystrix:
-    enabled: true # 断路器的配置开启
-  # 数据压缩
-  compression:
-    # 请求设置
-    request:
-      enable: true
-      mime-types: text/xml,application/xml,application/json
-      min-request-size: 2048
-    # 返回设置
-    response:
-      enable: true
-
-# 监控信息打印
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-    health:
-      show-details: ALWAYS
-
-
 
 hystrix:
   command:

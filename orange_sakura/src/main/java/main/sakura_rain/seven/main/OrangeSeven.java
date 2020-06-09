@@ -71,19 +71,19 @@ public class OrangeSeven {
     private void $$$setupUI$$$() {
         outerPanel = new JPanel();
         outerPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         outerPanel.add(mainPanel, gbc);
         mainSplitPanel = new JSplitPane();
+        mainSplitPanel.setDividerLocation(145);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -101,13 +101,13 @@ public class OrangeSeven {
         scrollPane1.setViewportView(tabbedPane1);
         Tab_ONE = new JPanel();
         Tab_ONE.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        tabbedPane1.addTab("Tab_ONE", Tab_ONE);
+        tabbedPane1.addTab("TAB_ONE", Tab_ONE);
         Tab_Two = new JPanel();
         Tab_Two.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        tabbedPane1.addTab("Tab_Two", Tab_Two);
+        tabbedPane1.addTab("TAB_TWO", Tab_Two);
         Tab_Three = new JPanel();
         Tab_Three.setLayout(new GridBagLayout());
-        tabbedPane1.addTab("Tab_Three", Tab_Three);
+        tabbedPane1.addTab("TAB_THREE", Tab_Three);
     }
 
     /**
