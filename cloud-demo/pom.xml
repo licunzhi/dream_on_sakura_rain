@@ -60,6 +60,11 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -107,6 +112,8 @@
         <module>auth_customer_feign</module>
         <!--熔断降级机制-->
         <module>auth_customer_hystrix</module>
+        <module>auth_service_zuul</module>
+        <module>api_gateway_server</module>
     </modules>
 
 </project>

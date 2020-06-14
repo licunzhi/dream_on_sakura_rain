@@ -17,8 +17,8 @@ spring:
   datasource:
     server:
       type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbcUrl: jdbc:mysql://127.0.0.1:3306/auth_service?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://127.0.0.1:3306/auth_service?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: root1234
       min-idle: 5 # the min survive counts connections in the pool

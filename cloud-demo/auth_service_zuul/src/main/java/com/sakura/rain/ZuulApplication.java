@@ -1,0 +1,23 @@
+package com.sakura.rain;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+
+/**
+ * @ClassName ZuulApplication
+ * @function [业务功能]
+ * @notice 持久化操作不做业务上处理
+ * @Author lcz
+ * @Date 2020/06/11 16:40
+ */
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@EnableDiscoveryClient
+@EnableZuulProxy
+public class ZuulApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ZuulApplication.class, args);
+    }
+}

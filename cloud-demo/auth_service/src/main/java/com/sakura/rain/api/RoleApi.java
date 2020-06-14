@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @ClassName UserApi
+ * @ClassName RoleApi
  * @function [业务功能]
  * @notice 控制层只做入参出参处理
  * @Author lcz
- * @Date 2020/06/08 14:57
+ * @Date 2020/06/12 11:20
  */
 @RestController
-@RequestMapping("/user")
-public class UserApi {
+@RequestMapping("/role")
+public class RoleApi {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/getUserList")
     public ResponseEntity<List<UserInfo>> getUserList() {
-        System.out.println("auth service 02");
+        System.out.println("role info......");
         return ResponseEntity.ok(userService.getUserList());
     }
 }

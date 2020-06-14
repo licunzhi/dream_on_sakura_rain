@@ -1,0 +1,26 @@
+server:
+  port: 8041
+
+spring:
+  application:
+    name: AUTH-SERVICE-ZUUL
+# 路由配置格式
+zuul:
+  routes:
+    # ignoredServices: '*'
+    # 配置1请求地址为： /user/user/getUserList
+#    auth-service:
+#      path: /user/**
+#      serviceId: auth-service
+    # 配置2请求地址为： /auth-service/user/getUserList
+     auth-service: /user/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:8001/eureka/,http://eureka01:8002/eureka/,http://eureka0:8003/eureka/
+  instance:
+    instance-id:  AUTH-SERVICE-ZUUL # 自定义展示名称
+    prefer-ip-address: true # 浮动是否展示ip
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10

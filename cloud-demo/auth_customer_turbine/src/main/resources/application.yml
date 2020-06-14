@@ -17,7 +17,14 @@ spring:
     name: AUTH-CUSTOMER-TURBINE # eureka上显示的服务名称标识
 
 turbine:
-  app-config: auth_customer,auth_customer_hystrix
-  cluster-name-expression: "default"
+  app-config: auth-service,auth-customer-hystrix
+  cluster-name-expression: "'default'"
+  # 聚合服务的方式进行统计
+  combine-host-port: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
