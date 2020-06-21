@@ -13,13 +13,25 @@ import org.openjdk.jol.info.ClassLayout;
 @Slf4j
 public class JOLMain {
     public static void main(String[] args) {
+        /*普通对象*/
+        log.info("----------common-----------");
         Object o = new Object();
         String toPrintable = ClassLayout.parseInstance(o).toPrintable();
         log.info(toPrintable);
 
+        /*枷锁对象*/
+        log.info("----------synchronized-----------");
         synchronized (o) {
             toPrintable = ClassLayout.parseInstance(o).toPrintable();
             log.info(toPrintable);
         }
+        /*hasCode方法*/
+        log.info("----------hashCode-----------");
+        log.info(Integer.toBinaryString(o.hashCode()));
+        toPrintable = ClassLayout.parseInstance(o).toPrintable();
+        log.info(toPrintable);
+
+
+
     }
 }
