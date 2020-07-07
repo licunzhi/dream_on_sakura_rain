@@ -24,6 +24,9 @@ public class ProductDemo {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, URLS);
         properties.put(ProducerConfig.RETRIES_CONFIG, 0);
+        // 可以定制化分区策略
+        properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, MyDefaultPartitioner.class.getName());
+        // 拦截器，数据预处理
 
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
         for (int i = 0; i < 100; i++) {
