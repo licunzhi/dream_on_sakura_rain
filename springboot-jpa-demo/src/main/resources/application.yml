@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    primary:
+      jdbc-url: jdbc:mysql://localhost:3306/test1
+      username: root
+      password: root1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # 日志打印执行的SQL
+spring.jpa.show-sql=true
+  # Hibernate的DDL策略
+spring.jpa.hibernate.ddl-auto=create-drop
