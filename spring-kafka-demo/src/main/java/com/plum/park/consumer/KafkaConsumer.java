@@ -15,7 +15,6 @@ import java.util.Objects;
  * @Date 2020/03/24 15:23
  */
 @Component
-@Slf4j
 public class KafkaConsumer {
 
     private static int num = 0;
@@ -30,13 +29,13 @@ public class KafkaConsumer {
         }
 
         long offset = consumerRecord.offset();
-        log.info("offset: {}", offset);
+        System.out.println("offset: " + offset);
 
         if (!Objects.isNull(consumerRecord.value())) {
             num++;
-            log.info(">>>>>>>>>>>>Kafka message is {}", consumerRecord.value().toString());
-            log.info("message: " + consumerRecord.value());
-            log.info("num: " + num);
+            System.out.println(">>>>>>>>>>>>Kafka message is " + consumerRecord.value().toString());
+            System.out.println("message: " + consumerRecord.value());
+            System.out.println("num: " + num);
         }
     }
 }
