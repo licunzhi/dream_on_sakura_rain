@@ -13,7 +13,7 @@
 - [POI操作](./java_ppt_demo)
 - [冒泡算法](./bubble_sorting_demo)
 - [设计模式](./java_design_model_demo)
-- [Java8stream操作](./java_stream_demo)
+- [Java8相关特性解释](./java_stream_demo)
 - [LoadingCache](./loadingcache_demo)
 - [mybatis_pagehelper_demo](./mybatis_pagehelper_demo)
 - [springboot_rabbit_demo](./springboot_rabbit_demo)
@@ -29,3 +29,4 @@
 - [node.js-express学习](./express-app-demo)
 - [java文件分片上传](./springboot_slice_file)
 - [xml和json转换工具类演示](./xmlrelationjson)
+- [查看对象内存模型](./java-jol-demo)
