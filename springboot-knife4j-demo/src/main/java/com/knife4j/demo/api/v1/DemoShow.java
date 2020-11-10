@@ -1,15 +1,15 @@
-package com.knife4j.demo.api;
+package com.knife4j.demo.api.v1;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import com.github.xiaoymin.knife4j.annotations.DynamicParameter;
+import com.github.xiaoymin.knife4j.annotations.DynamicParameters;
+import com.github.xiaoymin.knife4j.annotations.DynamicResponseParameters;
 import com.knife4j.demo.doc.bean.Order;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiOperationSupport;
-import io.swagger.annotations.ApiSort;
-import io.swagger.annotations.DynamicParameter;
-import io.swagger.annotations.DynamicParameters;
-import io.swagger.annotations.DynamicResponseParameters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
