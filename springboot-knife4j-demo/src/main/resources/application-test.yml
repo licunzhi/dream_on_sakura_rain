@@ -1,0 +1,6 @@
+# 开启认证访问
+swagger:
+  basic:
+    enable: true
+    username: plum
+    password: plum

@@ -3,7 +3,9 @@ package com.knife4j.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+        "com.knife4j.demo"
+})
 public class Knife4jApplication {
 
     public static void main(String[] args) {

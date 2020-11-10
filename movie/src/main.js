@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 引入axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import qs from 'qs'
 
 Vue.config.productionTip = false
 
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 
 Vue.use(VueAxios, axios)
+Vue.prototype.qs = qs
 
 const store = new Vuex.Store({
   state: {
@@ -26,7 +28,7 @@ const store = new Vuex.Store({
     // 用户信息初始化
     initUserInformation (state, user) {
       localStorage.setItem('user', JSON.stringify(user))
-      console.log('store init user info method...')
+      console.error('store init user info method...')
       state.user = user
     },
     // 用户信息清除
@@ -42,7 +44,7 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    getUser: state => {
+    getUser: (state) => {
       return state.user
     }
   },
@@ -57,6 +59,6 @@ Vue.use(ElementUI)
 new Vue({
   el: '#app',
   router,
-  render: h => h(App),
+  render: (h) => h(App),
   store
 })

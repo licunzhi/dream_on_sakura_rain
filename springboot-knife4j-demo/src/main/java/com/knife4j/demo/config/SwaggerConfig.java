@@ -1,8 +1,11 @@
 package com.knife4j.demo.config;
 
-import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,26 +23,49 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@EnableSwaggerBootstrapUI
+@EnableKnife4j
+/*针对dev test模式开启*/
+//@Profile({"dev","test"})
+@Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
 
     @Bean
-    public Docket createRestApi() {
+    public Docket createRestApiV1() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .apiInfo(apiInfoV1())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.knife4j.demo.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.knife4j.demo.api.v1"))
                 .paths(PathSelectors.any())
+                .build()
+                .groupName("项目-V1版本");
+    }
+
+    private ApiInfo apiInfoV1() {
+        return new ApiInfoBuilder()
+                .title("项目-V1版本")
+                .description("项目起始版本")
+                .termsOfServiceUrl("http://localhost:8080/plum/")
+                .version("1.0")
                 .build();
     }
 
-    private ApiInfo apiInfo() {
+    @Bean
+    public Docket createRestApiV2() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfoV2())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.knife4j.demo.api.v2"))
+                .paths(PathSelectors.any())
+                .build()
+                .groupName("项目-V2版本");
+    }
+
+    private ApiInfo apiInfoV2() {
         return new ApiInfoBuilder()
-                .title("测试项目")
-                .description("此处是对这个项目的描述")
-                .termsOfServiceUrl("http://localhost:8080/")
-                .contact("licuznhi")
-                .version("1.0")
+                .title("项目-V2版本")
+                .description("项目起始版本")
+                .termsOfServiceUrl("http://localhost:8080/plum/")
+                .version("2.0")
                 .build();
     }
 }

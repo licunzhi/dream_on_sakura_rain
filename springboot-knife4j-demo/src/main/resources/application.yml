@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  address: 127.0.0.1
+  servlet:
+    context-path: /plum
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    mode: HTML
+    suffix: .html
+    encoding: utf-8
+    enabled: true
+
+  profiles:
+    active: dev
