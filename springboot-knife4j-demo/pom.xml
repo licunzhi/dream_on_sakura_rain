@@ -68,6 +68,12 @@
             <version>2.0.5</version>
         </dependency>
         <!--swagger-knife4j end-->
+
+        <dependency>
+               <groupId>org.apache.zookeeper</groupId>
+               <artifactId>zookeeper</artifactId>
+               <version>3.3.6</version>
+        </dependency>
     </dependencies>
 
     <build>
