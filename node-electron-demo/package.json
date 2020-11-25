@@ -1,0 +1,18 @@
+{
+  "name": "node-electron-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-packager . node-electron-demo --win --out ./node-electron-demo --arch=x64 --electron-version=11.0.2 --overwrite --ignore=node_module",
+    "sdc-package": "electron-packager ./dist/ node-electron-demo --win --out ./node-electron-demo --arch=x64 --electron-version=11.0.2 --overwrite --ignore=node_module"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^11.0.2"
+  }
+}
