@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<GridPane fx:id="login" alignment="center" hgap="10" prefHeight="207.0" prefWidth="327.0"
+          style="-fx-background-color: #fdfdfd;" vgap="10" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sakura.rain.controller.LoginController">
+    <padding>
+        <Insets bottom="10" left="25" right="25" top="25"/>
+    </padding>
+    <children>
+
+        <ImageView fitHeight="30" fitWidth="30" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <image>
+                <Image url="/asserts/logo/elasticsearch-viewer.png"/>
+            </image>
+            <GridPane.margin>
+                <Insets left="30.0"/>
+            </GridPane.margin>
+        </ImageView>
+
+        <TextField fx:id="userName" promptText="请输入用户名" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+
+        <ImageView fitHeight="30" fitWidth="30" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <image>
+                <Image url="/asserts/logo/elasticsearch-viewer.png"/>
+            </image>
+            <GridPane.margin>
+                <Insets left="30.0"/>
+            </GridPane.margin>
+        </ImageView>
+
+        <PasswordField fx:id="passwordField" promptText="请输入密码" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <HBox alignment="bottom_center" prefHeight="23.0" prefWidth="74.0" spacing="10" GridPane.columnSpan="2"
+              GridPane.rowIndex="4">
+            <children>
+                <Button onAction="#handleSubmitButtonAction" prefHeight="29.0" prefWidth="210.0"
+                        style="-fx-background-color: #519dfe;" text="登     录" textFill="#fdfdfd">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets left="25.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+        <CheckBox fx:id="rememberCheck" mnemonicParsing="false" prefHeight="16.0" prefWidth="121.0" selected="true"
+                  text="记住密码" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="35.0"/>
+            </GridPane.margin>
+        </CheckBox>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+
+</GridPane>
+
